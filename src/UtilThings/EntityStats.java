@@ -1,6 +1,7 @@
 package UtilThings;
 
 public class EntityStats {
+    private final int id;
     private final int level;
     private final int hp;
     private final int damage;
@@ -13,7 +14,7 @@ public class EntityStats {
     private final int villageHallReq;
 
     //For now, any stat not relevant to an entity, the value will just be 0. Ex: A soldier will not have a productionRate
-    public EntityStats(int level, int hp, int damage, int range, int productionRate,
+    public EntityStats(int id, int level, int hp, int damage, int range, int productionRate,
                        int goldCost, int ironCost, int lumberCost, int timeToCompletion, int villageHallReq) {
         this.level = level;
         this.hp = hp;

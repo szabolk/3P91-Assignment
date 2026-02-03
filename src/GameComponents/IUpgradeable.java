@@ -1,14 +1,12 @@
 package GameComponents;
 
 import UtilThings.EntityStats;
+import UtilThings.EntityType;
 
 public interface IUpgradeable {
-    public String getEntityType();
+    public EntityType getEntityType();
     public EntityStats getStats();
     public void setStats(EntityStats newStats);
+    public void upgrade(EntityStats nextLevelStats);
 
-
-    default void upgrade(EntityStats nextLevelStats) {
-        //Upgrading should be the same across all entities
-    }
 }
