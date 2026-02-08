@@ -2,6 +2,7 @@ package Game;
 
 import java.util.List;
 
+//Controls the game (maybe do a canUpdate/canTrain/canBuild here as well?)
 public class GameEngine {
     private Time gameTime;
     private List<Village> villages;

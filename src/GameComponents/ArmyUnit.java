@@ -3,13 +3,15 @@ package GameComponents;
 import UtilThings.EntityStats;
 import UtilThings.EntityType;
 
+//Stuff related to army units
 public abstract class ArmyUnit extends Inhabitant implements IAttacker, IAttackable {
+    protected EntityStats stats;
     protected int hp;
     protected int damage;
     protected int range;
 
-    public ArmyUnit() {
-
+    public ArmyUnit(EntityStats stats) {
+        super(stats);
     }
 
     @Override

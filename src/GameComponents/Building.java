@@ -3,6 +3,7 @@ package GameComponents;
 import UtilThings.EntityStats;
 import UtilThings.EntityType;
 
+//Stuff related to buildings
 public abstract class Building extends Entity implements IAttackable {
     protected EntityStats stats;
     protected int currentHp;

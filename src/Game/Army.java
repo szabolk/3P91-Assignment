@@ -3,6 +3,7 @@ package Game;
 import GameComponents.ArmyUnit;
 import java.util.List;
 
+//Army for each village
 public class Army {
     private List<ArmyUnit> units;
     private int attackScore;

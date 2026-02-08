@@ -2,12 +2,12 @@ package GameComponents;
 
 import UtilThings.*;
 
+//Will not compile for now (need to create the stats for the constructor) --> See Worker.java for how it will look
 public class ResourceWorker extends Inhabitant {
     private int productionRate;
 
     ResourceWorker() {
-        //See worker class for an idea of how stats are going to work
-        super(new EntityStats());
+        super(new EntityStats(EntityLevelData.WORKER_LEVELS.get(0)));
         //this.productionRate = then grab the stat from the entity stat list
     }
 

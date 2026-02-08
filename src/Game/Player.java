@@ -1,5 +1,6 @@
 package Game;
 
+//Information about a player
 public class Player {
     private int playerID;
     private Village village;

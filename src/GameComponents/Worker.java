@@ -1,5 +1,6 @@
 package GameComponents;
 
+import UtilThings.EntityLevelData;
 import UtilThings.EntityStats;
 import UtilThings.EntityType;
 
@@ -10,8 +11,7 @@ public class Worker extends Inhabitant{
 
     Worker() {
         //something like this for getting the initial starting stats
-        //this.stats = EntityLevelData.WORKER_LEVELS.get(0)
-        super(new EntityStats());
+        super(new EntityStats(EntityLevelData.WORKER_LEVELS.get(0)));
         this.isIdle = true;
     }
 

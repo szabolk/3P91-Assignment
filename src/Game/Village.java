@@ -2,10 +2,10 @@ package Game;
 
 import GameComponents.*;
 import UtilThings.EntityStats;
-import javafx.concurrent.Worker;
 
 import java.util.List;
 
+//The village and its components
 public class Village {
     private static final int MAX_NUM_BUILDINGS = 10; //for now, idk what max limit should be
     private VillageHall villageHall;

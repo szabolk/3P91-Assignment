@@ -1,5 +1,6 @@
 package Game;
 
+//Keeps the time of the game/upgrades/building
 public class Time {
     private int time;
 

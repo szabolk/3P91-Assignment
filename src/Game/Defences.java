@@ -3,6 +3,7 @@ package Game;
 import GameComponents.DefenceBuilding;
 import java.util.List;
 
+//Defence buildings for each village
 public class Defences {
     private List<DefenceBuilding> defenceBuildings;
     private int defenceScore;
