@@ -1,17 +1,19 @@
 package GameComponents;
 
 import UtilThings.EntityLevelData;
-import UtilThings.EntityStats;
 import UtilThings.EntityType;
 
-//Will not compile for now (need to create the stats for the constructor) --> See Worker.java for how it will look
 public class Soldier extends ArmyUnit {
     public Soldier() {
-        super(new EntityStats(EntityLevelData.WORKER_LEVELS.get(0)));
+        this(1);
+    }
+
+    public Soldier(int level) {
+        super(EntityLevelData.SOLDIER_LEVELS.get(level - 1));
     }
 
     @Override
     public EntityType getEntityType() {
-        return null;
+        return EntityType.SOLDIER;
     }
 }

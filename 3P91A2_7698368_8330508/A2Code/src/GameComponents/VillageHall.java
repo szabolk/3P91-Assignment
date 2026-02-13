@@ -1,17 +1,19 @@
 package GameComponents;
 
 import UtilThings.EntityLevelData;
-import UtilThings.EntityStats;
 import UtilThings.EntityType;
 
-//Will not compile for now (need to create the stats for the constructor) --> See Worker.java for how it will look
 public class VillageHall extends Building {
     public VillageHall() {
-        super(new EntityStats(EntityLevelData.WORKER_LEVELS.get(0)));
+        this(1);
+    }
+
+    public VillageHall(int level) {
+        super(EntityLevelData.VILLAGE_HALL_LEVELS.get(level - 1));
     }
 
     @Override
     public EntityType getEntityType() {
-        return null;
+        return EntityType.VILLAGE_HALL;
     }
 }

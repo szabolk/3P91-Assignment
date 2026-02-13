@@ -11,6 +11,6 @@ public abstract class ResourceBuilding extends Building {
     protected int workerCapacity;
 
     ResourceBuilding(EntityStats stats) {
-        super(new EntityStats(EntityLevelData.WORKER_LEVELS.get(0)));
+        super(stats);
     }
 }

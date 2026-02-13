@@ -30,7 +30,7 @@ public abstract class Entity implements IUpgradeable {
 
     @Override
     public EntityStats getStats() {
-        return null;
+        return this.stats;
     }
 
     @Override

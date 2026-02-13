@@ -13,6 +13,8 @@ public class EntityLevelData {
     //Stat Order:
     //(level, hp, damage, range, productionRate, goldCost, ironCost, lumberCost, timeToCompletion, villageHallReq)
 
+    //Inhabitant Stats
+
     public static final List<EntityStats> WORKER_LEVELS = Arrays.asList(
             new EntityStats(1, 100, 10, 1, 5, 50, 0, 10, 15, 1),
             new EntityStats(2, 125, 12, 1, 8, 75, 10, 20, 20, 2),
@@ -43,6 +45,12 @@ public class EntityLevelData {
             new EntityStats(3, 550, 250, 12, 0, 450, 350, 450, 100, 6)
     );
 
+    public static final List<EntityStats> RESOURCE_WORKER_LEVELS = Arrays.asList(
+            new EntityStats(1, 110, 5, 1, 10, 60, 0, 20, 18, 1),
+            new EntityStats(2, 140, 7, 1, 15, 90, 15, 30, 25, 2),
+            new EntityStats(3, 180, 10, 1, 22, 130, 35, 50, 35, 4)
+    );
+
     //Production Building Stats
 
     public static final List<EntityStats> GOLD_MINE_LEVELS = Arrays.asList(
@@ -51,7 +59,6 @@ public class EntityLevelData {
             new EntityStats(3, 1200, 0, 0, 80, 0, 200, 400, 150, 5)
     );
 
-    // Applying same logic for Iron and Lumber
     public static final List<EntityStats> IRON_MINE_LEVELS = Arrays.asList(
             new EntityStats(1, 600, 0, 0, 15, 100, 0, 100, 60, 2),
             new EntityStats(2, 900, 0, 0, 35, 200, 0, 200, 90, 4),
@@ -64,7 +71,13 @@ public class EntityLevelData {
             new EntityStats(3, 1100, 0, 0, 100, 400, 200, 0, 120, 5)
     );
 
-    // --- DEFENSES & HUB ---
+    public static final List<EntityStats> FARM_LEVELS = Arrays.asList(
+            new EntityStats(1, 300, 0, 0, 10, 50, 0, 80, 40, 1),
+            new EntityStats(2, 500, 0, 0, 25, 100, 0, 150, 70, 2),
+            new EntityStats(3, 800, 0, 0, 50, 250, 0, 300, 110, 4)
+    );
+
+    //Building Stats
 
     public static final List<EntityStats> ARCHER_TOWER_LEVELS = Arrays.asList(
             new EntityStats(1, 800, 30, 8, 0, 100, 50, 150, 60, 2),
@@ -76,5 +89,11 @@ public class EntityLevelData {
             new EntityStats(1, 2000, 0, 0, 0, 500, 500, 500, 120, 0),
             new EntityStats(2, 4000, 0, 0, 0, 1500, 1500, 1500, 300, 0),
             new EntityStats(3, 8000, 0, 0, 0, 4000, 4000, 4000, 600, 0)
+    );
+
+    public static final List<EntityStats> CANNON_LEVELS = Arrays.asList(
+            new EntityStats(1, 1000, 60, 7, 0, 200, 150, 100, 80, 3),
+            new EntityStats(2, 1500, 100, 8, 0, 400, 300, 200, 120, 4),
+            new EntityStats(3, 2200, 160, 9, 0, 700, 550, 400, 180, 6)
     );
 }

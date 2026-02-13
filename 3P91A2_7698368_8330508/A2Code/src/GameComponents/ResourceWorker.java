@@ -6,9 +6,13 @@ import UtilThings.*;
 public class ResourceWorker extends Inhabitant {
     private int productionRate;
 
-    ResourceWorker() {
-        super(new EntityStats(EntityLevelData.WORKER_LEVELS.get(0)));
-        //this.productionRate = then grab the stat from the entity stat list
+    public ResourceWorker() {
+        this(1);
+    }
+
+    public ResourceWorker(int level) {
+        super(EntityLevelData.RESOURCE_WORKER_LEVELS.get(level - 1));
+        //this.productionRate =
     }
 
     @Override

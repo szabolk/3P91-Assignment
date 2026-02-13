@@ -7,9 +7,12 @@ import UtilThings.EntityType;
 //Will not compile for now (need to create the stats for the constructor) --> See Worker.java for how it will look
 public class Catapult extends ArmyUnit {
     public Catapult() {
-        super(new EntityStats(EntityLevelData.WORKER_LEVELS.get(0)));
+        this(1);
     }
 
+    public Catapult(int level) {
+        super(EntityLevelData.WORKER_LEVELS.get(level - 1));
+    }
     @Override
     public EntityType getEntityType() {
         return null;

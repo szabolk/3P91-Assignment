@@ -7,7 +7,11 @@ import UtilThings.EntityType;
 //Will not compile for now (need to create the stats for the constructor) --> See Worker.java for how it will look
 public class Knight extends ArmyUnit {
     public Knight() {
-        super(new EntityStats(EntityLevelData.WORKER_LEVELS.get(0)));
+        this(1);
+    }
+
+    public Knight(int level) {
+        super(EntityLevelData.WORKER_LEVELS.get(level - 1));
     }
 
     @Override

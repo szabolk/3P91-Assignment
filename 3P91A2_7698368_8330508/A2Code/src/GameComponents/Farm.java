@@ -11,9 +11,12 @@ public class Farm extends Building {
     private List<Worker> workers;
 
     public Farm() {
-        super(new EntityStats(EntityLevelData.WORKER_LEVELS.get(0)));
+        this(1);
     }
 
+    public Farm(int level) {
+        super(EntityLevelData.WORKER_LEVELS.get(level - 1));
+    }
     @Override
     public EntityType getEntityType() {
         return null;

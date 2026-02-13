@@ -12,6 +12,9 @@ public abstract class ArmyUnit extends Inhabitant implements IAttacker, IAttacka
 
     public ArmyUnit(EntityStats stats) {
         super(stats);
+        this.hp = stats.hp();
+        this.damage = stats.damage();
+        this.range = stats.range();
     }
 
     @Override
@@ -21,12 +24,12 @@ public abstract class ArmyUnit extends Inhabitant implements IAttacker, IAttacka
 
     @Override
     public void takeDamage(int damage) {
-
+        this.hp -= damage;
     }
 
     @Override
     public boolean isDestroyed() {
-        return true;
+        return this.hp <= 0;
     }
 
     public int getDamage() {
@@ -40,6 +43,6 @@ public abstract class ArmyUnit extends Inhabitant implements IAttacker, IAttacka
 
 
     public int getHP() {
-        return 0;
+        return this.hp;
     }
 }
