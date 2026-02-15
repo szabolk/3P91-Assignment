@@ -2,18 +2,18 @@ package Game;
 
 //Keeps the time of the game/upgrades/building
 public class Time {
-    private int time;
+    private long startTime;
 
     public Time() {
-
+        this.startTime = System.currentTimeMillis();
     }
 
     /**
      * Gets the current time (real time maybe? seems like the easiest to implement)
-     * @return int - the current time
+     * @return int - the current time in milliseconds since game start
      */
     public int getTime() {
-        return 0;
+        return (int)(System.currentTimeMillis() - startTime);
     }
 
     /**
@@ -23,6 +23,6 @@ public class Time {
      * @return boolean - true if event is finished, false if not
      */
     public boolean eventFinished(int time) {
-        return true;
+        return getTime() >= time;
     }
 }

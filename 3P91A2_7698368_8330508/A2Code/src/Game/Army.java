@@ -1,27 +1,32 @@
 package Game;
 
 import GameComponents.ArmyUnit;
+import GameComponents.IAttacker;
+import java.util.ArrayList;
 import java.util.List;
 
 //Army for each village
 public class Army {
     private List<ArmyUnit> units;
-    private int attackScore;
 
     public Army() {
-
+        this.units = new ArrayList<>();
     }
 
     public void addUnit(ArmyUnit unit) {
-
+        if (unit != null) {
+            units.add(unit);
+        }
     }
 
     public void removeUnit(ArmyUnit unit){
-
+        if (unit != null) {
+            units.remove(unit);
+        }
     }
 
     public List<ArmyUnit> getUnits() {
-        return null;
+        return new ArrayList<>(units);
     }
 
     /**
@@ -29,6 +34,9 @@ public class Army {
      * @return int - attack score used by GameEngine in attack simulation
      */
     public int getAttackScore() {
-        return 0;
+        return units.stream()
+                .filter(unit -> unit != null)
+                .mapToInt(unit -> ((IAttacker) unit).getDamage())
+                .sum();
     }
 }

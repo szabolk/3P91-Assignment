@@ -1,4 +1,5 @@
 import GameComponents.*;
+import Game.Army;
 import UtilThings.EntityStats;
 
 public class Main {
@@ -46,5 +47,25 @@ public class Main {
             System.out.println("Success: Soldier is wounded.");
         }
         System.out.println("Soldier ID " + mySoldier.getId());
+
+        //Testing Army getAttackScore
+        System.out.println("\n--- Army Attack Score Test ---");
+
+        Army myArmy = new Army();
+        System.out.println("Empty Army Attack Score: " + myArmy.getAttackScore());
+
+        Soldier soldier1 = new Soldier(1);
+        Soldier soldier2 = new Soldier(2);
+        Archer archer1 = new Archer(1);
+
+        myArmy.addUnit(soldier1);
+        myArmy.addUnit(soldier2);
+        myArmy.addUnit(archer1);
+
+        System.out.println("Army with 2 Soldiers and 1 Archer Attack Score: " + myArmy.getAttackScore());
+        System.out.println("Army Unit Count: " + myArmy.getUnits().size());
+
+        myArmy.removeUnit(archer1);
+        System.out.println("Army after removing Archer Attack Score: " + myArmy.getAttackScore());
     }
 }
