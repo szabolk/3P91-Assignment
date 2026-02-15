@@ -1,5 +1,4 @@
-import GameComponents.Soldier;
-import GameComponents.Worker;
+import GameComponents.*;
 import UtilThings.EntityStats;
 
 public class Main {
@@ -7,15 +6,16 @@ public class Main {
         System.out.println("Compiled Properly");
 
         //Testing worker functionality
-        Worker basicWorker = new Worker();
+        ResourceWorker basicWorker = new ResourceWorker();
 
         Worker eliteWorker = new Worker(3);
 
         System.out.println("--- Game Entity Test ---");
 
-        System.out.println("Worker 1 Level: " + basicWorker.getStats().level());
-        System.out.println("Worker 1 HP: " + basicWorker.getStats().hp());
-        System.out.println("Worker 1 Gold Cost: " + basicWorker.getStats().goldCost());
+        System.out.println("ResourceWorker 1 Level: " + basicWorker.getStats().level());
+        System.out.println("ResourceWorker 1 HP: " + basicWorker.getStats().hp());
+        System.out.println("ResourceWorker 1 Gold Cost: " + basicWorker.getStats().goldCost());
+        System.out.println("ResourceWorker 1 Production Rate: " + basicWorker.getProductionRate());
 
         System.out.println("------------------------");
 

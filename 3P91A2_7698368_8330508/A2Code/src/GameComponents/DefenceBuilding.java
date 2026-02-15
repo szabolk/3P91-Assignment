@@ -13,7 +13,7 @@ public abstract class DefenceBuilding extends Building implements IAttacker {
     }
 
     @Override
-    public int attack(IAttackable target) {
+    public void attack(IAttackable target) {
         return 0;
     }
 }

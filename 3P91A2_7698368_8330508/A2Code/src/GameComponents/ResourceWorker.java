@@ -12,7 +12,7 @@ public class ResourceWorker extends Inhabitant {
 
     public ResourceWorker(int level) {
         super(EntityLevelData.RESOURCE_WORKER_LEVELS.get(level - 1));
-        //this.productionRate =
+        this.productionRate = stats.productionRate();
     }
 
     @Override
@@ -20,4 +20,11 @@ public class ResourceWorker extends Inhabitant {
         return EntityType.RESOURCE_WORKER;
     }
 
+    public int getProductionRate() {
+        return productionRate;
+    }
+
+    public void setProductionRate(int productionRate) {
+        this.productionRate = productionRate;
+    }
 }

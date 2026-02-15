@@ -18,11 +18,6 @@ public abstract class ArmyUnit extends Inhabitant implements IAttacker, IAttacka
     }
 
     @Override
-    public int attack(IAttackable target) {
-        return 0;
-    }
-
-    @Override
     public void takeDamage(int damage) {
         this.hp -= damage;
     }
@@ -33,14 +28,12 @@ public abstract class ArmyUnit extends Inhabitant implements IAttacker, IAttacka
     }
 
     public int getDamage() {
-        return 0;
+        return this.damage;
     }
-
 
     public int getRange() {
-        return 0;
+        return this.range;
     }
-
 
     public int getHP() {
         return this.hp;

@@ -25,7 +25,7 @@ public abstract class Entity implements IUpgradeable {
 
     @Override
     public void upgrade(EntityStats nextLevelStats) {
-
+        //Call canUpgrade() on the selected entity (this method should be in GameEngine)
     }
 
     @Override
@@ -37,6 +37,6 @@ public abstract class Entity implements IUpgradeable {
     public void setStats(EntityStats newStats) {
         //grab the stat profile from EntityLevelData using the current level + 1 to get next stats details
         //will have to work out the logic if the unit should have fully restored hp or not
-        //this.stats =
+        this.stats = newStats;
     }
 }
