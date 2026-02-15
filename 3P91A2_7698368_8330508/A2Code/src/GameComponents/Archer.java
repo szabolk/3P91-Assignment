@@ -1,17 +1,15 @@
 package GameComponents;
 
 import UtilThings.EntityLevelData;
-import UtilThings.EntityStats;
 import UtilThings.EntityType;
 
-//Will not compile for now (need to create the stats for the constructor) --> See Worker.java for how it will look
 public class Archer extends ArmyUnit{
     public Archer() {
         this(1);
     }
 
     public Archer(int level) {
-        super(EntityLevelData.WORKER_LEVELS.get(level - 1));
+        super(EntityLevelData.ARCHER_LEVELS.get(level - 1));
     }
 
     @Override

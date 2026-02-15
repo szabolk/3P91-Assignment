@@ -9,11 +9,15 @@ public abstract class DefenceBuilding extends Building implements IAttacker {
 
     public DefenceBuilding(EntityStats stats) {
         super(stats);
-
+        this.damage = stats.damage();
+        this.range = stats.range();
     }
 
-    @Override
-    public void attack(IAttackable target) {
-        return 0;
+    public int getDamage() {
+        return this.damage;
+    }
+
+    public int getRange() {
+        return this.range;
     }
 }
