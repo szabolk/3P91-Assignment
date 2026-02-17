@@ -54,21 +54,21 @@ public class EntityLevelData {
     //Production Building Stats
 
     public static final List<EntityStats> GOLD_MINE_LEVELS = Arrays.asList(
-            new EntityStats(1, 500, 0, 0, 20, 0, 50, 100, 60, 1),
-            new EntityStats(2, 800, 0, 0, 45, 0, 100, 200, 90, 3),
-            new EntityStats(3, 1200, 0, 0, 80, 0, 200, 400, 150, 5)
+            new EntityStats(1, 500, 0, 0, 0, 0, 50, 100, 60, 1),
+            new EntityStats(2, 800, 0, 0, 0, 0, 100, 200, 90, 3),
+            new EntityStats(3, 1200, 0, 0, 0, 0, 200, 400, 150, 5)
     );
 
     public static final List<EntityStats> IRON_MINE_LEVELS = Arrays.asList(
-            new EntityStats(1, 600, 0, 0, 15, 100, 0, 100, 60, 2),
-            new EntityStats(2, 900, 0, 0, 35, 200, 0, 200, 90, 4),
-            new EntityStats(3, 1400, 0, 0, 65, 400, 0, 400, 150, 6)
+            new EntityStats(1, 600, 0, 0, 0, 100, 0, 100, 60, 2),
+            new EntityStats(2, 900, 0, 0, 0, 200, 0, 200, 90, 4),
+            new EntityStats(3, 1400, 0, 0, 0, 400, 0, 400, 150, 6)
     );
 
     public static final List<EntityStats> LUMBER_MILL_LEVELS = Arrays.asList(
-            new EntityStats(1, 400, 0, 0, 25, 100, 0, 0, 45, 1),
-            new EntityStats(2, 700, 0, 0, 55, 200, 100, 0, 75, 3),
-            new EntityStats(3, 1100, 0, 0, 100, 400, 200, 0, 120, 5)
+            new EntityStats(1, 400, 0, 0, 0, 100, 0, 0, 45, 1),
+            new EntityStats(2, 700, 0, 0, 0, 200, 100, 0, 75, 3),
+            new EntityStats(3, 1100, 0, 0, 0, 400, 200, 0, 120, 5)
     );
 
     public static final List<EntityStats> FARM_LEVELS = Arrays.asList(

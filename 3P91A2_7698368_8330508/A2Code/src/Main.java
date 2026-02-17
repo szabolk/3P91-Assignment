@@ -22,13 +22,11 @@ public class Main {
         System.out.println("ResourceWorker 1 Level: " + basicWorker.getStats().level());
         System.out.println("ResourceWorker 1 HP: " + basicWorker.getStats().hp());
         System.out.println("ResourceWorker 1 Gold Cost: " + basicWorker.getStats().goldCost());
-        System.out.println("ResourceWorker 1 Production Rate: " + basicWorker.getProductionRate());
 
         System.out.println("------------------------");
 
         System.out.println("Worker 3 Level: " + eliteWorker.getStats().level());
         System.out.println("Worker 3 HP: " + eliteWorker.getStats().hp());
-        System.out.println("Worker 3 Production: " + eliteWorker.getStats().productionRate());
 
         if (eliteWorker.getStats().hp() > basicWorker.getStats().hp()) {
             System.out.println("\nSuccess: Elite worker is tankier than basic worker.");

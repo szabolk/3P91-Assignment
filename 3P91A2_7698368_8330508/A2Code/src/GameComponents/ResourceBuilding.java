@@ -18,4 +18,12 @@ public abstract class ResourceBuilding extends Building {
     public int getWorkerCapacity() {
         return this.workerCapacity;
     }
+
+    public int production() {
+        int totalProduction = 0;
+        for (ResourceWorker worker : workers) {
+            totalProduction += worker.getProductionRate();
+        }
+        return totalProduction;
+    }
 }

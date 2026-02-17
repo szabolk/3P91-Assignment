@@ -53,7 +53,7 @@ public class GameEngine {
                     .filter(building -> building instanceof ResourceBuilding)
                     .forEach(building -> {
                         ResourceBuilding resourceBuilding = (ResourceBuilding) building;
-                        int production = resourceBuilding.getStats().productionRate();
+                        int production = resourceBuilding.production();
 
                         //determine what type the resource building is and add its production rate to that resource
                         if (resourceBuilding instanceof GoldMine) {
