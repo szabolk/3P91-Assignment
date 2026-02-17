@@ -12,6 +12,7 @@ public class GameEngine {
     //variables/constants for tracking producing resources
     private long lastProductionTime = 0;
     private static final long TIME_BETWEEN_PRODUCTION = 5000;
+    private static final long TIME_BETWEEN_ATTACKS = 10000; //used for calculating if an attack can happen
 
     private Time gameTime;
     private List<Village> villages;
@@ -112,5 +113,59 @@ public class GameEngine {
         //check if player has enough resources
         //check if they do not already have the max number of buildings
         //
+    }
+
+    public void train(Player player, Inhabitant inhabitant) {
+        Village village = player.getVillage();
+        Resource resources = village.getResources();
+        EntityStats stats = inhabitant.getStats();
+    }
+
+    public void upgrade(Player player, IUpgradeable e) throws NotEnoughResourcesException, MaxLevelException {
+        Village village = player.getVillage();
+        Resource resources = village.getResources();
+        EntityStats stats = e.getStats();
+
+        //get the level list for the entity
+        List<EntityStats> levelList = EntityLevelData.getLevels(e.getEntityType());
+        if (levelList == null) {
+            throw new IllegalArgumentException("No level data for entity type: " + e.getEntityType());
+        }
+
+        int currentLevel = stats.level();
+        int maxLevel = levelList.size(); //uses the size of the level lists to determine how many levels a unit has (Ex. a soldier has 3 stat lines so 3 levels, village hall has 6 statlines -> 6 levels)
+
+        if (currentLevel >= maxLevel) {
+            throw new MaxLevelException("Upgrade Failed: Already at max level");
+        }
+
+        //next-level stats are at index currentLevel (Ex. index 0 = level 1, index 1 = level 2, etc.)
+        EntityStats nextStats = levelList.get(currentLevel); //Current level is the index of the next level in the list
+
+        int goldCost = nextStats.goldCost();
+        int ironCost = nextStats.ironCost();
+        int lumberCost = nextStats.lumberCost();
+
+        if (!resources.hasEnough(goldCost, ironCost, lumberCost)) {
+            throw new NotEnoughResourcesException("Upgrade Failed: Not Enough Resources");
+        } else {
+            //subtract resources and apply the upgrade
+            resources.spend(goldCost, ironCost, lumberCost);
+            e.setStats(nextStats);
+        }
+
+
+    }
+
+    public class NotEnoughResourcesException extends RuntimeException {
+        public NotEnoughResourcesException(String s) {
+            super(s);
+        }
+    }
+
+    public class MaxLevelException extends RuntimeException {
+        public MaxLevelException(String s) {
+            super(s);
+        }
     }
 }

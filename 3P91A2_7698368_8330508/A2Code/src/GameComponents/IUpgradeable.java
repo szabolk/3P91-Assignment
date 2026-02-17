@@ -7,6 +7,4 @@ public interface IUpgradeable {
     public EntityType getEntityType();
     public EntityStats getStats();
     public void setStats(EntityStats newStats);
-    public void upgrade(EntityStats nextLevelStats);
-
 }

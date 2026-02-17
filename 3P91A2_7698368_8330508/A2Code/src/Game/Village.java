@@ -103,15 +103,6 @@ public class Village {
 
     }
 
-    public void upgradeBuilding(Building building) {
-
-    }
-
-    public void upgradeInhabitant(Inhabitant inhabitant) {
-
-    }
-
-
     public class MaxBuildingsExceededException extends Throwable {
         public MaxBuildingsExceededException(String s) {
             super(s);

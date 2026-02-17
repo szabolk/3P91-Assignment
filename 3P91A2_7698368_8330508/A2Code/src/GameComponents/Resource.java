@@ -30,8 +30,9 @@ public class Resource {
 
     public int getMaxResource(ResourceType type) {
         int villageHallLevel = village.getVillageHall().getStats().level();
-        int max = 750 * villageHallLevel;
-        
+        int max = 1000 * villageHallLevel;
+
+        //in case each resource should have a different max
         return switch (type) {
             case GOLD -> max;
             case IRON -> max;
@@ -48,13 +49,14 @@ public class Resource {
         }
     }
 
-    //could maybe even have just (Resource cost) as the parameter
     public void spend(int gold, int iron, int lumber) {
-
+        this.gold -= gold;
+        this.iron -= iron;
+        this.lumber -= lumber;
     }
 
     public boolean hasEnough(int gold, int iron, int lumber) {
-        return true;
+        return (this.gold >= gold & this.iron >= iron & this.lumber >= lumber);
     }
 }
 

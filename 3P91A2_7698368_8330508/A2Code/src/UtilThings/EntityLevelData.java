@@ -2,6 +2,8 @@ package UtilThings;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.EnumMap;
 
 /**
  * Holds the stat lines of all entities in the game.
@@ -86,9 +88,12 @@ public class EntityLevelData {
     );
 
     public static final List<EntityStats> VILLAGE_HALL_LEVELS = Arrays.asList(
-            new EntityStats(1, 2000, 0, 0, 0, 500, 500, 500, 120, 0),
-            new EntityStats(2, 4000, 0, 0, 0, 1500, 1500, 1500, 300, 0),
-            new EntityStats(3, 8000, 0, 0, 0, 4000, 4000, 4000, 600, 0)
+            new EntityStats(1, 2000, 0, 0, 0, 0, 0, 0, 0, 0), //default village hall for everything, built automatically
+            new EntityStats(2, 4000, 0, 0, 0, 500, 500, 500, 300, 0),
+            new EntityStats(3, 8000, 0, 0, 0, 1000, 1000, 1000, 1000, 0),
+            new EntityStats(4, 16000, 0, 0, 0, 2000, 2000, 2000, 1200, 0),
+            new EntityStats(5, 32000, 0, 0, 0, 3000, 3000, 3000, 2400, 0),
+            new EntityStats(6, 64000, 0, 0, 0, 3500, 3500, 3500, 4800, 0)
     );
 
     public static final List<EntityStats> CANNON_LEVELS = Arrays.asList(
@@ -96,4 +101,29 @@ public class EntityLevelData {
             new EntityStats(2, 1500, 100, 8, 0, 400, 300, 200, 120, 4),
             new EntityStats(3, 2200, 160, 9, 0, 700, 550, 400, 180, 6)
     );
+
+    /**
+     * This is used specifically in the upgrade method to determine if an entity has reached its max level
+     */
+    private static final Map<EntityType, List<EntityStats>> LEVELS_MAP = new EnumMap<>(EntityType.class);
+
+    static {
+            LEVELS_MAP.put(EntityType.WORKER, WORKER_LEVELS);
+            LEVELS_MAP.put(EntityType.SOLDIER, SOLDIER_LEVELS);
+            LEVELS_MAP.put(EntityType.ARCHER, ARCHER_LEVELS);
+            LEVELS_MAP.put(EntityType.KNIGHT, KNIGHT_LEVELS);
+            LEVELS_MAP.put(EntityType.CATAPULT, CATAPULT_LEVELS);
+            LEVELS_MAP.put(EntityType.RESOURCE_WORKER, RESOURCE_WORKER_LEVELS);
+            LEVELS_MAP.put(EntityType.GOLD_MINE, GOLD_MINE_LEVELS);
+            LEVELS_MAP.put(EntityType.IRON_MINE, IRON_MINE_LEVELS);
+            LEVELS_MAP.put(EntityType.LUMBER_MILL, LUMBER_MILL_LEVELS);
+            LEVELS_MAP.put(EntityType.FARM, FARM_LEVELS);
+            LEVELS_MAP.put(EntityType.ARCHER_TOWER, ARCHER_TOWER_LEVELS);
+            LEVELS_MAP.put(EntityType.VILLAGE_HALL, VILLAGE_HALL_LEVELS);
+            LEVELS_MAP.put(EntityType.CANNON, CANNON_LEVELS);
+    }
+
+    public static List<EntityStats> getLevels(EntityType type) {
+            return LEVELS_MAP.get(type);
+    }
 }

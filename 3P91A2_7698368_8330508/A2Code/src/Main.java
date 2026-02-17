@@ -1,4 +1,5 @@
 import Game.GameEngine;
+import Game.Player;
 import Game.Village;
 import GameComponents.*;
 import Game.Army;
@@ -72,5 +73,28 @@ public class Main {
         myArmy.removeUnit(archer1);
         System.out.println("Army after removing Archer Attack Score: " + myArmy.getAttackScore());
         System.out.println("Current Game Time: " + gameEngine.getGameTime().getTime());
+
+        Village villageTest = new Village();
+        Player player = new Player(villageTest);
+        VillageHall villageHallTest = villageTest.getVillageHall();
+        Worker worker = new Worker(1);
+        GameEngine engine = new GameEngine();
+
+        System.out.println("Before level: " + villageHallTest.getStats().level());
+        try {
+            engine.upgrade(player, villageHallTest);
+            int newLevel = villageHallTest.getStats().level();
+            System.out.println("After level: " + newLevel);
+            if (newLevel == 2) {
+                System.out.println("PASS: VillageHall upgraded to level 2");
+            } else {
+                System.out.println("FAIL: expected level 2 got " + newLevel);
+            }
+        } catch (Throwable t) {
+            System.out.println("Upgrade threw: " + t);
+            t.printStackTrace();
+        }
+
+        System.out.print("Made it to end of file");
     }
 }
