@@ -1,3 +1,5 @@
+import Game.GameEngine;
+import Game.Village;
 import GameComponents.*;
 import Game.Army;
 import UtilThings.EntityStats;
@@ -5,7 +7,11 @@ import UtilThings.EntityStats;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Compiled Properly");
-
+        GameEngine gameEngine = new GameEngine();
+        Village village = new Village();
+        //test village hall level
+        System.out.println("Village Hall Level: " + village.getVillageHall().getStats().level());
+        System.out.println("Current Game Time: " + gameEngine.getGameTime().getTime());
         //Testing worker functionality
         ResourceWorker basicWorker = new ResourceWorker();
 
@@ -67,5 +73,6 @@ public class Main {
 
         myArmy.removeUnit(archer1);
         System.out.println("Army after removing Archer Attack Score: " + myArmy.getAttackScore());
+        System.out.println("Current Game Time: " + gameEngine.getGameTime().getTime());
     }
 }

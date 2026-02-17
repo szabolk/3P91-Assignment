@@ -26,7 +26,7 @@ public class Army {
     }
 
     public List<ArmyUnit> getUnits() {
-        return new ArrayList<>(units);
+        return units;
     }
 
     /**

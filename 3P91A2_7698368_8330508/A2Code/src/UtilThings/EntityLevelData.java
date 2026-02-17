@@ -66,7 +66,7 @@ public class EntityLevelData {
     );
 
     public static final List<EntityStats> LUMBER_MILL_LEVELS = Arrays.asList(
-            new EntityStats(1, 400, 0, 0, 25, 100, 50, 0, 45, 1),
+            new EntityStats(1, 400, 0, 0, 25, 100, 0, 0, 45, 1),
             new EntityStats(2, 700, 0, 0, 55, 200, 100, 0, 75, 3),
             new EntityStats(3, 1100, 0, 0, 100, 400, 200, 0, 120, 5)
     );

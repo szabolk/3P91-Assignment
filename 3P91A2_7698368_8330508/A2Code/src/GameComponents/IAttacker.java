@@ -4,7 +4,7 @@ public interface IAttacker {
     public int getDamage();
 
     default void attack(IAttackable target) {
-        if(target == null) { throw new IllegalAttackException("Attack Failed: Entity Does Not Exist (Null)"); }
+        if (target == null) { throw new IllegalAttackException("Attack Failed: Entity Does Not Exist (Null)"); }
         if (target.isDestroyed()) { throw new IllegalAttackException("Attack Failed: Entity is Destroyed"); }
         target.takeDamage(this.getDamage());
     }

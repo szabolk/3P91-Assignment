@@ -14,6 +14,6 @@ public class Archer extends ArmyUnit{
 
     @Override
     public EntityType getEntityType() {
-        return null;
+        return EntityType.ARCHER;
     }
 }

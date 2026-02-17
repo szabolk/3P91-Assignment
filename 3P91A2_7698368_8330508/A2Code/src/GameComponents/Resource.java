@@ -1,50 +1,51 @@
 package GameComponents;
 
-import java.util.List;
+import UtilThings.ResourceType;
+import Game.Village;
 
 public class Resource {
     private int gold;
     private int iron;
     private int lumber;
+    private Village village;
 
-    private int maxGold;
-    private int maxIron;
-    private int maxLumber;
-
-    private List<GoldMine> goldMines;
-    private List<IronMine> ironMines;
-    private List<LumberMill> lumberMills;
-
-    private int goldProductionRate;
-    private int ironProductionRate;
-    private int woodProductionRate;
-
-
-
-    public Resource(int gold, int iron, int lumber) {
-
+    public Resource(Village village, int gold, int iron, int lumber) {
+        this.village = village;
+        this.gold = gold;
+        this.iron = iron;
+        this.lumber = lumber;
     }
 
     public int getGold() {
-        return 0;
-    }
-    public void addGold(int amount) {
-
+        return this.gold;
     }
 
     public int getIron() {
-        return 0;
-    }
-    public void addIron(int amount) {
-
+        return this.iron;
     }
 
     public int getLumber() {
-        return 0;
+        return this.lumber;
     }
 
-    public void addLumber(int amount) {
+    public int getMaxResource(ResourceType type) {
+        int villageHallLevel = village.getVillageHall().getStats().level();
+        int max = 750 * villageHallLevel;
+        
+        return switch (type) {
+            case GOLD -> max;
+            case IRON -> max;
+            case LUMBER -> max;
+        };
+    }
 
+    public void addResource(ResourceType type, int amount) {
+        int max = getMaxResource(type);
+        switch (type) {
+            case GOLD -> gold = Math.min(gold + amount, max);
+            case IRON -> iron = Math.min(iron + amount, max);
+            case LUMBER -> lumber = Math.min(lumber + amount, max);
+        }
     }
 
     //could maybe even have just (Resource cost) as the parameter
@@ -55,6 +56,6 @@ public class Resource {
     public boolean hasEnough(int gold, int iron, int lumber) {
         return true;
     }
-
-
 }
+
+

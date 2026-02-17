@@ -1,23 +1,72 @@
 package Game;
 
+import GameComponents.*;
+import UtilThings.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 //Controls the game (maybe do a canUpdate/canTrain/canBuild here as well?)
 public class GameEngine {
+
+    //variables/constants for tracking producing resources
+    private long lastProductionTime = 0;
+    private static final long TIME_BETWEEN_PRODUCTION = 5000;
+
     private Time gameTime;
     private List<Village> villages;
 
 
     public GameEngine() {
+        this.gameTime = new Time();
+        this.villages = new ArrayList<>();
+    }
 
+    public Time getGameTime() {
+        return gameTime;
     }
 
     /**
      * Should be the game loop
      */
     public void runGame() {
+        while (true) {
+            long currentTime = gameTime.getTime();
 
+            //check if the production happens and add the resources to each player's resource pool
+            if (currentTime - lastProductionTime >= TIME_BETWEEN_PRODUCTION) {
+                collectAllResources();
+                lastProductionTime = currentTime;
+            }
+            //check if attack is to happen against the players and if they are not in guard time
+            //check if buildings are finished building or upgrades are done
+        }
     }
+
+    /**
+     * Every certain amount of time, this method will run and add resources to each player's resource pool based on their production rates for each resource
+     */
+    private void collectAllResources() {
+        villages.forEach(village -> {
+            Resource resources = village.getResources();
+            village.getBuildings().stream()
+                    .filter(building -> building instanceof ResourceBuilding)
+                    .forEach(building -> {
+                        ResourceBuilding resourceBuilding = (ResourceBuilding) building;
+                        int production = resourceBuilding.getStats().productionRate();
+
+                        //determine what type the resource building is and add its production rate to that resource
+                        if (resourceBuilding instanceof GoldMine) {
+                            resources.addResource(ResourceType.GOLD, production);
+                        } else if (resourceBuilding instanceof IronMine) {
+                            resources.addResource(ResourceType.IRON, production);
+                        } else if (resourceBuilding instanceof LumberMill) {
+                            resources.addResource(ResourceType.LUMBER, production);
+                        }
+                    });
+        });
+    }
+
 
     /**
      * When the player chooses to explore an attack, it uses this method to generate a suitable
@@ -55,4 +104,13 @@ public class GameEngine {
 
     }
 
+    public void build(Player player, Building building) {
+        Village village = player.getVillage();
+        Resource resources = village.getResources();
+        EntityStats costs = building.getStats();
+        //this is going to be a pain in the ass
+        //check if player has enough resources
+        //check if they do not already have the max number of buildings
+        //
+    }
 }

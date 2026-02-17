@@ -4,5 +4,5 @@ package UtilThings;
 public enum ResourceType {
     GOLD,
     IRON,
-    WOOD,
+    LUMBER,
 }

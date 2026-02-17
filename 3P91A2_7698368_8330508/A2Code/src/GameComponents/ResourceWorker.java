@@ -2,7 +2,6 @@ package GameComponents;
 
 import UtilThings.*;
 
-//Will not compile for now (need to create the stats for the constructor) --> See Worker.java for how it will look
 public class ResourceWorker extends Inhabitant {
     private int productionRate;
 
