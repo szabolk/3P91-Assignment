@@ -3,7 +3,7 @@ package GameComponents;
 import UtilThings.EntityLevelData;
 import UtilThings.EntityType;
 
-public class ArcherTower extends DefenceBuilding{
+public class ArcherTower extends ArmyUnit{
     public ArcherTower() {
         this(1);
     }

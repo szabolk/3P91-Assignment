@@ -13,7 +13,6 @@ public class GameEngine {
     private long lastProductionTime = 0;
     private static final long TIME_BETWEEN_PRODUCTION = 5000;
     private static final long TIME_BETWEEN_ATTACKS = 10000; //used for calculating if an attack can happen
-    public static final int MAX_NUM_BUILDINGS = 20; //for now, idk what max limit should be
 
     private Time gameTime;
     private List<Village> villages;
@@ -40,8 +39,6 @@ public class GameEngine {
                 collectAllResources();
                 lastProductionTime = currentTime;
             }
-            // process any builds or training that have completed
-            checkBuildTrainQueues();
             //check if attack is to happen against the players and if they are not in guard time
             //check if buildings are finished building or upgrades are done
         }
@@ -118,49 +115,10 @@ public class GameEngine {
         //
     }
 
-    public void buildOrTrain(Player player, Entity e) {
+    public void train(Player player, Inhabitant inhabitant) {
         Village village = player.getVillage();
         Resource resources = village.getResources();
-        EntityStats stats = e.getStats();
-
-        //get the level list for the entity
-        List<EntityStats> levelList = EntityLevelData.getLevels(e.getEntityType());
-        if (levelList == null) {
-            throw new IllegalArgumentException("No level data for entity type: " + e.getEntityType());
-        }
-
-        EntityStats firstLevelStats = levelList.get(0); //index 0 are the level 1 stats
-
-        int goldCost = firstLevelStats.goldCost();
-        int ironCost = firstLevelStats.ironCost();
-        int lumberCost = firstLevelStats.lumberCost();
-
-        if (!resources.hasEnough(goldCost, ironCost, lumberCost)) {
-            throw new NotEnoughResourcesException("Building/Training Failed: Not Enough Resources");
-        } else {
-            EntityType entityToAddType = e.getEntityType();
-            int timeSeconds = firstLevelStats.timeToCompletion();
-            int completionTime = gameTime.getTime() + (timeSeconds * 1000);
-            //different mechanisms for both as the process for their creation is somewhat different
-            if (e instanceof Inhabitant) {
-                resources.spend(goldCost, ironCost, lumberCost);
-                village.scheduleTrain(entityToAddType, completionTime);
-            }
-            else if (e instanceof Building) {
-                if (village.getBuildings().size() >= MAX_NUM_BUILDINGS) {
-                    throw new MaxBuildingsExceededException("Error: Max Number of Buildings Reached");
-                }
-                resources.spend(goldCost, ironCost, lumberCost);
-                village.scheduleBuild(entityToAddType, completionTime);
-            }
-        }
-    }
-
-    private void checkBuildTrainQueues() {
-        //for each village, this will go through the build and train queues
-        //if the completion time of something is less than the currentTime, than that
-        //thing is done, it can be removed from the queue, and the entity can be created and
-        //added to that village's building or inhabitant queue
+        EntityStats stats = inhabitant.getStats();
     }
 
     public void upgrade(Player player, IUpgradeable e) throws NotEnoughResourcesException, MaxLevelException {
@@ -207,12 +165,6 @@ public class GameEngine {
 
     public class MaxLevelException extends RuntimeException {
         public MaxLevelException(String s) {
-            super(s);
-        }
-    }
-
-    public class MaxBuildingsExceededException extends RuntimeException {
-        public MaxBuildingsExceededException(String s) {
             super(s);
         }
     }
