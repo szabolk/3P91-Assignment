@@ -103,7 +103,7 @@ public class EntityLevelData {
     );
 
     /**
-     * This is used specifically in the upgrade method to determine if an entity has reached its max level
+     * This is used specifically in the upgrade method (GameEngine) to determine if an entity has reached its max level
      */
     private static final Map<EntityType, List<EntityStats>> LEVELS_MAP = new EnumMap<>(EntityType.class);
 

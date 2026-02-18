@@ -1,12 +1,14 @@
 package Game;
 
 import GameComponents.*;
+import UtilThings.EntityType;
 import java.util.List;
 import java.util.ArrayList;
 
+import static Game.GameEngine.MAX_NUM_BUILDINGS;
+
 //The village and its components
 public class Village {
-    public static final int MAX_NUM_BUILDINGS = 20; //for now, idk what max limit should be
     private VillageHall villageHall;
     private List<Building> buildings;
     private List<Inhabitant> inhabitants;
@@ -14,6 +16,8 @@ public class Village {
     private Army army;
     private Defences defences;
     private int guardTimeDuration;
+    private List<QueueTask> buildQueue;
+    private List<QueueTask> trainQueue;
 
 
     //this constructor will be used for creating the players only
@@ -25,6 +29,8 @@ public class Village {
         this.army = new Army();
         this.defences = new Defences();
         this.guardTimeDuration = 0;
+        this.buildQueue = new ArrayList<>();
+        this.trainQueue = new ArrayList<>();
 
         //Starting workers
         for (int i = 0; i < 3; i++) {
@@ -40,10 +46,26 @@ public class Village {
 
     }
 
-    public void addBuilding(Building building) throws MaxBuildingsExceededException {
-        if (buildings.size() >= MAX_NUM_BUILDINGS) {
-            throw new MaxBuildingsExceededException("Error: Max Number of Buildings Reached");
+    public static class QueueTask {
+        private EntityType type;
+        private int completionTime;
+
+        QueueTask(EntityType type, int completionTime) {
+            this.type = type;
+            this.completionTime = completionTime;
         }
+
+        public EntityType getType() {
+            return this.type;
+        }
+
+        public int getCompletionTime() {
+            return this.completionTime;
+        }
+    }
+
+
+    public void addBuilding(Building building) {
         this.buildings.add(building);
     }
 
@@ -52,7 +74,7 @@ public class Village {
     }
 
     public void addInhabitant(Inhabitant inhabitant) {
-
+        this.inhabitants.add(inhabitant);
     }
 
     public void removeInhabitant(Inhabitant inhabitant) {
@@ -68,11 +90,11 @@ public class Village {
     }
 
     public List<Building> getBuildings() {
-        return null;
+        return this.buildings;
     }
 
     public List<Inhabitant> getInhabitants() {
-        return null;
+        return this.inhabitants;
     }
 
     public Resource getResources() {
@@ -80,11 +102,7 @@ public class Village {
     }
 
     public Defences getDefences() {
-        return null;
-    }
-
-    public void collectResources() {
-
+        return this.defences;
     }
 
     public int idleWorkerCount() {
@@ -95,17 +113,19 @@ public class Village {
         return true;
     }
 
-    public void build(Building building) {
-
+    public void scheduleBuild(EntityType type, int completionTime) {
+        this.buildQueue.add(new QueueTask(type, completionTime));
     }
 
-    public void train(Inhabitant inhabitant) {
-
+    public void scheduleTrain(EntityType type, int completionTime) {
+        this.trainQueue.add(new QueueTask(type, completionTime));
     }
 
-    public class MaxBuildingsExceededException extends Throwable {
-        public MaxBuildingsExceededException(String s) {
-            super(s);
-        }
+    public List<QueueTask> getPendingBuilds() {
+        return this.buildQueue;
+    }
+
+    public List<QueueTask> getPendingTrains() {
+        return this.trainQueue;
     }
 }

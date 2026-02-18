@@ -3,7 +3,7 @@ package GameComponents;
 import UtilThings.EntityLevelData;
 import UtilThings.EntityType;
 
-public class Cannon extends ArmyUnit{
+public class Cannon extends DefenceBuilding{
     public Cannon() {
         this(1);
     }
