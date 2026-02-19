@@ -108,17 +108,7 @@ public class GameEngine {
 
     }
 
-    public void build(Player player, Building building) {
-        Village village = player.getVillage();
-        Resource resources = village.getResources();
-        EntityStats costs = building.getStats();
-        //this is going to be a pain in the ass
-        //check if player has enough resources
-        //check if they do not already have the max number of buildings
-        //
-    }
-
-    public void buildOrTrain(Player player, Entity e) {
+    public void buildOrTrain(Player player, Entity e) throws NotEnoughResourcesException, MaxBuildingsExceededException, QueueFullException {
         Village village = player.getVillage();
         Resource resources = village.getResources();
         EntityStats stats = e.getStats();
@@ -150,6 +140,9 @@ public class GameEngine {
                 if (village.getBuildings().size() >= MAX_NUM_BUILDINGS) {
                     throw new MaxBuildingsExceededException("Error: Max Number of Buildings Reached");
                 }
+                else if (village.getBuildQueue().size() >= village.workerCount()) {
+                    throw new QueueFullException("Queue Full: No Idle Workers");
+                }
                 resources.spend(goldCost, ironCost, lumberCost);
                 village.scheduleBuild(entityToAddType, completionTime);
             }
@@ -163,18 +156,17 @@ public class GameEngine {
         //added to that village's building or inhabitant queue
     }
 
-    public void upgrade(Player player, IUpgradeable e) throws NotEnoughResourcesException, MaxLevelException {
+    public void upgrade(Player player, IUpgradeable e) throws NotEnoughResourcesException, MaxLevelException, QueueFullException {
         Village village = player.getVillage();
         Resource resources = village.getResources();
-        EntityStats stats = e.getStats();
-
         //get the level list for the entity
         List<EntityStats> levelList = EntityLevelData.getLevels(e.getEntityType());
+
         if (levelList == null) {
             throw new IllegalArgumentException("No level data for entity type: " + e.getEntityType());
         }
 
-        int currentLevel = stats.level();
+        int currentLevel = e.getStats().level();
         int maxLevel = levelList.size(); //uses the size of the level lists to determine how many levels a unit has (Ex. a soldier has 3 stat lines so 3 levels, village hall has 6 statlines -> 6 levels)
 
         if (currentLevel >= maxLevel) {
@@ -184,36 +176,49 @@ public class GameEngine {
         //next-level stats are at index currentLevel (Ex. index 0 = level 1, index 1 = level 2, etc.)
         EntityStats nextStats = levelList.get(currentLevel); //Current level is the index of the next level in the list
 
-        int goldCost = nextStats.goldCost();
-        int ironCost = nextStats.ironCost();
-        int lumberCost = nextStats.lumberCost();
-
-        if (!resources.hasEnough(goldCost, ironCost, lumberCost)) {
+        if (!resources.hasEnough(nextStats.goldCost(), nextStats.ironCost(), nextStats.lumberCost())) {
             throw new NotEnoughResourcesException("Upgrade Failed: Not Enough Resources");
-        } else {
-            //subtract resources and apply the upgrade
-            resources.spend(goldCost, ironCost, lumberCost);
-            e.setStats(nextStats);
         }
 
+        if (e instanceof Inhabitant) {
+            resources.spend(nextStats.goldCost(), nextStats.ironCost(), nextStats.lumberCost());
+            e.setStats(nextStats); //Upgrades for units are instant, no need to add to queue
+        }
+        else if (e instanceof Building) {
+            if (village.getBuildQueue().size() >= village.workerCount()) {
+                throw new QueueFullException("Queue Full: No Idle Workers");
+            }
 
+            resources.spend(nextStats.goldCost(), nextStats.ironCost(), nextStats.lumberCost());
+
+            int completionTime = gameTime.getTime() + (nextStats.timeToCompletion() * 1000);
+            village.scheduleBuildingUpgrade(e.getEntityType(), (Building)e, nextStats, completionTime);
+        }
     }
 
-    public class NotEnoughResourcesException extends RuntimeException {
+    public class NotEnoughResourcesException extends Exception {
         public NotEnoughResourcesException(String s) {
             super(s);
         }
     }
 
-    public class MaxLevelException extends RuntimeException {
+    public class MaxLevelException extends Exception {
         public MaxLevelException(String s) {
             super(s);
         }
     }
 
-    public class MaxBuildingsExceededException extends RuntimeException {
+    public class MaxBuildingsExceededException extends Exception {
         public MaxBuildingsExceededException(String s) {
             super(s);
         }
     }
+
+    public class QueueFullException extends Exception {
+        public QueueFullException(String s) {
+            super(s);
+        }
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package Game;
 
 import GameComponents.*;
+import UtilThings.EntityStats;
 import UtilThings.EntityType;
 import java.util.List;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class Village {
         this.resources = new Resource(this,500, 500, 500);
         this.army = new Army();
         this.defences = new Defences();
-        this.guardTimeDuration = 0;
+        this.guardTimeDuration = 60;
         this.buildQueue = new ArrayList<>();
         this.trainQueue = new ArrayList<>();
 
@@ -47,11 +48,22 @@ public class Village {
     }
 
     public static class QueueTask {
-        private EntityType type;
-        private int completionTime;
+        private final EntityType type;
+        private final int completionTime;
+        private Building existingBuilding;
+        private EntityStats nextStats;
 
+        //Used if building a new building or training a unit
         QueueTask(EntityType type, int completionTime) {
             this.type = type;
+            this.completionTime = completionTime;
+        }
+
+        //For upgrading a building
+        QueueTask(EntityType type, Building building, EntityStats stats, int completionTime) {
+            this.type = type;
+            this.existingBuilding = building;
+            this.nextStats = stats;
             this.completionTime = completionTime;
         }
 
@@ -62,15 +74,22 @@ public class Village {
         public int getCompletionTime() {
             return this.completionTime;
         }
-    }
 
+        public Building getExistingBuilding() {
+            return this.existingBuilding;
+        }
+
+        public EntityStats getNextStats() {
+            return this.nextStats;
+        }
+    }
 
     public void addBuilding(Building building) {
         this.buildings.add(building);
     }
 
     public void removeBuilding(Building building) {
-
+        this.buildings.remove(building);
     }
 
     public void addInhabitant(Inhabitant inhabitant) {
@@ -78,15 +97,11 @@ public class Village {
     }
 
     public void removeInhabitant(Inhabitant inhabitant) {
-
+        this.inhabitants.remove(inhabitant);
     }
 
     public VillageHall getVillageHall() {
         return this.villageHall;
-    }
-
-    public void setVillageHall(VillageHall hall) {
-
     }
 
     public List<Building> getBuildings() {
@@ -101,12 +116,29 @@ public class Village {
         return this.resources;
     }
 
+    public Army getArmy() {
+        return this.army;
+    }
+
     public Defences getDefences() {
         return this.defences;
     }
 
-    public int idleWorkerCount() {
-        return 0;
+    public int getGuardTimeDuration() {
+        return this.guardTimeDuration;
+    }
+
+    /**
+     * This will determine how many buildings can be in the build queue at a single time
+     * (since every building needs an idle worker for building/upgrades)
+     * Game wise the logic is the same (total workers -> max number of things allowed in the queue at a time)
+     * which ensures that every building in the queue has an "idle" worker to work on it
+     * @return - number of total workers
+     */
+    public int workerCount() {
+        return (int) inhabitants.stream()
+                .filter(inhabitant -> inhabitant instanceof Worker)
+                .count();
     }
 
     public boolean isUnderProtection(Time time) {
@@ -117,15 +149,19 @@ public class Village {
         this.buildQueue.add(new QueueTask(type, completionTime));
     }
 
+    public void scheduleBuildingUpgrade(EntityType type, Building buildingToUpgrade, EntityStats nextLevelStats, int completionTime) {
+        this.buildQueue.add(new QueueTask(type, buildingToUpgrade, nextLevelStats, completionTime));
+    }
+
     public void scheduleTrain(EntityType type, int completionTime) {
         this.trainQueue.add(new QueueTask(type, completionTime));
     }
 
-    public List<QueueTask> getPendingBuilds() {
+    public List<QueueTask> getBuildQueue() {
         return this.buildQueue;
     }
 
-    public List<QueueTask> getPendingTrains() {
+    public List<QueueTask> getTrainQueue() {
         return this.trainQueue;
     }
 }
