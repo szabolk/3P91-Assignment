@@ -3,6 +3,8 @@ package Game;
 import GameComponents.*;
 import UtilThings.EntityStats;
 import UtilThings.EntityType;
+import UtilThings.ResourceType;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ public class Village {
     private Resource resources;
     private Army army;
     private Defences defences;
-    private int guardTimeDuration;
+    private long guardedUntil;
     private List<QueueTask> buildQueue;
     private List<QueueTask> trainQueue;
 
@@ -29,7 +31,7 @@ public class Village {
         this.resources = new Resource(this,500, 500, 500);
         this.army = new Army();
         this.defences = new Defences();
-        this.guardTimeDuration = 60;
+        this.guardedUntil = System.currentTimeMillis() + (60 * 1000); //guarded for 60 seconds after creation (may change)
         this.buildQueue = new ArrayList<>();
         this.trainQueue = new ArrayList<>();
 
@@ -43,8 +45,37 @@ public class Village {
 
     //This will be used when generating villages. Figure out what number to go
     //off (i.e. player level or player offensive strength
-    public Village(int level) {
+    public Village(int playerVillageHalllevel) {
+        this.villageHall = new VillageHall(playerVillageHalllevel);
+        this.buildings = new ArrayList<>(MAX_NUM_BUILDINGS);
+        this.inhabitants = new ArrayList<>();
+        this.resources = new Resource(this, 500, 500, 500);
+        this.army = new Army();
+        this.defences = new Defences();
+        this.guardedUntil = 60;
+        this.buildQueue = new ArrayList<>();
+        this.trainQueue = new ArrayList<>();
+    }
 
+    /**
+     * Create a village with a specific village hall level and initial resources.
+     */
+    public Village(int playerVillageHalllevel, int gold, int iron, int lumber) {
+        this.villageHall = new VillageHall(playerVillageHalllevel);
+        this.buildings = new ArrayList<>();
+        this.inhabitants = new ArrayList<>();
+        this.resources = new Resource(this, gold, iron, lumber);
+        this.army = new Army();
+        this.defences = new Defences();
+        this.guardedUntil = 60;
+        this.buildQueue = new ArrayList<>();
+        this.trainQueue = new ArrayList<>();
+
+        //Starting workers (keep same as default)
+        for (int i = 0; i < 3; i++) {
+            this.inhabitants.add(new ResourceWorker());
+            this.inhabitants.add(new Worker());
+        }
     }
 
     public static class QueueTask {
@@ -124,10 +155,19 @@ public class Village {
         return this.defences;
     }
 
-    public int getGuardTimeDuration() {
-        return this.guardTimeDuration;
+    public long getGuardedUntil() {
+        return this.guardedUntil;
     }
 
+    /**
+     * After a village (player only?) gets attacked, after the attack the village goes into
+     * guard mode for a set period of time (1 minute offset from the current time)
+     *
+     */
+    public void setGuardTime() {
+        this.guardedUntil = System.currentTimeMillis() + (60 * 1000);
+    }
+    
     /**
      * This will determine how many buildings can be in the build queue at a single time
      * (since every building needs an idle worker for building/upgrades)
@@ -141,8 +181,126 @@ public class Village {
                 .count();
     }
 
-    public boolean isUnderProtection(Time time) {
-        return true;
+    /**
+     * Count how many workers are assigned to Farm buildings. Determines the max population
+     * @return number of workers currently working on farms
+     */
+    public int workersOnFarmsCount() {
+        return (int) inhabitants.stream()
+                .filter(inhabitant -> inhabitant instanceof Worker)
+                .map(inhabitant -> (Worker) inhabitant)
+                .filter(worker -> worker.getAssignedBuilding() instanceof Farm)
+                .count();
+    }
+
+    /**
+     * Gets the total supported population provided by all Farm buildings in this village.
+     * @return max population
+     */
+    public int totalPopulationCapacity() {
+        return getBuildings().stream()
+                .filter(b -> b instanceof Farm)
+                .map(b -> (Farm) b)
+                .mapToInt(Farm::supportedPopulation)
+                .sum();
+    }
+
+    /**
+     * collect production, then check build/train queues for completed things
+     * P.S. What a great and descriptive name lmao - L.S.
+     * @param currentTime current game time
+     * @param doProduction whether to collect production
+     */
+    public void doVillageWork(long currentTime, boolean doProduction) {
+        if (doProduction) {
+            collectAllResources();
+        }
+        checkBuildTrainQueues(currentTime);
+        //other work
+    }
+
+    /**
+     * Every certain amount of time, this method will run and add resources to each player's resource pool based on their production rates for each resource
+     */
+    private void collectAllResources() {
+        Resource resources = getResources();
+        getBuildings().stream()
+                .filter(building -> building instanceof ResourceBuilding)
+                .forEach(building -> {
+                    ResourceBuilding resourceBuilding = (ResourceBuilding) building;
+                    int production = resourceBuilding.production();
+
+                    //determine what type the resource building is and add its production rate to that resource
+                    if (resourceBuilding instanceof GoldMine) {
+                        resources.addResource(ResourceType.GOLD, production);
+                    } else if (resourceBuilding instanceof IronMine) {
+                        resources.addResource(ResourceType.IRON, production);
+                    } else if (resourceBuilding instanceof LumberMill) {
+                        resources.addResource(ResourceType.LUMBER, production);
+                    }
+                });
+    }
+
+    private void checkBuildTrainQueues(long currentTime) {
+        // process build queue
+        var buildIt = this.buildQueue.iterator();
+        while (buildIt.hasNext()) {
+            QueueTask t = buildIt.next();
+            if (t.getCompletionTime() <= currentTime) {
+                if (t.getExistingBuilding() == null) {
+                    Building b = null;
+                    switch (t.getType()) {
+                        case GOLD_MINE -> b = new GoldMine();
+                        case IRON_MINE -> b = new IronMine();
+                        case LUMBER_MILL -> b = new LumberMill();
+                        case FARM -> b = new Farm();
+                        case VILLAGE_HALL -> b = new VillageHall();
+                        case ARCHER_TOWER -> b = new ArcherTower();
+                        case CANNON -> b = new Cannon();
+                        default -> b = null;
+                    }
+                    if (b != null) {
+                        b.setUnderConstruction(false);
+                        this.buildings.add(b);
+                        if (b instanceof DefenceBuilding) {
+                            this.defences.addDefenceBuilding((DefenceBuilding) b);
+                        }
+                    }
+                } else {
+                    Building existing = t.getExistingBuilding();
+                    if (t.getNextStats() != null) {
+                        existing.setStats(t.getNextStats());
+                        existing.setUnderConstruction(false);
+                    }
+                }
+                buildIt.remove();
+            }
+        }
+
+        // process train queue
+        var trainIt = this.trainQueue.iterator();
+        while (trainIt.hasNext()) {
+            QueueTask t = trainIt.next();
+            if (t.getCompletionTime() <= currentTime) {
+                Inhabitant created = null;
+                switch (t.getType()) {
+                    case SOLDIER -> created = new Soldier();
+                    case ARCHER -> created = new Archer();
+                    case KNIGHT -> created = new Knight();
+                    case CATAPULT -> created = new Catapult();
+                    case RESOURCE_WORKER -> created = new ResourceWorker();
+                    case WORKER -> created = new Worker();
+                    default -> created = null;
+                }
+                if (created != null) {
+                    this.inhabitants.add(created);
+                    if (created instanceof ArmyUnit) {
+                        this.army.addUnit((ArmyUnit) created);
+                    }
+                }
+                trainIt.remove();
+            }
+        }
     }
 
     public void scheduleBuild(EntityType type, int completionTime) {
