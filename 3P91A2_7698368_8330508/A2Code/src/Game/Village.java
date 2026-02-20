@@ -242,65 +242,7 @@ public class Village {
     }
 
     private void checkBuildTrainQueues(long currentTime) {
-        // process build queue
-        var buildIt = this.buildQueue.iterator();
-        while (buildIt.hasNext()) {
-            QueueTask t = buildIt.next();
-            if (t.getCompletionTime() <= currentTime) {
-                if (t.getExistingBuilding() == null) {
-                    Building b = null;
-                    switch (t.getType()) {
-                        case GOLD_MINE -> b = new GoldMine();
-                        case IRON_MINE -> b = new IronMine();
-                        case LUMBER_MILL -> b = new LumberMill();
-                        case FARM -> b = new Farm();
-                        case VILLAGE_HALL -> b = new VillageHall();
-                        case ARCHER_TOWER -> b = new ArcherTower();
-                        case CANNON -> b = new Cannon();
-                        default -> b = null;
-                    }
-                    if (b != null) {
-                        b.setUnderConstruction(false);
-                        this.buildings.add(b);
-                        if (b instanceof DefenceBuilding) {
-                            this.defences.addDefenceBuilding((DefenceBuilding) b);
-                        }
-                    }
-                } else {
-                    Building existing = t.getExistingBuilding();
-                    if (t.getNextStats() != null) {
-                        existing.setStats(t.getNextStats());
-                        existing.setUnderConstruction(false);
-                    }
-                }
-                buildIt.remove();
-            }
-        }
 
-        // process train queue
-        var trainIt = this.trainQueue.iterator();
-        while (trainIt.hasNext()) {
-            QueueTask t = trainIt.next();
-            if (t.getCompletionTime() <= currentTime) {
-                Inhabitant created = null;
-                switch (t.getType()) {
-                    case SOLDIER -> created = new Soldier();
-                    case ARCHER -> created = new Archer();
-                    case KNIGHT -> created = new Knight();
-                    case CATAPULT -> created = new Catapult();
-                    case RESOURCE_WORKER -> created = new ResourceWorker();
-                    case WORKER -> created = new Worker();
-                    default -> created = null;
-                }
-                if (created != null) {
-                    this.inhabitants.add(created);
-                    if (created instanceof ArmyUnit) {
-                        this.army.addUnit((ArmyUnit) created);
-                    }
-                }
-                trainIt.remove();
-            }
-        }
     }
 
     public void scheduleBuild(EntityType type, int completionTime) {
