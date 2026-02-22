@@ -32,13 +32,14 @@ public class Defences {
     }
 
     /**
-     * Gets the defence score
+     * Gets the defence score based on defenders health and attack
      * @return int - gives back a value used by the GameEngine in the attack simulations
      */
     public int getDefenceScore() {
         return defenceBuildings.stream()
                 .filter(building -> building != null)
-                .mapToInt(building -> ((IAttacker) building).getDamage())
+                .filter(building -> !building.isUnderConstruction())
+                .mapToInt(building -> ((((IAttacker) building).getDamage() + ((IAttacker) building).getHP())))
                 .sum();
     }
 }

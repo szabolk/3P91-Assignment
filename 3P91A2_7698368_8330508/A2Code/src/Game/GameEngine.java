@@ -39,9 +39,15 @@ public class GameEngine {
 
             for (Village v : villages) {
                 v.doVillageWork(currentTime, doProduction);
+                if (currentTime >= v.getGuardedUntil()) {
+                    simulateAttack(generateArmy(v), v); //no need to add loot to the generated attackers
+                    v.setGuardTime(); //safe for the next minute -> maybe change later
+                }
             }
 
-            if (doProduction) lastProductionTime = currentTime;
+            if (doProduction) {
+                lastProductionTime = currentTime;
+            }
             //check if attack is to happen against the players and if they are not in guard time
             //check if buildings are finished building or upgrades are done
         }
@@ -122,15 +128,55 @@ public class GameEngine {
     /**
      * Essentially what it does is it takes an attacking army, a villages defences,
      * calculates the attack score (of the army) and the defence score (of the defences)
-     * and then calculates the odds and determines if the attackers win the battle
+     * and then calculates the odds and determines if the attackers win the battle.
+     * For loot calculations, only a max of 50% reosurces can be taken
      *
      * @param attacker the attacker's army
-     * @param defender the defender's defences
+     * @param defenderVillage the defender's village
      * @return SimulationResult which will be used in a separate method to handle the results
      * (like adding the loot to the attacker's resources, increasing num of wins etc.
      */
-    public SimulationResult simulateAttack(Army attacker, Defences defender) {
-        return null;
+    public SimulationResult simulateAttack(Army attacker, Village defenderVillage) {
+        Random random = new Random();
+
+        //no need for complext attack/defence score calculations as all units have predefined stats that increase with every level
+        //so all that needs to be calculated is the relevant stat (attack) to get the scores
+        int attackerScore = attacker.getAttackScore();
+        int defenderScore = defenderVillage.getDefences().getDefenceScore();
+
+        //apply a multiplier for the attackers and defenders? I assume thats what is meant by "dice rolling" in the pdf
+        int diceAttacker = (int) (attackerScore * random.nextDouble(1.0, 2.0));
+        int diceDefender = (int) (defenderScore * random.nextDouble(1.0, 2.0));
+
+        double winChance = diceAttacker / (double) (diceAttacker + diceDefender);
+
+        boolean attackerWin = random.nextDouble() < winChance;
+
+        //determine loot from attack if the attacker won
+        GameComponents.Resource loot = null;
+        if (attackerWin) {
+            GameComponents.Resource defendingVillageResources = defenderVillage.getResources();
+            double resourceCap = 0.5; //at most 50% of each resource can be looted
+            //if the win chance is less than 50%
+            //(meaning that the attacking army was less powerful than the defences and therefore
+            //logically would do less destruction to the village) -> should get less loot
+            double percentResourceTaken = Math.min(resourceCap, winChance);
+
+            int goldLoot = (int) Math.round(defendingVillageResources.getGold() * percentResourceTaken);
+            int ironLoot = (int) Math.round(defendingVillageResources.getIron() * percentResourceTaken);
+            int lumberLoot = (int) Math.round(defendingVillageResources.getLumber() * percentResourceTaken);
+
+            //take resources from losing village
+            defendingVillageResources.spend(goldLoot, ironLoot, lumberLoot);
+
+            //idk for the loot if it matters if we put the defending village or the attacking village
+            loot = new GameComponents.Resource(defenderVillage, goldLoot, ironLoot, lumberLoot);
+        } else {
+            //if the attacker lost, they get nothing
+            loot = new GameComponents.Resource(defenderVillage, 0, 0, 0);
+        }
+
+        return new SimulationResult(attackerWin, loot, winChance * 100.0);
     }
 
     public void buildOrTrain(Player player, Entity e) throws NotEnoughResourcesException, MaxBuildingsExceededException, QueueFullException {
@@ -155,7 +201,7 @@ public class GameEngine {
         } else {
             EntityType entityToAddType = e.getEntityType();
             int timeSeconds = firstLevelStats.timeToCompletion();
-            int completionTime = gameTime.getTime() + (timeSeconds * 1000);
+            long completionTime = gameTime.getTime() + (timeSeconds * 1000L);
             //different mechanisms for both as the process for their creation is somewhat different
             if (e instanceof Inhabitant) {
                 // enforce population cap provided by staffed farms
@@ -177,14 +223,7 @@ public class GameEngine {
             }
         }
     }
-    /*
-    private void checkBuildTrainQueues() {
-        //for each village, this will go through the build and train queues
-        //if the completion time of something is less than the currentTime, than that
-        //thing is done, it can be removed from the queue, and the entity can be created and
-        //added to that village's building or inhabitant queue
-    }
-    */
+
     public void upgrade(Player player, IUpgradeable e) throws NotEnoughResourcesException, MaxLevelException, QueueFullException {
         Village village = player.getVillage();
         Resource resources = village.getResources();
@@ -212,6 +251,8 @@ public class GameEngine {
         if (e instanceof Inhabitant) {
             resources.spend(nextStats.goldCost(), nextStats.ironCost(), nextStats.lumberCost());
             e.setStats(nextStats); //Upgrades for units are instant, no need to add to queue
+            //also for the set stats, the inhabitants that can be attacked (like armyunits) will have their hp refilled on upgrade
+
         }
         else if (e instanceof Building) {
             if (village.getBuildQueue().size() >= village.workerCount()) {
@@ -220,7 +261,8 @@ public class GameEngine {
 
             resources.spend(nextStats.goldCost(), nextStats.ironCost(), nextStats.lumberCost());
 
-            int completionTime = gameTime.getTime() + (nextStats.timeToCompletion() * 1000);
+            long completionTime = gameTime.getTime() + (nextStats.timeToCompletion() * 1000L);
+            ((Building) e).setUnderConstruction(true); //makes sure that this specific building is not counted in the defence score calculations
             village.scheduleBuildingUpgrade(e.getEntityType(), (Building)e, nextStats, completionTime);
         }
     }

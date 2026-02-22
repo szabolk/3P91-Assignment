@@ -30,13 +30,13 @@ public class Army {
     }
 
     /**
-     * Gets the attack score
+     * Gets the attack score based on the total damage and attack of the army
      * @return int - attack score used by GameEngine in attack simulation
      */
     public int getAttackScore() {
         return units.stream()
                 .filter(unit -> unit != null)
-                .mapToInt(unit -> ((IAttacker) unit).getDamage())
+                .mapToInt(unit -> (((IAttacker) unit).getDamage() + ((IAttacker) unit).getHP()))
                 .sum();
     }
 }

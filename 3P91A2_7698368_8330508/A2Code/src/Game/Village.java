@@ -1,10 +1,8 @@
 package Game;
 
 import GameComponents.*;
-import UtilThings.EntityStats;
-import UtilThings.EntityType;
-import UtilThings.ResourceType;
-
+import UtilThings.*;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -80,18 +78,19 @@ public class Village {
 
     public static class QueueTask {
         private final EntityType type;
-        private final int completionTime;
+        private final long completionTime;
         private Building existingBuilding;
         private EntityStats nextStats;
 
         //Used if building a new building or training a unit
-        QueueTask(EntityType type, int completionTime) {
+        QueueTask(EntityType type, long completionTime) {
             this.type = type;
             this.completionTime = completionTime;
+            this.existingBuilding = null;
         }
 
         //For upgrading a building
-        QueueTask(EntityType type, Building building, EntityStats stats, int completionTime) {
+        QueueTask(EntityType type, Building building, EntityStats stats, long completionTime) {
             this.type = type;
             this.existingBuilding = building;
             this.nextStats = stats;
@@ -102,7 +101,7 @@ public class Village {
             return this.type;
         }
 
-        public int getCompletionTime() {
+        public long getCompletionTime() {
             return this.completionTime;
         }
 
@@ -242,76 +241,45 @@ public class Village {
     }
 
     private void checkBuildTrainQueues(long currentTime) {
-        // process build queue
-        var buildIt = this.buildQueue.iterator();
-        while (buildIt.hasNext()) {
-            QueueTask t = buildIt.next();
-            if (t.getCompletionTime() <= currentTime) {
-                if (t.getExistingBuilding() == null) {
-                    Building b = null;
-                    switch (t.getType()) {
-                        case GOLD_MINE -> b = new GoldMine();
-                        case IRON_MINE -> b = new IronMine();
-                        case LUMBER_MILL -> b = new LumberMill();
-                        case FARM -> b = new Farm();
-                        case VILLAGE_HALL -> b = new VillageHall();
-                        case ARCHER_TOWER -> b = new ArcherTower();
-                        case CANNON -> b = new Cannon();
-                        default -> b = null;
-                    }
-                    if (b != null) {
-                        b.setUnderConstruction(false);
-                        this.buildings.add(b);
-                        if (b instanceof DefenceBuilding) {
-                            this.defences.addDefenceBuilding((DefenceBuilding) b);
-                        }
-                    }
-                } else {
-                    Building existing = t.getExistingBuilding();
-                    if (t.getNextStats() != null) {
-                        existing.setStats(t.getNextStats());
-                        existing.setUnderConstruction(false);
-                    }
+        Iterator<QueueTask> buildQueueIterator = buildQueue.iterator();
+        while (buildQueueIterator.hasNext()) {
+            QueueTask currentBuilding = buildQueueIterator.next();
+            if (currentBuilding.getCompletionTime() <= currentTime) {
+                if (currentBuilding.getExistingBuilding() == null) { //fresh building
+                    Building newBuilding = EntityCreator.createNewBuilding(currentBuilding.getType());
+                    newBuilding.setUnderConstruction(false);
+                    addBuilding(newBuilding);
                 }
-                buildIt.remove();
+                else { //this means there is an exisiting building -> means its an upgrade
+                    Building upgradedBuilding = currentBuilding.getExistingBuilding();
+                    upgradedBuilding.setStats(currentBuilding.getNextStats()); //building's hp will be updated and refilled to max
+                    upgradedBuilding.setUnderConstruction(false);
+                }
+                buildQueueIterator.remove();
             }
         }
 
-        // process train queue
-        var trainIt = this.trainQueue.iterator();
-        while (trainIt.hasNext()) {
-            QueueTask t = trainIt.next();
-            if (t.getCompletionTime() <= currentTime) {
-                Inhabitant created = null;
-                switch (t.getType()) {
-                    case SOLDIER -> created = new Soldier();
-                    case ARCHER -> created = new Archer();
-                    case KNIGHT -> created = new Knight();
-                    case CATAPULT -> created = new Catapult();
-                    case RESOURCE_WORKER -> created = new ResourceWorker();
-                    case WORKER -> created = new Worker();
-                    default -> created = null;
-                }
-                if (created != null) {
-                    this.inhabitants.add(created);
-                    if (created instanceof ArmyUnit) {
-                        this.army.addUnit((ArmyUnit) created);
-                    }
-                }
-                trainIt.remove();
+        Iterator<QueueTask> trainQueueIterator = trainQueue.iterator();
+        while (trainQueueIterator.hasNext()) {
+            QueueTask currentInhabitant = trainQueueIterator.next();
+            if (currentInhabitant.getCompletionTime() <= currentTime) {
+                Inhabitant newInhabitant = EntityCreator.createNewInhabitant(currentInhabitant.getType());
+                addInhabitant(newInhabitant);
+                trainQueueIterator.remove();
             }
         }
     }
 
-    public void scheduleBuild(EntityType type, int completionTime) {
+
+    public void scheduleBuild(EntityType type, long completionTime) {
         this.buildQueue.add(new QueueTask(type, completionTime));
     }
 
-    public void scheduleBuildingUpgrade(EntityType type, Building buildingToUpgrade, EntityStats nextLevelStats, int completionTime) {
+    public void scheduleBuildingUpgrade(EntityType type, Building buildingToUpgrade, EntityStats nextLevelStats, long completionTime) {
         this.buildQueue.add(new QueueTask(type, buildingToUpgrade, nextLevelStats, completionTime));
     }
 
-    public void scheduleTrain(EntityType type, int completionTime) {
+    public void scheduleTrain(EntityType type, long completionTime) {
         this.trainQueue.add(new QueueTask(type, completionTime));
     }
 

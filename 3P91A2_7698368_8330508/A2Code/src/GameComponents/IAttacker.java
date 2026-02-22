@@ -2,6 +2,7 @@ package GameComponents;
 
 public interface IAttacker {
     public int getDamage();
+    public int getHP();
 
     default void attack(IAttackable target) {
         if (target == null) { throw new IllegalAttackException("Attack Failed: Entity Does Not Exist (Null)"); }
