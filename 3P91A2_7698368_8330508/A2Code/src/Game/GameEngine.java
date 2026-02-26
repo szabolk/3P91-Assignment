@@ -25,6 +25,17 @@ public class GameEngine {
         this.villages = new ArrayList<>();
     }
 
+    public void addVillage(Village village) {
+        if (village == null) {
+            throw new IllegalArgumentException("Village cannot be null");
+        }
+        villages.add(village);
+    }
+
+    public List<Village> getVillages() {
+        return villages;
+    }
+
     public Time getGameTime() {
         return gameTime;
     }
@@ -44,12 +55,9 @@ public class GameEngine {
                     v.setGuardTime(); //safe for the next minute -> maybe change later
                 }
             }
-
             if (doProduction) {
                 lastProductionTime = currentTime;
             }
-            //check if attack is to happen against the players and if they are not in guard time
-            //check if buildings are finished building or upgrades are done
         }
     }
 
@@ -123,6 +131,10 @@ public class GameEngine {
 
     public Army generateArmy(Village playerVillage) {
         return generateVillage(playerVillage).getArmy();
+    }
+
+    public Village exploreAttack(Village playerVillage) {
+        return generateVillage(playerVillage);
     }
 
     /**
@@ -271,11 +283,19 @@ public class GameEngine {
         public NotEnoughResourcesException(String s) {
             super(s);
         }
+
+        public NotEnoughResourcesException(String s, Throwable cause) {
+            super(s, cause);
+        }
     }
 
     public class MaxLevelException extends Exception {
         public MaxLevelException(String s) {
             super(s);
+        }
+
+        public MaxLevelException(String s, Throwable cause) {
+            super(s, cause);
         }
     }
 
@@ -283,11 +303,19 @@ public class GameEngine {
         public MaxBuildingsExceededException(String s) {
             super(s);
         }
+
+        public MaxBuildingsExceededException(String s, Throwable cause) {
+            super(s, cause);
+        }
     }
 
     public class QueueFullException extends Exception {
         public QueueFullException(String s) {
             super(s);
+        }
+
+        public QueueFullException(String s, Throwable cause) {
+            super(s, cause);
         }
     }
 

@@ -10,6 +10,7 @@ import static Game.GameEngine.MAX_NUM_BUILDINGS;
 
 //The village and its components
 public class Village {
+    private Player owner;
     private VillageHall villageHall;
     private List<Building> buildings;
     private List<Inhabitant> inhabitants;
@@ -22,7 +23,8 @@ public class Village {
 
 
     //this constructor will be used for creating the players only
-    public Village() {
+    public Village(Player owner) {
+        this.owner = owner;
         this.villageHall = new VillageHall();
         this.buildings = new ArrayList<>(MAX_NUM_BUILDINGS);
         this.inhabitants = new ArrayList<>();
@@ -74,6 +76,10 @@ public class Village {
             this.inhabitants.add(new ResourceWorker());
             this.inhabitants.add(new Worker());
         }
+    }
+
+    public Player getOwner() {
+        return owner;
     }
 
     public static class QueueTask {

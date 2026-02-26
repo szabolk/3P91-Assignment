@@ -6,9 +6,9 @@ public class Player {
     private int playerID;
     private Village village;
 
-    public Player(Village village) {
+    public Player() {
         this.playerID = nextID++;
-        this.village = village;
+        this.village = new Village(this);
     }
 
     public int getPlayerID() {
@@ -22,16 +22,4 @@ public class Player {
     public void setVillage(Village village) {
         this.village = village;
     }
-
-    public Village exploreAttack() {
-        //generate a village first
-
-        return null;
-    }
-
-    public void attackVillage(Village village) {
-        //Attack the village bounded to the exploredVillage in gameEngine or somewhere?
-        //
-    }
-
 }
