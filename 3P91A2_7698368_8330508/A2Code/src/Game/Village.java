@@ -5,10 +5,9 @@ import UtilThings.*;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
-
 import static Game.GameEngine.MAX_NUM_BUILDINGS;
 
-//The village and its components
+
 public class Village {
     private Player owner;
     private VillageHall villageHall;
@@ -22,7 +21,9 @@ public class Village {
     private List<QueueTask> trainQueue;
 
 
-    //this constructor will be used for creating the players only
+    /**
+     * This constructor is used specifically when creating a player's village
+     */
     public Village(Player owner) {
         this.owner = owner;
         this.villageHall = new VillageHall();
@@ -31,7 +32,7 @@ public class Village {
         this.resources = new Resource(this,500, 500, 500);
         this.army = new Army();
         this.defences = new Defences();
-        this.guardedUntil = 60000; //guarded for 60 seconds after creation (game time in ms)
+        this.guardedUntil = 60000; //guarded for 60 seconds after game start
         this.buildQueue = new ArrayList<>();
         this.trainQueue = new ArrayList<>();
 
@@ -57,10 +58,13 @@ public class Village {
         this.buildings.add(new GoldMine());
         this.buildings.add(new IronMine());
         this.buildings.add(new LumberMill());
+        // add a farm so there is initial population capacity for the starting inhabitants
+        this.buildings.add(new Farm());
     }
 
-    //This will be used when generating villages. Figure out what number to go
-    //off (i.e. player level or player offensive strength
+    /**
+     * This constructor is used specifically when creating a village to attack the player's village
+     */
     public Village(int playerVillageHalllevel) {
         this.villageHall = new VillageHall(playerVillageHalllevel);
         this.buildings = new ArrayList<>(MAX_NUM_BUILDINGS);
@@ -74,7 +78,7 @@ public class Village {
     }
 
     /**
-     * Create a village with a specific village hall level and initial resources.
+     * This constructor is used specifically when creating a village for the player to attack
      */
     public Village(int playerVillageHalllevel, int gold, int iron, int lumber) {
         this.villageHall = new VillageHall(playerVillageHalllevel);
@@ -83,7 +87,6 @@ public class Village {
         this.resources = new Resource(this, gold, iron, lumber);
         this.army = new Army();
         this.defences = new Defences();
-        this.guardedUntil = 10;
         this.buildQueue = new ArrayList<>();
         this.trainQueue = new ArrayList<>();
 
@@ -94,9 +97,6 @@ public class Village {
         }
     }
 
-    public Player getOwner() {
-        return owner;
-    }
 
     public static class QueueTask {
         private final EntityType type;
@@ -134,6 +134,10 @@ public class Village {
         public EntityStats getNextStats() {
             return this.nextStats;
         }
+    }
+
+    public Player getOwner() {
+        return owner;
     }
 
     public void addBuilding(Building building) {

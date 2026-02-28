@@ -114,6 +114,9 @@ public class EntityLevelData {
             LEVELS_MAP.put(EntityType.KNIGHT, KNIGHT_LEVELS);
             LEVELS_MAP.put(EntityType.CATAPULT, CATAPULT_LEVELS);
             LEVELS_MAP.put(EntityType.RESOURCE_WORKER, RESOURCE_WORKER_LEVELS);
+            LEVELS_MAP.put(EntityType.GOLD_MINER, RESOURCE_WORKER_LEVELS);
+            LEVELS_MAP.put(EntityType.IRON_MINER, RESOURCE_WORKER_LEVELS);
+            LEVELS_MAP.put(EntityType.LUMBER_MINER, RESOURCE_WORKER_LEVELS);
             LEVELS_MAP.put(EntityType.GOLD_MINE, GOLD_MINE_LEVELS);
             LEVELS_MAP.put(EntityType.IRON_MINE, IRON_MINE_LEVELS);
             LEVELS_MAP.put(EntityType.LUMBER_MILL, LUMBER_MILL_LEVELS);

@@ -7,12 +7,18 @@ public class Player {
     private Village village;
     private int wintotal;
     private int defenseVictory;
+    private int lossTotal;
+    private int defenseLosses;
+    private Village exploredVillage;
 
     public Player() {
         this.playerID = nextID++;
         this.village = new Village(this);
         this.wintotal = 0;
         this.defenseVictory = 0;
+        this.lossTotal = 0;
+        this.defenseLosses = 0;
+        this.exploredVillage = null;
     }
 
     public int getPlayerID() {
@@ -27,7 +33,7 @@ public class Player {
         this.village = village;
     }
 
-    public int getWintotal() {
+    public int getWinTotal() {
         return this.wintotal;
     }
 
@@ -41,5 +47,29 @@ public class Player {
 
     public void addDefenseVictory() {
         this.defenseVictory++;
+    }
+
+    public int getLossTotal() {
+        return this.lossTotal;
+    }
+
+    public void addLoss() {
+        this.lossTotal++;
+    }
+
+    public int getDefenseLosses() {
+        return this.defenseLosses;
+    }
+
+    public void addDefenseLoss() {
+        this.defenseLosses++;
+    }
+
+    public Village getExploredVillage() {
+        return exploredVillage;
+    }
+
+    public void setExploredVillage(Village exploredVillage) {
+        this.exploredVillage = exploredVillage;
     }
 }

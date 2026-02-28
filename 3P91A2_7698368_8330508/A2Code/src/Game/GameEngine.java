@@ -51,10 +51,13 @@ public class GameEngine {
             for (Village v : villages) {
                 v.doVillageWork(currentTime, doProduction);
                 if (currentTime >= v.getGuardedUntil()) {
-                    SimulationResult result = simulateAttack(generateArmy(v), v); //no need to add loot to the generated attackers
+                    SimulationResult result = simulateAttack(generateVillage(v), v); //no need to add loot to the generated attackers
                     // Track defense victory if village defended successfully
                     if (!result.isAttackerWin()) {
                         v.getOwner().addDefenseVictory();
+                    }
+                    else {
+                        v.getOwner().addDefenseLoss();
                     }
                     v.setGuardTime(currentTime); //safe for the next minute -> maybe change later
                     System.out.println("Attacked Happened");
@@ -148,13 +151,14 @@ public class GameEngine {
      * and then calculates the odds and determines if the attackers win the battle.
      * For loot calculations, only a max of 50% reosurces can be taken
      *
-     * @param attacker the attacker's army
+     * @param attackingVillage the attacker's village
      * @param defenderVillage the defender's village
      * @return SimulationResult which will be used in a separate method to handle the results
      * (like adding the loot to the attacker's resources, increasing num of wins etc.
      */
-    public SimulationResult simulateAttack(Army attacker, Village defenderVillage) {
+    public SimulationResult simulateAttack(Village attackingVillage, Village defenderVillage) {
         Random random = new Random();
+        Army attacker = attackingVillage.getArmy();
 
         //no need for complext attack/defence score calculations as all units have predefined stats that increase with every level
         //so all that needs to be calculated is the relevant stat (attack) to get the scores
@@ -196,19 +200,17 @@ public class GameEngine {
         return new SimulationResult(attackerWin, loot, winChance * 100.0);
     }
 
-    public void buildOrTrain(Player player, Entity e) throws NotEnoughResourcesException, MaxBuildingsExceededException, QueueFullException {
+    public void buildOrTrain(Player player, EntityType entityToAddType) throws NotEnoughResourcesException, MaxBuildingsExceededException, QueueFullException {
         Village village = player.getVillage();
         Resource resources = village.getResources();
-        EntityStats stats = e.getStats();
 
-        //get the level list for the entity
-        List<EntityStats> levelList = EntityLevelData.getLevels(e.getEntityType());
+        //get the level list for the entity type
+        List<EntityStats> levelList = EntityLevelData.getLevels(entityToAddType);
         if (levelList == null) {
-            throw new IllegalArgumentException("No level data for entity type: " + e.getEntityType());
+            throw new IllegalArgumentException("No level data for entity type: " + entityToAddType);
         }
 
         EntityStats firstLevelStats = levelList.get(0); //index 0 are the level 1 stats
-
         int goldCost = firstLevelStats.goldCost();
         int ironCost = firstLevelStats.ironCost();
         int lumberCost = firstLevelStats.lumberCost();
@@ -216,23 +218,29 @@ public class GameEngine {
         if (!resources.hasEnough(goldCost, ironCost, lumberCost)) {
             throw new NotEnoughResourcesException("Building/Training Failed: Not Enough Resources");
         } else {
-            EntityType entityToAddType = e.getEntityType();
             int timeSeconds = firstLevelStats.timeToCompletion();
             long completionTime = gameTime.getTime() + (timeSeconds * 1000L);
-            //different mechanisms for both as the process for their creation is somewhat different
-            if (e instanceof Inhabitant) {
+
+            //determine whether the entity to create is an inhabitant or building
+            boolean isInhabitant = switch (entityToAddType) {
+                case SOLDIER, ARCHER, KNIGHT, CATAPULT,
+                     RESOURCE_WORKER, GOLD_MINER, IRON_MINER, LUMBER_MINER,
+                     WORKER -> true;
+                default -> false;
+            };
+
+            if (isInhabitant) {
                 // enforce population cap provided by staffed farms
                 if (village.getInhabitants().size() >= village.totalPopulationCapacity()) {
                     throw new MaxBuildingsExceededException("Training Failed: Population cap reached");
                 }
                 resources.spend(goldCost, ironCost, lumberCost);
                 village.scheduleTrain(entityToAddType, completionTime);
-            }
-            else if (e instanceof Building) {
+            } else {
+                // treat as a building
                 if (village.getBuildings().size() >= MAX_NUM_BUILDINGS) {
                     throw new MaxBuildingsExceededException("Error: Max Number of Buildings Reached");
-                }
-                else if (village.getBuildQueue().size() >= village.workerCount()) {
+                } else if (village.getBuildQueue().size() >= village.workerCount()) {
                     throw new QueueFullException("Queue Full: No Idle Workers");
                 }
                 resources.spend(goldCost, ironCost, lumberCost);

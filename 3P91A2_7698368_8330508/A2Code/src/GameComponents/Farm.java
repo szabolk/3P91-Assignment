@@ -48,10 +48,7 @@ public class Farm extends Building {
     }
 
     public int supportedPopulation() {
-        if (!this.workers.isEmpty()) {
-            return POPULATION_PER_FARM;
-        }
-        return 0;
+        return POPULATION_PER_FARM;
     }
     @Override
     public EntityType getEntityType() {

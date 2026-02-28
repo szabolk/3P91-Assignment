@@ -5,7 +5,6 @@ import GameComponents.IAttacker;
 import java.util.ArrayList;
 import java.util.List;
 
-//Army for each village
 public class Army {
     private List<ArmyUnit> units;
 
@@ -30,7 +29,7 @@ public class Army {
     }
 
     /**
-     * Gets the attack score based on the total damage and attack of the army
+     * Gets the attack score based on the total damage and attack of the army -> used in calculating attack success/generating a village to attack
      * @return int - attack score used by GameEngine in attack simulation
      */
     public int getAttackScore() {
