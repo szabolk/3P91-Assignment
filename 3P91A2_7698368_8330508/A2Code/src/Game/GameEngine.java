@@ -43,7 +43,7 @@ public class GameEngine {
     /**
      * Should be the game loop
      */
-    public void runGame() {
+    public void run() {
         while (true) {
             long currentTime = gameTime.getTime();
             boolean doProduction = (currentTime - lastProductionTime >= TIME_BETWEEN_PRODUCTION);
@@ -51,8 +51,13 @@ public class GameEngine {
             for (Village v : villages) {
                 v.doVillageWork(currentTime, doProduction);
                 if (currentTime >= v.getGuardedUntil()) {
-                    simulateAttack(generateArmy(v), v); //no need to add loot to the generated attackers
-                    v.setGuardTime(); //safe for the next minute -> maybe change later
+                    SimulationResult result = simulateAttack(generateArmy(v), v); //no need to add loot to the generated attackers
+                    // Track defense victory if village defended successfully
+                    if (!result.isAttackerWin()) {
+                        v.getOwner().addDefenseVictory();
+                    }
+                    v.setGuardTime(currentTime); //safe for the next minute -> maybe change later
+                    System.out.println("Attacked Happened");
                 }
             }
             if (doProduction) {

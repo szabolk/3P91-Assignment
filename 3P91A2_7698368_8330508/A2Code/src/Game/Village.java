@@ -31,16 +31,32 @@ public class Village {
         this.resources = new Resource(this,500, 500, 500);
         this.army = new Army();
         this.defences = new Defences();
-        this.guardedUntil = System.currentTimeMillis() + (60 * 1000); //guarded for 60 seconds after creation (may change)
+        this.guardedUntil = 60000; //guarded for 60 seconds after creation (game time in ms)
         this.buildQueue = new ArrayList<>();
         this.trainQueue = new ArrayList<>();
 
         //Starting workers
-        for (int i = 0; i < 3; i++) {
-            //Adds both mine/mill workers and construction/farm workers
-            this.inhabitants.add(new ResourceWorker());
-            this.inhabitants.add(new Worker());
-        }
+        this.inhabitants.add(new GoldMiner());
+        this.inhabitants.add(new IronMiner());
+        this.inhabitants.add(new LumberMiner());
+        this.inhabitants.add(new Worker());
+        this.inhabitants.add(new Worker());
+        
+        //Starting army units so player doesn't get steamrolled
+        this.army.addUnit(new Soldier());
+        this.army.addUnit(new Archer());
+        this.army.addUnit(new Catapult());
+        
+        //Starting defense buildings and one of each resource building so the player just cant go bankrupt if they forget to build a specific type
+        ArcherTower tower1 = new ArcherTower();
+        ArcherTower tower2 = new ArcherTower();
+        this.defences.addDefenceBuilding(tower1);
+        this.defences.addDefenceBuilding(tower2);
+        this.buildings.add(tower1);
+        this.buildings.add(tower2);
+        this.buildings.add(new GoldMine());
+        this.buildings.add(new IronMine());
+        this.buildings.add(new LumberMill());
     }
 
     //This will be used when generating villages. Figure out what number to go
@@ -67,11 +83,11 @@ public class Village {
         this.resources = new Resource(this, gold, iron, lumber);
         this.army = new Army();
         this.defences = new Defences();
-        this.guardedUntil = 60;
+        this.guardedUntil = 10;
         this.buildQueue = new ArrayList<>();
         this.trainQueue = new ArrayList<>();
 
-        //Starting workers (keep same as default)
+        //Starting workers (keep same as default), and a few units so the player doesnt get steamrolled
         for (int i = 0; i < 3; i++) {
             this.inhabitants.add(new ResourceWorker());
             this.inhabitants.add(new Worker());
@@ -166,11 +182,11 @@ public class Village {
 
     /**
      * After a village (player only?) gets attacked, after the attack the village goes into
-     * guard mode for a set period of time (1 minute offset from the current time)
+     * guard mode for a set period of time (1 minute offset from the current game time)
      *
      */
-    public void setGuardTime() {
-        this.guardedUntil = System.currentTimeMillis() + (60 * 1000);
+    public void setGuardTime(long currentGameTime) {
+        this.guardedUntil = currentGameTime + (60 * 1000);
     }
     
     /**
@@ -226,24 +242,94 @@ public class Village {
 
     /**
      * Every certain amount of time, this method will run and add resources to each player's resource pool based on their production rates for each resource
+     * This so needs to be refactored (since all 3 mines extend ResourceBuilding and all 3 miners extend ResourceWorker, should be possible to do with wildcards)
      */
     private void collectAllResources() {
         Resource resources = getResources();
-        getBuildings().stream()
-                .filter(building -> building instanceof ResourceBuilding)
-                .forEach(building -> {
-                    ResourceBuilding resourceBuilding = (ResourceBuilding) building;
-                    int production = resourceBuilding.production();
 
-                    //determine what type the resource building is and add its production rate to that resource
-                    if (resourceBuilding instanceof GoldMine) {
-                        resources.addResource(ResourceType.GOLD, production);
-                    } else if (resourceBuilding instanceof IronMine) {
-                        resources.addResource(ResourceType.IRON, production);
-                    } else if (resourceBuilding instanceof LumberMill) {
-                        resources.addResource(ResourceType.LUMBER, production);
-                    }
-                });
+        List<GoldMine> goldMines = new ArrayList<>();
+        //get the list of all goldmines a player has
+        for (Building b : getBuildings()) {
+            if (b instanceof GoldMine) {
+                goldMines.add((GoldMine)b);
+            }
+        }
+        //calculate the number of gold miners to be counted (ex. If a player has 6 gold miners but only 1 mine, then only 5 of them would be counted)
+        int goldCapacity = goldMines.stream()
+                                    .mapToInt(b -> ((ResourceBuilding)b).getWorkerCapacity()).sum();
+
+        List<ResourceWorker> goldMiners = new ArrayList<>();
+
+        for (Inhabitant inhabitant : inhabitants) {
+            if (inhabitant instanceof GoldMiner) {
+                goldMiners.add((ResourceWorker)inhabitant);
+            }
+        }
+        //sort the workers so that the highest level workers (which have a higher production rate) are prioritized over lower level ones
+        goldMiners.sort((a,b)->Integer.compare(b.getProductionRate(), a.getProductionRate()));
+
+        int goldCounted = Math.min(goldCapacity, goldMiners.size()); //either holds the max amount of gold miners (based on number of mines), or however many workers there are (ex. 2 mines, but only 6 workers will return 6 instead of 10)
+        int goldProduced = 0;
+        for (int i = 0; i < goldCounted; i++) {
+            goldProduced += goldMiners.get(i).getProductionRate();
+        }
+        resources.addResource(ResourceType.GOLD, goldProduced);
+
+        List<IronMine> ironMines = new ArrayList<>();
+        //get the list of all ironmines a player has
+        for (Building b : getBuildings()) {
+            if (b instanceof IronMine) {
+                ironMines.add((IronMine)b);
+            }
+        }
+        //calculate the number of iron miners to be counted (ex. If a player has 6 iron miners but only 1 mine, then only 5 of them would be counted)
+        int ironCapacity = ironMines.stream()
+                .mapToInt(b -> ((ResourceBuilding)b).getWorkerCapacity()).sum();
+
+        List<ResourceWorker> ironMiners = new ArrayList<>();
+
+        for (Inhabitant inhabitant : inhabitants) {
+            if (inhabitant instanceof IronMiner) {
+                ironMiners.add((ResourceWorker)inhabitant);
+            }
+        }
+        //sort the workers so that the highest level workers (which have a higher production rate) are prioritized over lower level ones
+        ironMiners.sort((a,b)->Integer.compare(b.getProductionRate(), a.getProductionRate()));
+
+        int ironCounted = Math.min(ironCapacity, ironMiners.size()); //either holds the max amount of iron miners (based on number of mines), or however many workers there are (ex. 2 mines, but only 6 workers will return 6 instead of 10)
+        int ironProduced = 0;
+        for (int i = 0; i < ironCounted; i++) {
+            ironProduced += ironMiners.get(i).getProductionRate();
+        }
+        resources.addResource(ResourceType.IRON, ironProduced);
+
+        List<LumberMill> lumberMills = new ArrayList<>();
+        //get the list of all goldmines a player has
+        for (Building b : getBuildings()) {
+            if (b instanceof LumberMill) {
+                lumberMills.add((LumberMill)b);
+            }
+        }
+        //calculate the number of gold miners to be counted (ex. If a player has 6 gold miners but only 1 mine, then only 5 of them would be counted)
+        int lumberCapacity = lumberMills.stream()
+                .mapToInt(b -> ((ResourceBuilding)b).getWorkerCapacity()).sum();
+
+        List<ResourceWorker> lumberMiners = new ArrayList<>();
+
+        for (Inhabitant inhabitant : inhabitants) {
+            if (inhabitant instanceof LumberMiner) {
+                lumberMiners.add((ResourceWorker)inhabitant);
+            }
+        }
+        //sort the workers so that the highest level workers (which have a higher production rate) are prioritized over lower level ones
+        lumberMiners.sort((a,b)->Integer.compare(b.getProductionRate(), a.getProductionRate()));
+
+        int lumberCounted = Math.min(lumberCapacity, lumberMiners.size()); //either holds the max amount of gold miners (based on number of mines), or however many workers there are (ex. 2 mines, but only 6 workers will return 6 instead of 10)
+        int lumberProduced = 0;
+        for (int i = 0; i < lumberCounted; i++) {
+            lumberProduced += lumberMiners.get(i).getProductionRate();
+        }
+        resources.addResource(ResourceType.LUMBER, lumberProduced);
     }
 
     private void checkBuildTrainQueues(long currentTime) {

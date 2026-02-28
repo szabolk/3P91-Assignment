@@ -10,6 +10,9 @@ public class EntityCreator {
             case KNIGHT -> new Knight();
             case CATAPULT -> new Catapult();
             case RESOURCE_WORKER -> new ResourceWorker();
+            case GOLD_MINER -> new GoldMiner();
+            case IRON_MINER -> new IronMiner();
+            case LUMBER_MINER -> new LumberMiner();
             case WORKER -> new Worker();
             default -> throw new IllegalArgumentException("Not an inhabitant: " + type);
         };
