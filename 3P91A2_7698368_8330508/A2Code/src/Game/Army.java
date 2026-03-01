@@ -5,6 +5,9 @@ import GameComponents.IAttacker;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Used in Villages to hold army units and attack other villages
+ */
 public class Army {
     private List<ArmyUnit> units;
 

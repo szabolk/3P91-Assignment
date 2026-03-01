@@ -1,6 +1,8 @@
 package Game;
 
-//Keeps the time of the game/upgrades/building
+/**
+ * This class keeps track of the game time used in GameEngine
+ */
 public class Time {
     private long startTime;
 

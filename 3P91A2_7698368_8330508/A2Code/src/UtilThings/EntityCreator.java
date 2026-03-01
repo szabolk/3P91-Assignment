@@ -2,6 +2,9 @@ package UtilThings;
 
 import GameComponents.*;
 
+/**
+ * Class which just decouples the creation of entities for less cluttered code
+ */
 public class EntityCreator {
     public static Inhabitant createNewInhabitant(EntityType type) {
         return switch (type) {
@@ -9,7 +12,6 @@ public class EntityCreator {
             case ARCHER -> new Archer();
             case KNIGHT -> new Knight();
             case CATAPULT -> new Catapult();
-            case RESOURCE_WORKER -> new ResourceWorker();
             case GOLD_MINER -> new GoldMiner();
             case IRON_MINER -> new IronMiner();
             case LUMBER_MINER -> new LumberMiner();

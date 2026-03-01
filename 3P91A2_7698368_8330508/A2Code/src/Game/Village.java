@@ -11,7 +11,10 @@ import java.util.stream.Collectors;
 
 import static Game.GameEngine.MAX_NUM_BUILDINGS;
 
-
+/**
+ * This class contains all information relevant to a village, like its buildings, inhabitants,
+ * army, defences, village hall. Keeps tracks of what entities are being built, upgraded, trained, etc.
+ */
 public class Village {
     private Player owner;
     private VillageHall villageHall;
@@ -93,15 +96,11 @@ public class Village {
         this.defences = new Defences();
         this.buildQueue = new ArrayList<>();
         this.trainQueue = new ArrayList<>();
-
-        //Starting workers (keep same as default), and a few units so the player doesnt get steamrolled
-        for (int i = 0; i < 3; i++) {
-            this.inhabitants.add(new ResourceWorker());
-            this.inhabitants.add(new Worker());
-        }
     }
 
-
+    /**
+     * This class defines how tasks within the build/train are structured
+     */
     public static class QueueTask {
         private final EntityType type;
         private final long completionTime;
@@ -189,7 +188,7 @@ public class Village {
     }
 
     /**
-     * After a village (player only?) gets attacked, after the attack the village goes into
+     * After a village (player only) gets attacked, after the attack the village goes into
      * guard mode for a set period of time (1 minute offset from the current game time)
      *
      */
@@ -207,18 +206,6 @@ public class Village {
     public int workerCount() {
         return (int) inhabitants.stream()
                 .filter(inhabitant -> inhabitant instanceof Worker)
-                .count();
-    }
-
-    /**
-     * Count how many workers are assigned to Farm buildings. Determines the max population
-     * @return number of workers currently working on farms
-     */
-    public int workersOnFarmsCount() {
-        return (int) inhabitants.stream()
-                .filter(inhabitant -> inhabitant instanceof Worker)
-                .map(inhabitant -> (Worker) inhabitant)
-                .filter(worker -> worker.getAssignedBuilding() instanceof Farm)
                 .count();
     }
 
@@ -318,14 +305,31 @@ public class Village {
     }
 
 
+    /**
+     * This method is used whenever a build instruction is given
+     * @param type - type of building the player wants
+     * @param completionTime - time the task will finish at
+     */
     public void scheduleBuild(EntityType type, long completionTime) {
         this.buildQueue.add(new QueueTask(type, completionTime));
     }
 
+    /**
+     * This method is used whenever the player wants to upgrade an existing building
+     * @param type - the type of building so it knows what stats to grab
+     * @param buildingToUpgrade - the actual building object
+     * @param nextLevelStats - the next level stats from EntityStats
+     * @param completionTime - time the task will finish at
+     */
     public void scheduleBuildingUpgrade(EntityType type, Building buildingToUpgrade, EntityStats nextLevelStats, long completionTime) {
         this.buildQueue.add(new QueueTask(type, buildingToUpgrade, nextLevelStats, completionTime));
     }
 
+    /**
+     * Used when a player wants to train a new unit
+     * @param type - type of inhabitant the user wants
+     * @param completionTime - time the task will finish at
+     */
     public void scheduleTrain(EntityType type, long completionTime) {
         this.trainQueue.add(new QueueTask(type, completionTime));
     }

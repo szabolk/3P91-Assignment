@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
 
-//Controls the game (maybe do a canUpdate/canTrain/canBuild here as well?)
+/**
+ * Controls what is built, upgraded, trained, etc. Determines when resources are collected and attacks
+ * are done on player villages.
+ */
 public class GameEngine {
-
     //variables/constants for tracking producing resources
     private long lastProductionTime = 0;
     private static final long TIME_BETWEEN_PRODUCTION = 5000;
-    private static final long TIME_BETWEEN_ATTACKS = 10000; //used for calculating if an attack can happen
     public static final int MAX_NUM_BUILDINGS = 20; //for now, idk what max limit should be
-
     private Time gameTime;
     private List<Village> villages;
 
@@ -25,6 +25,11 @@ public class GameEngine {
         this.villages = new ArrayList<>();
     }
 
+    /**
+     * This is used during the creation of the game. Adds the villages of player's to villages list
+     * so the engine can interact with them.
+     * @param village - A player's village
+     */
     public void addVillage(Village village) {
         if (village == null) {
             throw new IllegalArgumentException("Village cannot be null");
@@ -41,7 +46,9 @@ public class GameEngine {
     }
 
     /**
-     * Should be the game loop
+     * This is used in order to time when resources are to be produced and attacks on player villages
+     * should happen. Runs alongside the main UI loop of the game using a separate thread to manage this
+     * logic.
      */
     public void run() {
         while (true) {
@@ -52,7 +59,7 @@ public class GameEngine {
                 v.doVillageWork(currentTime, doProduction);
                 if (currentTime >= v.getGuardedUntil()) {
                     SimulationResult result = simulateAttack(generateVillage(v), v); //no need to add loot to the generated attackers
-                    // Track defense victory if village defended successfully
+                    //if the player's village defends, then increment their defense win score, else its counts as a loss
                     if (!result.isAttackerWin()) {
                         v.getOwner().addDefenseVictory();
                     }
@@ -62,6 +69,7 @@ public class GameEngine {
                     v.setGuardTime(currentTime); //safe for the next minute -> maybe change later
                 }
             }
+            //basically if resources got produced, update the times so production will happen again in the correct amount of time
             if (doProduction) {
                 lastProductionTime = currentTime;
             }
@@ -91,6 +99,7 @@ public class GameEngine {
         //generate random resources for the enemy village based on the player village stats
         int maxAmountPerResource = 1000 * playerVillageHallLevel;
         int minAmountPerResource = Math.max(0, maxAmountPerResource / 2); //resources at minimum are 50% of player's
+        //randomly determines the amount of each resource the enemy village has baeed on the player's
         int gold = random.nextInt(maxAmountPerResource - minAmountPerResource + 1) + minAmountPerResource;
         int iron = random.nextInt(maxAmountPerResource - minAmountPerResource + 1) + minAmountPerResource;
         int lumber = random.nextInt(maxAmountPerResource - minAmountPerResource + 1) + minAmountPerResource;
@@ -116,7 +125,7 @@ public class GameEngine {
             currentAttack = enemy.getArmy().getAttackScore();
         }
 
-        //make defenses similar to player
+        //make defenses similar to player, same logic as the army creation above
         int targetDefence = Math.max(1, (int) (playerAttackScore * (0.4 + random.nextDouble() * 0.7)));
         int currentDefence = enemy.getDefences().getDefenceScore();
 
@@ -140,6 +149,13 @@ public class GameEngine {
         return generateVillage(playerVillage).getArmy();
     }
 
+    /**
+     * This simply creates a village when a player decides to explore. Once a village is created
+     * the village is assigned to the player (see Player.java), so that if the player wishes to attack
+     * then they can, otherwise they can reroll the village until they are satisfied.
+     * @param playerVillage - A player's village
+     * @return - returns a village that is then assigned to the player
+     */
     public Village exploreAttack(Village playerVillage) {
         return generateVillage(playerVillage);
     }
@@ -182,14 +198,13 @@ public class GameEngine {
             //logically would do less destruction to the village) -> should get less loot
             double percentResourceTaken = Math.min(resourceCap, winChance);
 
+            //calculates the amount of loot taken (based on the defending villages resources and the percentage)
             int goldLoot = (int) Math.round(defendingVillageResources.getGold() * percentResourceTaken);
             int ironLoot = (int) Math.round(defendingVillageResources.getIron() * percentResourceTaken);
             int lumberLoot = (int) Math.round(defendingVillageResources.getLumber() * percentResourceTaken);
 
             //take resources from losing village
             defendingVillageResources.spend(goldLoot, ironLoot, lumberLoot);
-
-            //idk for the loot if it matters if we put the defending village or the attacking village
             loot = new GameComponents.Resource(defenderVillage, goldLoot, ironLoot, lumberLoot);
         } else {
             //if the attacker lost, they get nothing
@@ -199,6 +214,15 @@ public class GameEngine {
         return new SimulationResult(attackerWin, loot, winChance * 100.0);
     }
 
+    /**
+     *
+     * @param player - the player who wishes to build
+     * @param entityToAddType - the type from within the EntityType enum type the player wishes to build or train
+     * @throws NotEnoughResourcesException - Will throw if the player doesnt have enough resources
+     * @throws MaxBuildingsExceededException - Will throw if the player's amount of buildings have reached the limit
+     * @throws QueueFullException - Will throw if the build queue is full. For the building queue, this means that no idle
+     * worker exists and therefore cannot build
+     */
     public void buildOrTrain(Player player, EntityType entityToAddType) throws NotEnoughResourcesException, MaxBuildingsExceededException, QueueFullException {
         Village village = player.getVillage();
         Resource resources = village.getResources();
@@ -209,6 +233,7 @@ public class GameEngine {
             throw new IllegalArgumentException("No level data for entity type: " + entityToAddType);
         }
 
+        //get the gold, iron, and lumber cost listed (see EntityStats for more details on specific costs or stats)
         EntityStats firstLevelStats = levelList.get(0); //index 0 are the level 1 stats
         int goldCost = firstLevelStats.goldCost();
         int ironCost = firstLevelStats.ironCost();
@@ -248,7 +273,15 @@ public class GameEngine {
         }
     }
 
-    public void upgrade(Player player, IUpgradeable e) throws NotEnoughResourcesException, MaxLevelException, QueueFullException {
+    /**
+     *
+     * @param player - Player that wants to upgrade
+     * @param e - The entity the player wants to upgrade
+     * @throws NotEnoughResourcesException - Will throw if player doesnt have enough resources
+     * @throws UpgradeFailedException - WIll throw if the entity they are trying to upgrade is already max level
+     * @throws QueueFullException - WIll throw if the build queue does not have any idle workers
+     */
+    public void upgrade(Player player, IUpgradeable e) throws NotEnoughResourcesException, UpgradeFailedException, QueueFullException {
         Village village = player.getVillage();
         Resource resources = village.getResources();
         //get the level list for the entity
@@ -262,11 +295,15 @@ public class GameEngine {
         int maxLevel = levelList.size(); //uses the size of the level lists to determine how many levels a unit has (Ex. a soldier has 3 stat lines so 3 levels, village hall has 6 statlines -> 6 levels)
 
         if (currentLevel >= maxLevel) {
-            throw new MaxLevelException("Upgrade Failed: Already at max level");
+            throw new UpgradeFailedException("Upgrade Failed: Already at max level");
         }
 
         //next-level stats are at index currentLevel (Ex. index 0 = level 1, index 1 = level 2, etc.)
         EntityStats nextStats = levelList.get(currentLevel); //Current level is the index of the next level in the list
+
+        if (player.getVillage().getVillageHall().getStats().level() < nextStats.villageHallReq()) {
+            throw new UpgradeFailedException("Upgrade Failed: Village Hall is too low level");
+        }
 
         if (!resources.hasEnough(nextStats.goldCost(), nextStats.ironCost(), nextStats.lumberCost())) {
             throw new NotEnoughResourcesException("Upgrade Failed: Not Enough Resources");
@@ -301,12 +338,12 @@ public class GameEngine {
         }
     }
 
-    public static class MaxLevelException extends Exception {
-        public MaxLevelException(String s) {
+    public static class UpgradeFailedException extends Exception {
+        public UpgradeFailedException(String s) {
             super(s);
         }
 
-        public MaxLevelException(String s, Throwable cause) {
+        public UpgradeFailedException(String s, Throwable cause) {
             super(s, cause);
         }
     }

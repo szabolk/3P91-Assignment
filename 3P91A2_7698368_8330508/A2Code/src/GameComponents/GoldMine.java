@@ -11,6 +11,7 @@ public class GoldMine extends ResourceBuilding {
     public GoldMine(int level) {
         super(EntityLevelData.GOLD_MINE_LEVELS.get(level - 1));
     }
+
     @Override
     public EntityType getEntityType() {
         return EntityType.GOLD_MINE;

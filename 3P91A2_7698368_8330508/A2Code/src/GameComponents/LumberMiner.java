@@ -4,6 +4,7 @@ import UtilThings.EntityType;
 
 public class LumberMiner extends ResourceWorker {
     public LumberMiner() { this(1); }
+
     public LumberMiner(int level) { super(level); }
 
     @Override

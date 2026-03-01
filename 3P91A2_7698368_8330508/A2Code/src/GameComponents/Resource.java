@@ -3,6 +3,9 @@ package GameComponents;
 import UtilThings.ResourceType;
 import Game.Village;
 
+/**
+ * This class defines the structure of how resources are handled and managed
+ */
 public class Resource {
     private int gold;
     private int iron;
@@ -28,6 +31,11 @@ public class Resource {
         return this.lumber;
     }
 
+    /**
+     * Determines the max amount of any resource a village can hold at any time
+     * @param type - used to find the max amount of that type of resource
+     * @return - returns the max resource value a village can have at a single time
+     */
     public int getMaxResource(ResourceType type) {
         int villageHallLevel = village.getVillageHall().getStats().level();
         int max = 1000 * villageHallLevel;
@@ -40,6 +48,13 @@ public class Resource {
         };
     }
 
+    /**
+     * Adds a particular resource to the village total. If the amount of resources added makes it
+     * so the amount of that resource is greater than the max, it will just maintain the resource as
+     * its predefined max value
+     * @param type - resource to add to
+     * @param amount - the amount of resource to be added
+     */
     public void addResource(ResourceType type, int amount) {
         int max = getMaxResource(type);
         switch (type) {
