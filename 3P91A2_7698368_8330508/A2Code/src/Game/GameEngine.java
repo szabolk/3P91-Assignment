@@ -265,14 +265,21 @@ public class GameEngine {
 
             if (isInhabitant) {
                 // enforce population cap provided by staffed farms
-                if (village.getInhabitants().size() >= village.totalPopulationCapacity()) {
+                if ((village.getInhabitants().size() + village.getTrainQueue().size()) >= village.totalPopulationCapacity()) {
                     throw new MaxBuildingsExceededException("Training Failed: Population cap reached");
                 }
                 resources.spend(goldCost, ironCost, lumberCost);
                 village.scheduleTrain(entityToAddType, completionTime);
             } else {
                 // treat as a building
-                if (village.getBuildings().size() >= MAX_NUM_BUILDINGS) {
+                //this stream is used when checking if a new building is able to be built
+                //This prevents the players from spamming buildings before they are made (which wouldnt be in the buildings list)
+                //which would lead to the getBuildings().size() being incorrect
+                long queuedBuildings = village.getBuildQueue().stream()
+                        .filter(task -> task.getExistingBuilding() == null)
+                        .count();
+
+                if (village.getBuildings().size() + queuedBuildings >= MAX_NUM_BUILDINGS) {
                     throw new MaxBuildingsExceededException("Error: Max Number of Buildings Reached");
                 } else if (village.getBuildQueue().size() >= village.workerCount()) {
                     throw new QueueFullException("Queue Full: No Idle Workers");

@@ -263,7 +263,12 @@ public class Village {
                 .collect(Collectors.toList());
 
         //sorts the workers in descending order of production rate so that the highest production has more priority
-        workers.sort(Comparator.comparingInt(ResourceWorker::getProductionRate).reversed());
+        workers.sort(new Comparator<ResourceWorker>() {
+            @Override
+            public int compare(ResourceWorker a, ResourceWorker b) {
+                return Integer.compare(b.getProductionRate(), a.getProductionRate());
+            }
+        });
 
         //only uses worker production based on the number of buildings and how many workers COULD physically be working (based on the limits of the resource buildings)
         //Ex. If the player has only 1 gold mine (with a worker limit of 5) and 6 workers, then only the highest 5 production workers will be counted
