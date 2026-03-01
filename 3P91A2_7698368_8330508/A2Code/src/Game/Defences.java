@@ -6,7 +6,9 @@ import GameComponents.IAttacker;
 import java.util.ArrayList;
 import java.util.List;
 
-//Defence buildings for each village
+/**
+ * Used in Villages to hold defence buildings and defend against other villages' attacks
+ */
 public class Defences {
     private List<DefenceBuilding> defenceBuildings;
 

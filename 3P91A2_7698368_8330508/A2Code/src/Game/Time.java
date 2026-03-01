@@ -1,6 +1,8 @@
 package Game;
 
-//Keeps the time of the game/upgrades/building
+/**
+ * This class keeps track of the game time used in GameEngine
+ */
 public class Time {
     private long startTime;
 
@@ -14,15 +16,5 @@ public class Time {
      */
     public int getTime() {
         return (int)(System.currentTimeMillis() - startTime);
-    }
-
-    /**
-     * Checks if an event, like if a building is finished building
-     *
-     * @param time - the finish time of the specific event
-     * @return boolean - true if event is finished, false if not
-     */
-    public boolean eventFinished(int time) {
-        return getTime() >= time;
     }
 }

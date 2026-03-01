@@ -2,12 +2,8 @@ package GameComponents;
 
 import UtilThings.*;
 
-public class ResourceWorker extends Inhabitant {
+public abstract class ResourceWorker extends Inhabitant {
     private int productionRate;
-
-    public ResourceWorker() {
-        this(1);
-    }
 
     public ResourceWorker(int level) {
         super(EntityLevelData.RESOURCE_WORKER_LEVELS.get(level - 1));
@@ -21,9 +17,5 @@ public class ResourceWorker extends Inhabitant {
 
     public int getProductionRate() {
         return productionRate;
-    }
-
-    public void setProductionRate(int productionRate) {
-        this.productionRate = productionRate;
     }
 }

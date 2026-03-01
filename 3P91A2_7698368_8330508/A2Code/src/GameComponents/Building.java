@@ -2,7 +2,9 @@ package GameComponents;
 
 import UtilThings.EntityStats;
 
-//Stuff related to buildings
+/**
+ * The parent class of all buildings (like gold mines or archer towers)
+ */
 public abstract class Building extends Entity implements IAttackable {
     protected int currentHp;
     protected int maxHP;
@@ -29,12 +31,19 @@ public abstract class Building extends Entity implements IAttackable {
         return this.currentHp;
     }
 
+    /**
+     * Updates the dynamic stats (hp) in addition to the static stats
+     * @param newStats - new stats
+     */
     @Override
     public void setStats(EntityStats newStats) {
         super.setStats(newStats);
         this.maxHP = newStats.hp();
         this.currentHp = newStats.hp();
     }
+
+    //These two methods below are used when calculating defence score, with buildings
+    //not under construction only being counted
 
     public boolean isUnderConstruction() {
         return this.underConstruction;

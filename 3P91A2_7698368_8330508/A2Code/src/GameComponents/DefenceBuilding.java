@@ -2,7 +2,9 @@ package GameComponents;
 
 import UtilThings.EntityStats;
 
-//Stuff related to defence buildings
+/**
+ * Used by the defence buildings (archer tower and cannon)
+ */
 public abstract class DefenceBuilding extends Building implements IAttacker {
     protected int damage;
     protected int range;

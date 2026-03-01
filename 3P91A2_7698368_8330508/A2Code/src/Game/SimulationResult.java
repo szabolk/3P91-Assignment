@@ -3,6 +3,11 @@ package Game;
 import GameComponents.Resource;
 
 //This is instantiated based on when a village is attacked to determine amount of loot and what not
+
+/**
+ * This class is used to give information about the results of any attack that happens so that keeping
+ * track of wins/losses, resource takes, and other things are easier to work with
+ */
 public class SimulationResult {
     private boolean attackerWin;
     private Resource loot;
@@ -13,6 +18,8 @@ public class SimulationResult {
         this.loot = loot;
         this.successPercentage = successPercentage;
     }
+
+    //All self-explanatory methods
 
     public boolean isAttackerWin() {
         return attackerWin;

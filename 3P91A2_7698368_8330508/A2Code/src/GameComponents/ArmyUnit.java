@@ -2,7 +2,9 @@ package GameComponents;
 
 import UtilThings.EntityStats;
 
-//Stuff related to army units
+/**
+ * The parent of all army units (like solider)
+ */
 public abstract class ArmyUnit extends Inhabitant implements IAttacker, IAttackable {
     protected int hp;
     protected int maxHP;
@@ -39,6 +41,12 @@ public abstract class ArmyUnit extends Inhabitant implements IAttacker, IAttacka
         return this.hp;
     }
 
+    /**
+     * Whenever a new army unit is built, in addition to the stats itself being updated,
+     * it also updates the hp, damage, and range needed because these values can change (like
+     * the unit taking damage)
+     * @param newStats - The new set of stats
+     */
     @Override
     public void setStats(EntityStats newStats) {
         super.setStats(newStats);

@@ -1,6 +1,8 @@
 package Game;
 
-//Information about a player
+/**
+ * Used to hold information about a player, like their specific village, id, wins, losses, etc.
+ */
 public class Player {
     private static int nextID = 1;
     private int playerID;
@@ -20,6 +22,8 @@ public class Player {
         this.defenseLosses = 0;
         this.exploredVillage = null;
     }
+
+    //All these methods are just getters/setter or super basic, no need to comment them all
 
     public int getPlayerID() {
         return this.playerID;

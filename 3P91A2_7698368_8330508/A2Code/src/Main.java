@@ -313,7 +313,7 @@ public class Main {
             System.out.println(selected.getEntityType() + " upgrade scheduled successfully!");
         } catch (GameEngine.NotEnoughResourcesException e) {
             System.out.println("Error: " + e.getMessage());
-        } catch (GameEngine.MaxLevelException e) {
+        } catch (GameEngine.UpgradeFailedException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (GameEngine.QueueFullException e) {
             System.out.println("Error: " + e.getMessage());
