@@ -60,11 +60,14 @@ public class GameEngine {
                 if (currentTime >= v.getGuardedUntil()) {
                     SimulationResult result = simulateAttack(generateVillage(v), v); //no need to add loot to the generated attackers
                     //if the player's village defends, then increment their defense win score, else its counts as a loss
+                    GameLogger.log("Player Village Attacked (Guard time fell off)");
                     if (!result.isAttackerWin()) {
                         v.getOwner().addDefenseVictory();
+                        GameLogger.log("Player Defence Win - success chance was " + String.format("%.1f%%", 100-result.getSuccessPercentage()));
                     }
                     else {
                         v.getOwner().addDefenseLoss();
+                        GameLogger.log("Player Defence Loss - success chance was " + String.format("%.1f%%", 100-result.getSuccessPercentage()));
                     }
                     v.setGuardTime(currentTime); //safe for the next minute -> maybe change later
                 }
@@ -212,6 +215,13 @@ public class GameEngine {
         }
 
         return new SimulationResult(attackerWin, loot, winChance * 100.0);
+    }
+
+    public void addLootToPlayer(Player player, Resource loot) {
+        player.getVillage().getResources().addResource(ResourceType.GOLD, loot.getGold());
+        player.getVillage().getResources().addResource(ResourceType.IRON, loot.getIron());
+        player.getVillage().getResources().addResource(ResourceType.LUMBER, loot.getLumber());
+
     }
 
     /**

@@ -237,6 +237,7 @@ public class Village {
         collectResource(GoldMine.class, GoldMiner.class, ResourceType.GOLD);
         collectResource(IronMine.class, IronMiner.class, ResourceType.IRON);
         collectResource(LumberMill.class, LumberMiner.class, ResourceType.LUMBER);
+        GameLogger.log("Resources produced (Added to Player)");
     }
 
     /**
@@ -283,11 +284,13 @@ public class Village {
                     Building newBuilding = EntityCreator.createNewBuilding(currentBuilding.getType());
                     newBuilding.setUnderConstruction(false);
                     addBuilding(newBuilding);
+                    GameLogger.log(newBuilding.getEntityType() + " Building Finished");
                 }
                 else { //this means there is an exisiting building -> means its an upgrade
                     Building upgradedBuilding = currentBuilding.getExistingBuilding();
                     upgradedBuilding.setStats(currentBuilding.getNextStats()); //building's hp will be updated and refilled to max
                     upgradedBuilding.setUnderConstruction(false);
+                    GameLogger.log(upgradedBuilding.getEntityType() + " Upgrade Finished" );
                 }
                 buildQueueIterator.remove();
             }

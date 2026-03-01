@@ -1,10 +1,6 @@
 import Game.*;
 import GameComponents.*;
-import Game.Army;
-import UtilThings.EntityStats;
-import UtilThings.EntityLevelData;
-import UtilThings.EntityType;
-import UtilThings.ResourceType;
+import UtilThings.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +13,7 @@ public class Main {
         GameEngine engine = new GameEngine();
         Player player = new Player();
         engine.addVillage(player.getVillage());
+        GameLogger.log("Game started.");
 
         //this is used for the real time
         Thread gameThread = new Thread(() -> engine.run());
@@ -37,7 +34,10 @@ public class Main {
                 case "6" -> printAllBuildings(player.getVillage());
                 case "7" -> printAllInhabitants(player.getVillage());
                 case "8" -> displayQueues(player.getVillage(), engine);
-                case "0" -> isRunning = false;
+                case "0" -> {
+                    isRunning = false;
+                    GameLogger.log("Game ended.\n");
+                }
                 default -> System.out.println("Invalid Choice");
             }
         }
@@ -135,6 +135,7 @@ public class Main {
                 try {
                     engine.buildOrTrain(player, selectedType);
                     System.out.println(selectedType + " scheduled successfully!");
+                    GameLogger.log("BUILD/TRAIN queued: " + selectedType);
                 } catch (GameEngine.NotEnoughResourcesException e) {
                     System.out.println("Error: " + e.getMessage());
                 } catch (GameEngine.MaxBuildingsExceededException e) {
@@ -189,15 +190,14 @@ public class Main {
             System.out.println("  Lumber: +" + loot.getLumber());
 
             //Add loot to player's resources
-            player.getVillage().getResources().addResource(ResourceType.GOLD, loot.getGold());
-            player.getVillage().getResources().addResource(ResourceType.IRON, loot.getIron());
-            player.getVillage().getResources().addResource(ResourceType.LUMBER, loot.getLumber());
-
+            engine.addLootToPlayer(player, loot);
+            GameLogger.log("Attack Win — loot: " + loot.getGold() + "g " + loot.getIron() + "i " + loot.getLumber() + "l");
         }
         else {
             System.out.println("Attack Result: Loss");
             System.out.println("\nNo resources gained.");
             player.addLoss();
+            GameLogger.log("Attack Loss — success chance was " + String.format("%.1f%%", result.getSuccessPercentage()));
         }
         System.out.printf("Attack success chance was %.1f%%", result.getSuccessPercentage());
         player.setExploredVillage(null); //after attacking a village, make it so the player cant attack it again
@@ -289,7 +289,7 @@ public class Main {
         try {
             choice = Integer.parseInt(input);
         } catch (NumberFormatException e) { //in case the player enters something that isnt an int
-            System.out.println("Invalid choice");
+            System.out.println("Invalid choice: Please choose a number between 1 and " + upgradeables.size());
             return;
         }
 
@@ -311,6 +311,7 @@ public class Main {
         try {
             engine.upgrade(player, selected);
             System.out.println(selected.getEntityType() + " upgrade scheduled successfully!");
+            GameLogger.log("Upgrade queued: " + selected.getEntityType() + " to level " + (currentLevel + 1));
         } catch (GameEngine.NotEnoughResourcesException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (GameEngine.UpgradeFailedException e) {

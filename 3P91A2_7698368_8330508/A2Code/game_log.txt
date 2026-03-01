@@ -1,0 +1,44 @@
+[2026-03-01 14:31:54] Game started.
+[2026-03-01 14:31:57] BUILD/TRAIN queued: FARM
+[2026-03-01 14:31:58] BUILD/TRAIN queued: IRON_MINE
+[2026-03-01 14:31:59] Resources produced (Added to Player)
+[2026-03-01 14:32:04] Resources produced (Added to Player)
+[2026-03-01 14:32:09] Resources produced (Added to Player)
+[2026-03-01 14:32:14] Resources produced (Added to Player)
+[2026-03-01 14:32:19] Resources produced (Added to Player)
+[2026-03-01 14:32:24] Resources produced (Added to Player)
+[2026-03-01 14:32:29] Resources produced (Added to Player)
+[2026-03-01 14:32:34] Resources produced (Added to Player)
+[2026-03-01 14:32:39] Resources produced (Added to Player)
+[2026-03-01 14:32:44] Resources produced (Added to Player)
+[2026-03-01 14:32:49] Resources produced (Added to Player)
+[2026-03-01 14:32:54] Resources produced (Added to Player)
+[2026-03-01 14:32:54] Player Village Attacked (Guard time fell off)
+[2026-03-01 14:32:54] Player Defence Win - success chance was 70.4%
+[2026-03-01 14:32:59] Resources produced (Added to Player)
+[2026-03-01 14:33:04] Resources produced (Added to Player)
+[2026-03-01 14:33:09] Resources produced (Added to Player)
+[2026-03-01 14:33:14] Resources produced (Added to Player)
+[2026-03-01 14:33:19] Resources produced (Added to Player)
+[2026-03-01 14:33:24] Resources produced (Added to Player)
+[2026-03-01 14:33:29] Resources produced (Added to Player)
+[2026-03-01 14:33:30] Game ended.
+
+[2026-03-01 14:36:15] Game started.
+[2026-03-01 14:36:20] Resources produced (Added to Player)
+[2026-03-01 14:36:21] BUILD/TRAIN queued: FARM
+[2026-03-01 14:36:25] Resources produced (Added to Player)
+[2026-03-01 14:36:30] Resources produced (Added to Player)
+[2026-03-01 14:36:35] Resources produced (Added to Player)
+[2026-03-01 14:36:40] Resources produced (Added to Player)
+[2026-03-01 14:36:45] Resources produced (Added to Player)
+[2026-03-01 14:36:50] Resources produced (Added to Player)
+[2026-03-01 14:36:55] Resources produced (Added to Player)
+[2026-03-01 14:37:00] Resources produced (Added to Player)
+[2026-03-01 14:37:01] FARM Building Finished
+[2026-03-01 14:37:05] Resources produced (Added to Player)
+[2026-03-01 14:37:10] Resources produced (Added to Player)
+[2026-03-01 14:37:15] Resources produced (Added to Player)
+[2026-03-01 14:37:15] Player Village Attacked (Guard time fell off)
+[2026-03-01 14:37:15] Player Defence Win - success chance was 61.0%
+[2026-03-01 14:37:20] Resources produced (Added to Player)
