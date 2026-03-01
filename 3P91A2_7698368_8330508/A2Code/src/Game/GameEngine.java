@@ -60,7 +60,6 @@ public class GameEngine {
                         v.getOwner().addDefenseLoss();
                     }
                     v.setGuardTime(currentTime); //safe for the next minute -> maybe change later
-                    System.out.println("Attacked Happened");
                 }
             }
             if (doProduction) {
@@ -292,7 +291,7 @@ public class GameEngine {
         }
     }
 
-    public class NotEnoughResourcesException extends Exception {
+    public static class NotEnoughResourcesException extends Exception {
         public NotEnoughResourcesException(String s) {
             super(s);
         }
@@ -302,7 +301,7 @@ public class GameEngine {
         }
     }
 
-    public class MaxLevelException extends Exception {
+    public static class MaxLevelException extends Exception {
         public MaxLevelException(String s) {
             super(s);
         }
@@ -312,7 +311,7 @@ public class GameEngine {
         }
     }
 
-    public class MaxBuildingsExceededException extends Exception {
+    public static class MaxBuildingsExceededException extends Exception {
         public MaxBuildingsExceededException(String s) {
             super(s);
         }
@@ -322,7 +321,7 @@ public class GameEngine {
         }
     }
 
-    public class QueueFullException extends Exception {
+    public static class QueueFullException extends Exception {
         public QueueFullException(String s) {
             super(s);
         }

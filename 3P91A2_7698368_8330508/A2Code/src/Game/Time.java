@@ -12,8 +12,8 @@ public class Time {
      * Gets the current time (real time maybe? seems like the easiest to implement)
      * @return int - the current time in milliseconds since game start
      */
-    public int getTime() {
-        return (int)(System.currentTimeMillis() - startTime);
+    public long getTime() {
+        return (System.currentTimeMillis() - startTime);
     }
 
     /**
@@ -22,7 +22,7 @@ public class Time {
      * @param time - the finish time of the specific event
      * @return boolean - true if event is finished, false if not
      */
-    public boolean eventFinished(int time) {
+    public boolean eventFinished(long time) {
         return getTime() >= time;
     }
 }

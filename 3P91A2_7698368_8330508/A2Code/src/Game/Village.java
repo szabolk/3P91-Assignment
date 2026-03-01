@@ -2,9 +2,13 @@ package Game;
 
 import GameComponents.*;
 import UtilThings.*;
+
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import static Game.GameEngine.MAX_NUM_BUILDINGS;
 
 
@@ -105,14 +109,14 @@ public class Village {
         private EntityStats nextStats;
 
         //Used if building a new building or training a unit
-        QueueTask(EntityType type, long completionTime) {
+        public QueueTask(EntityType type, long completionTime) {
             this.type = type;
             this.completionTime = completionTime;
             this.existingBuilding = null;
         }
 
         //For upgrading a building
-        QueueTask(EntityType type, Building building, EntityStats stats, long completionTime) {
+        public QueueTask(EntityType type, Building building, EntityStats stats, long completionTime) {
             this.type = type;
             this.existingBuilding = building;
             this.nextStats = stats;
@@ -232,7 +236,6 @@ public class Village {
 
     /**
      * collect production, then check build/train queues for completed things
-     * P.S. What a great and descriptive name lmao - L.S.
      * @param currentTime current game time
      * @param doProduction whether to collect production
      */
@@ -241,99 +244,47 @@ public class Village {
             collectAllResources();
         }
         checkBuildTrainQueues(currentTime);
-        //other work
+    }
+
+    public void collectAllResources() {
+        collectResource(GoldMine.class, GoldMiner.class, ResourceType.GOLD);
+        collectResource(IronMine.class, IronMiner.class, ResourceType.IRON);
+        collectResource(LumberMill.class, LumberMiner.class, ResourceType.LUMBER);
     }
 
     /**
-     * Every certain amount of time, this method will run and add resources to each player's resource pool based on their production rates for each resource
-     * This so needs to be refactored (since all 3 mines extend ResourceBuilding and all 3 miners extend ResourceWorker, should be possible to do with wildcards)
+     * Method called only by collectAllResources(). The way it works is as followed: First, the game determines how many workers can possibly be working on each resource (based on the sum of
+     * capacity of the same resource building i.e. 2 mines -> 10 workers allowed to work. Second, it only considers up to N workers, where N is the total capacity, with workers that have a
+     * higher production rate being favoured over low production rate workers. Finally, it calculates the total production for that resource this resource production cycle and adds it to the player's
+     * resource pool
+     * @param mineType - the type of resource building
+     * @param workerType - the type of worker
+     * @param resource - the resource to be added
      */
-    private void collectAllResources() {
-        Resource resources = getResources();
+    private void collectResource(Class<? extends ResourceBuilding> mineType, Class<? extends ResourceWorker> workerType, ResourceType resource) {
+        int capacity = buildings.stream()
+                .filter(mineType::isInstance)
+                .map(mineType::cast)
+                .mapToInt(ResourceBuilding::getWorkerCapacity)
+                .sum();
 
-        List<GoldMine> goldMines = new ArrayList<>();
-        //get the list of all goldmines a player has
-        for (Building b : getBuildings()) {
-            if (b instanceof GoldMine) {
-                goldMines.add((GoldMine)b);
-            }
-        }
-        //calculate the number of gold miners to be counted (ex. If a player has 6 gold miners but only 1 mine, then only 5 of them would be counted)
-        int goldCapacity = goldMines.stream()
-                                    .mapToInt(b -> ((ResourceBuilding)b).getWorkerCapacity()).sum();
+        //creates a list of workers that work on a specific resource type
+        List<ResourceWorker> workers = inhabitants.stream()
+                .filter(workerType::isInstance)
+                .map(workerType::cast)
+                .collect(Collectors.toList());
 
-        List<ResourceWorker> goldMiners = new ArrayList<>();
+        //sorts the workers in descending order of production rate so that the highest production has more priority
+        workers.sort(Comparator.comparingInt(ResourceWorker::getProductionRate).reversed());
 
-        for (Inhabitant inhabitant : inhabitants) {
-            if (inhabitant instanceof GoldMiner) {
-                goldMiners.add((ResourceWorker)inhabitant);
-            }
-        }
-        //sort the workers so that the highest level workers (which have a higher production rate) are prioritized over lower level ones
-        goldMiners.sort((a,b)->Integer.compare(b.getProductionRate(), a.getProductionRate()));
+        //only uses worker production based on the number of buildings and how many workers COULD physically be working (based on the limits of the resource buildings)
+        //Ex. If the player has only 1 gold mine (with a worker limit of 5) and 6 workers, then only the highest 5 production workers will be counted
+        int produced = workers.stream()
+                .limit(capacity)
+                .mapToInt(ResourceWorker::getProductionRate)
+                .sum();
 
-        int goldCounted = Math.min(goldCapacity, goldMiners.size()); //either holds the max amount of gold miners (based on number of mines), or however many workers there are (ex. 2 mines, but only 6 workers will return 6 instead of 10)
-        int goldProduced = 0;
-        for (int i = 0; i < goldCounted; i++) {
-            goldProduced += goldMiners.get(i).getProductionRate();
-        }
-        resources.addResource(ResourceType.GOLD, goldProduced);
-
-        List<IronMine> ironMines = new ArrayList<>();
-        //get the list of all ironmines a player has
-        for (Building b : getBuildings()) {
-            if (b instanceof IronMine) {
-                ironMines.add((IronMine)b);
-            }
-        }
-        //calculate the number of iron miners to be counted (ex. If a player has 6 iron miners but only 1 mine, then only 5 of them would be counted)
-        int ironCapacity = ironMines.stream()
-                .mapToInt(b -> ((ResourceBuilding)b).getWorkerCapacity()).sum();
-
-        List<ResourceWorker> ironMiners = new ArrayList<>();
-
-        for (Inhabitant inhabitant : inhabitants) {
-            if (inhabitant instanceof IronMiner) {
-                ironMiners.add((ResourceWorker)inhabitant);
-            }
-        }
-        //sort the workers so that the highest level workers (which have a higher production rate) are prioritized over lower level ones
-        ironMiners.sort((a,b)->Integer.compare(b.getProductionRate(), a.getProductionRate()));
-
-        int ironCounted = Math.min(ironCapacity, ironMiners.size()); //either holds the max amount of iron miners (based on number of mines), or however many workers there are (ex. 2 mines, but only 6 workers will return 6 instead of 10)
-        int ironProduced = 0;
-        for (int i = 0; i < ironCounted; i++) {
-            ironProduced += ironMiners.get(i).getProductionRate();
-        }
-        resources.addResource(ResourceType.IRON, ironProduced);
-
-        List<LumberMill> lumberMills = new ArrayList<>();
-        //get the list of all goldmines a player has
-        for (Building b : getBuildings()) {
-            if (b instanceof LumberMill) {
-                lumberMills.add((LumberMill)b);
-            }
-        }
-        //calculate the number of gold miners to be counted (ex. If a player has 6 gold miners but only 1 mine, then only 5 of them would be counted)
-        int lumberCapacity = lumberMills.stream()
-                .mapToInt(b -> ((ResourceBuilding)b).getWorkerCapacity()).sum();
-
-        List<ResourceWorker> lumberMiners = new ArrayList<>();
-
-        for (Inhabitant inhabitant : inhabitants) {
-            if (inhabitant instanceof LumberMiner) {
-                lumberMiners.add((ResourceWorker)inhabitant);
-            }
-        }
-        //sort the workers so that the highest level workers (which have a higher production rate) are prioritized over lower level ones
-        lumberMiners.sort((a,b)->Integer.compare(b.getProductionRate(), a.getProductionRate()));
-
-        int lumberCounted = Math.min(lumberCapacity, lumberMiners.size()); //either holds the max amount of gold miners (based on number of mines), or however many workers there are (ex. 2 mines, but only 6 workers will return 6 instead of 10)
-        int lumberProduced = 0;
-        for (int i = 0; i < lumberCounted; i++) {
-            lumberProduced += lumberMiners.get(i).getProductionRate();
-        }
-        resources.addResource(ResourceType.LUMBER, lumberProduced);
+        this.resources.addResource(resource, produced);
     }
 
     private void checkBuildTrainQueues(long currentTime) {
