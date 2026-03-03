@@ -43,7 +43,7 @@ public class Village {
         this.buildQueue = new ArrayList<>();
         this.trainQueue = new ArrayList<>();
 
-        //Starting workers
+        //Starting workers. hardcoded for now but could introduce a startingEntitySet method in
         this.inhabitants.add(new GoldMiner());
         this.inhabitants.add(new IronMiner());
         this.inhabitants.add(new LumberMiner());
@@ -280,13 +280,19 @@ public class Village {
         this.resources.addResource(resource, produced);
     }
 
+    /**
+     * This method is constantly ran by the game engine to get real-time updates on the queues, deciding if a entity should be
+     * removed from the queue as their completion time has been met. Uses iterator so that items can be removed from the list
+     * while iteration is going on
+     * @param currentTime - the current game time
+     */
     private void checkBuildTrainQueues(long currentTime) {
         Iterator<QueueTask> buildQueueIterator = buildQueue.iterator();
         while (buildQueueIterator.hasNext()) {
             QueueTask currentBuilding = buildQueueIterator.next();
-            if (currentBuilding.getCompletionTime() <= currentTime) {
+            if (currentBuilding.getCompletionTime() <= currentTime) { //checks if the current time exceeds the completion time of an entity (means the things is done buliding/upgrading)
                 if (currentBuilding.getExistingBuilding() == null) { //fresh building
-                    Building newBuilding = EntityCreator.createNewBuilding(currentBuilding.getType());
+                    Building newBuilding = EntityCreator.createNewBuilding(currentBuilding.getType()); //call to factory
                     newBuilding.setUnderConstruction(false);
                     addBuilding(newBuilding);
                     GameLogger.log(newBuilding.getEntityType() + " Building Finished");
@@ -294,7 +300,7 @@ public class Village {
                 else { //this means there is an exisiting building -> means its an upgrade
                     Building upgradedBuilding = currentBuilding.getExistingBuilding();
                     upgradedBuilding.setStats(currentBuilding.getNextStats()); //building's hp will be updated and refilled to max
-                    upgradedBuilding.setUnderConstruction(false);
+                    upgradedBuilding.setUnderConstruction(false); //without this, buildings will never be counted towards the defence score
                     GameLogger.log(upgradedBuilding.getEntityType() + " Upgrade Finished" );
                 }
                 buildQueueIterator.remove();
@@ -305,7 +311,7 @@ public class Village {
         while (trainQueueIterator.hasNext()) {
             QueueTask currentInhabitant = trainQueueIterator.next();
             if (currentInhabitant.getCompletionTime() <= currentTime) {
-                Inhabitant newInhabitant = EntityCreator.createNewInhabitant(currentInhabitant.getType());
+                Inhabitant newInhabitant = EntityCreator.createNewInhabitant(currentInhabitant.getType()); //call to factory
                 addInhabitant(newInhabitant);
                 trainQueueIterator.remove();
             }

@@ -217,6 +217,13 @@ public class GameEngine {
         return new SimulationResult(attackerWin, loot, winChance * 100.0);
     }
 
+    public void executeAttack(Village attackingVillage, Village defenderVillage) throws NoVillageExploredException {
+        if (defenderVillage == null) {
+            throw new NoVillageExploredException("Please explore a village before attacking.");
+        }
+        simulateAttack(attackingVillage, defenderVillage);
+    }
+
     public void addLootToPlayer(Player player, Resource loot) {
         player.getVillage().getResources().addResource(ResourceType.GOLD, loot.getGold());
         player.getVillage().getResources().addResource(ResourceType.IRON, loot.getIron());
@@ -381,6 +388,16 @@ public class GameEngine {
         }
 
         public QueueFullException(String s, Throwable cause) {
+            super(s, cause);
+        }
+    }
+
+    public static class NoVillageExploredException extends Exception {
+        public NoVillageExploredException(String s) {
+            super(s);
+        }
+
+        public NoVillageExploredException(String s, Throwable cause) {
             super(s, cause);
         }
     }
