@@ -101,7 +101,7 @@ public class GameEngine {
 
         //generate random resources for the enemy village based on the player village stats
         int maxAmountPerResource = 1000 * playerVillageHallLevel;
-        int minAmountPerResource = Math.max(0, maxAmountPerResource / 2); //resources at minimum are 50% of player's
+        int minAmountPerResource = Math.max(0, maxAmountPerResource / 3); //resources at minimum are 33% of player's
         //randomly determines the amount of each resource the enemy village has baeed on the player's
         int gold = random.nextInt(maxAmountPerResource - minAmountPerResource + 1) + minAmountPerResource;
         int iron = random.nextInt(maxAmountPerResource - minAmountPerResource + 1) + minAmountPerResource;
@@ -228,7 +228,6 @@ public class GameEngine {
         player.getVillage().getResources().addResource(ResourceType.GOLD, loot.getGold());
         player.getVillage().getResources().addResource(ResourceType.IRON, loot.getIron());
         player.getVillage().getResources().addResource(ResourceType.LUMBER, loot.getLumber());
-
     }
 
     /**

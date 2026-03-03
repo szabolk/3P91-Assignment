@@ -14,14 +14,14 @@ public class UserInterface {
      */
     public static void printMainMenu() {
         System.out.println("\n---------- Player Menu ----------");
-        System.out.println("1. Explore for attack");
+        System.out.println("1. Explore For Attack");
         System.out.println("2. Attack Explored Village");
         System.out.println("3. Build / Train");
         System.out.println("4. Upgrade Building / Unit");
-        System.out.println("5. View village status");
-        System.out.println("6. List all buildings");
-        System.out.println("7. List all inhabitants");
-        System.out.println("8. View build/upgrade and training queues");
+        System.out.println("5. View Village Status");
+        System.out.println("6. List All Buildings");
+        System.out.println("7. List All Inhabitants");
+        System.out.println("8. View Build/Upgrade and Training Queues");
         System.out.println("0. Quit");
         System.out.print("Choice: ");
     }
@@ -138,6 +138,10 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Prints all inhabitants in the player's village
+     * @param village - village who requested to see all its inhabitants
+     */
     public static void printAllInhabitants(Village village) {
         System.out.println("\n---------- Inhabitants List ----------");
         if (village.getInhabitants().isEmpty()) {
@@ -190,6 +194,11 @@ public class UserInterface {
         player.setExploredVillage(null); //after attacking a village, make it so the player cant attack it again
     }
 
+    /**
+     * When selected, it explores a village and overwrites the player's current explored village (if it has one)
+     * @param player - the player who requested the exploration
+     * @param engine - game engine
+     */
     public static void explore(Player player, GameEngine engine) {
         Village exploredVillage = engine.exploreAttack(player.getVillage());
         player.setExploredVillage(exploredVillage);
@@ -207,6 +216,12 @@ public class UserInterface {
         System.out.println("Defense Power: " + exploredVillage.getDefences().getDefenceScore());
     }
 
+    /**
+     * This is used for when a player wants to upgrade. First it lists all upgradeable entities, then the
+     * user selects the one they want upgraded.
+     * @param player - player who wishes to upgrade
+     * @param engine - game engine
+     */
     public static void displayUpgradeMenu(Player player, GameEngine engine) {
         Village village = player.getVillage();
         Scanner upgradeScanner = new Scanner(System.in);
@@ -232,6 +247,7 @@ public class UserInterface {
             return;
         }
 
+        //whole logic is to print all relevant information about the upgradeable units
         int index = 1; //will be used for selecting the entity the palyers wants to upgrade
         for (IUpgradeable u : upgradeables) {
             int currentLevel = u.getStats().level();
@@ -281,7 +297,7 @@ public class UserInterface {
         }
 
         if (choice < 1 || choice > upgradeables.size()) { //if the player enters a number that is negative or greater than the # of upgradeable units (out of bounds)
-            System.out.println("Invalid choice");
+            System.out.println("Invalid choice: Please select a number found in the list");
             return;
         }
 
@@ -307,6 +323,12 @@ public class UserInterface {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
+    /**
+     * Displays the village's build and train queues so the player knows when their upgrades will complete
+     * @param village - player village
+     * @param engine - game engine
+     */
     public static void displayQueues(Village village, GameEngine engine) {
         long currentTime = engine.getGameTime().getTime();
 
