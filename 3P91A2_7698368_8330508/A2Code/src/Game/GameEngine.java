@@ -101,7 +101,7 @@ public class GameEngine {
 
         //generate random resources for the enemy village based on the player village stats
         int maxAmountPerResource = 1000 * playerVillageHallLevel;
-        int minAmountPerResource = Math.max(0, maxAmountPerResource / 3); //resources at minimum are 33% of player's
+        int minAmountPerResource = Math.max(0, maxAmountPerResource / 2); //resources at minimum are 50% of player's
         //randomly determines the amount of each resource the enemy village has baeed on the player's
         int gold = random.nextInt(maxAmountPerResource - minAmountPerResource + 1) + minAmountPerResource;
         int iron = random.nextInt(maxAmountPerResource - minAmountPerResource + 1) + minAmountPerResource;
@@ -187,15 +187,17 @@ public class GameEngine {
         int diceAttacker = (int) (attackerScore * random.nextDouble(1.0, 2.0));
         int diceDefender = (int) (defenderScore * random.nextDouble(1.0, 2.0));
 
+        //an example of this calculation: winChance = 200 / (200 + 150)) = 0.571 -> 57.1% chance of winning
         double winChance = diceAttacker / (double) (diceAttacker + diceDefender);
 
+        //using the example above, ifthe game produces a roll less than 0.571, then attacker wins
         boolean attackerWin = random.nextDouble() < winChance;
 
         //determine loot from attack if the attacker won
         GameComponents.Resource loot = null;
         if (attackerWin) {
             GameComponents.Resource defendingVillageResources = defenderVillage.getResources();
-            double resourceCap = 0.5; //at most 50% of each resource can be looted
+            double resourceCap = 0.3; //at most 30% of each resource can be looted
             //if the win chance is less than 50%
             //(meaning that the attacking army was less powerful than the defences and therefore
             //logically would do less destruction to the village) -> should get less loot
@@ -217,6 +219,13 @@ public class GameEngine {
         return new SimulationResult(attackerWin, loot, winChance * 100.0);
     }
 
+    /**
+     * Used when the player decides to attack its explored village, giving an exception if they try to attack a non-existant
+     * village
+     * @param attackingVillage - player village
+     * @param defenderVillage - defending npc village
+     * @throws NoVillageExploredException - will throw if the player hasnt explored a village
+     */
     public void executeAttack(Village attackingVillage, Village defenderVillage) throws NoVillageExploredException {
         if (defenderVillage == null) {
             throw new NoVillageExploredException("Please explore a village before attacking.");
@@ -224,6 +233,11 @@ public class GameEngine {
         simulateAttack(attackingVillage, defenderVillage);
     }
 
+    /**
+     * Adds the loot defined in the attack simulation result to the player involved in the attack
+     * @param player - player who attacked
+     * @param loot - loot stolen in the attack
+     */
     public void addLootToPlayer(Player player, Resource loot) {
         player.getVillage().getResources().addResource(ResourceType.GOLD, loot.getGold());
         player.getVillage().getResources().addResource(ResourceType.IRON, loot.getIron());
@@ -231,7 +245,8 @@ public class GameEngine {
     }
 
     /**
-     *
+     * Called when the player chooses to build during the game. First, it gets the resource cost for building, and if the player passes all the requirements, then the building or inhabitant
+     * is added to the respective queues
      * @param player - the player who wishes to build
      * @param entityToAddType - the type from within the EntityType enum type the player wishes to build or train
      * @throws NotEnoughResourcesException - Will throw if the player doesnt have enough resources
@@ -297,7 +312,8 @@ public class GameEngine {
     }
 
     /**
-     *
+     * Whenever a player upgrades, this method will be run. It will first retrieve the new stats to be applied to the entity, and if it passes on the requirements to upgrade,
+     * if the entity to be upgraded is an inhabitant, it will be upgraded immediately, but if it is a building it will be put into the build queue (which acts also as an upgrade queue too)
      * @param player - Player that wants to upgrade
      * @param e - The entity the player wants to upgrade
      * @throws NotEnoughResourcesException - Will throw if player doesnt have enough resources
@@ -338,7 +354,7 @@ public class GameEngine {
             //also for the set stats, the inhabitants that can be attacked (like armyunits) will have their hp refilled on upgrade
 
         }
-        else if (e instanceof Building) {
+        else { //building
             if (village.getBuildQueue().size() >= village.workerCount()) {
                 throw new QueueFullException("Queue Full: No Idle Workers");
             }

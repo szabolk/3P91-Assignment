@@ -10,7 +10,7 @@ public class Main {
         engine.addVillage(player.getVillage());
         GameLogger.log("Game started.");
 
-        //this is used for the real time, really no other way to run the real time systems of the game2
+        //this is used for the real time, really no other way to run the real time systems of the game
         Thread gameThread = new Thread(() -> engine.run());
         gameThread.setDaemon(true);
         gameThread.start();

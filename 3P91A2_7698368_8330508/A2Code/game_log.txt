@@ -25,3 +25,51 @@
 [2026-03-02 19:26:15] Resources produced (Added to Player)
 [2026-03-02 19:26:18] Game ended.
 
+[2026-03-03 20:39:59] Game started.
+[2026-03-03 20:40:04] Resources produced (Added to Player)
+[2026-03-03 20:40:09] Resources produced (Added to Player)
+[2026-03-03 20:40:14] Resources produced (Added to Player)
+[2026-03-03 20:40:19] Resources produced (Added to Player)
+[2026-03-03 20:40:24] Resources produced (Added to Player)
+[2026-03-03 20:40:26] Upgrade queued: VILLAGE_HALL to level 2
+[2026-03-03 20:40:29] Resources produced (Added to Player)
+[2026-03-03 20:40:34] Resources produced (Added to Player)
+[2026-03-03 20:40:39] Resources produced (Added to Player)
+[2026-03-03 20:40:44] Resources produced (Added to Player)
+[2026-03-03 20:40:49] Resources produced (Added to Player)
+[2026-03-03 20:40:54] Resources produced (Added to Player)
+[2026-03-03 20:40:59] Resources produced (Added to Player)
+[2026-03-03 20:40:59] Player Village Attacked (Guard time fell off)
+[2026-03-03 20:40:59] Player Defence Loss - success chance was 61.0%
+[2026-03-03 20:41:04] Resources produced (Added to Player)
+[2026-03-03 20:41:09] Resources produced (Added to Player)
+[2026-03-03 20:41:14] Resources produced (Added to Player)
+[2026-03-03 20:41:19] Resources produced (Added to Player)
+[2026-03-03 20:41:24] Resources produced (Added to Player)
+[2026-03-03 20:41:29] Resources produced (Added to Player)
+[2026-03-03 20:41:34] Resources produced (Added to Player)
+[2026-03-03 20:41:39] Resources produced (Added to Player)
+[2026-03-03 20:41:44] Resources produced (Added to Player)
+[2026-03-03 20:41:44] Game ended.
+
+[2026-03-03 20:43:33] Game started.
+[2026-03-03 20:43:38] Resources produced (Added to Player)
+[2026-03-03 20:43:40] Upgrade queued: VILLAGE_HALL to level 2
+[2026-03-03 20:43:43] Resources produced (Added to Player)
+[2026-03-03 20:43:48] Resources produced (Added to Player)
+[2026-03-03 20:43:53] Resources produced (Added to Player)
+[2026-03-03 20:43:58] Resources produced (Added to Player)
+[2026-03-03 20:44:03] Resources produced (Added to Player)
+[2026-03-03 20:44:08] Resources produced (Added to Player)
+[2026-03-03 20:44:10] VILLAGE_HALL Upgrade Finished
+[2026-03-03 20:44:13] Resources produced (Added to Player)
+[2026-03-03 20:44:18] Resources produced (Added to Player)
+[2026-03-03 20:44:23] Resources produced (Added to Player)
+[2026-03-03 20:44:27] Upgrade queued: GOLD_MINER to level 2
+[2026-03-03 20:44:28] Resources produced (Added to Player)
+[2026-03-03 20:44:33] Resources produced (Added to Player)
+[2026-03-03 20:44:33] Player Village Attacked (Guard time fell off)
+[2026-03-03 20:44:33] Player Defence Win - success chance was 51.1%
+[2026-03-03 20:44:38] Resources produced (Added to Player)
+[2026-03-03 20:44:41] Game ended.
+

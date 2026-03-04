@@ -14,14 +14,14 @@ import java.util.logging.Logger;
  */
 public class GameLogger {
     private static final String LOG_FILE = "game_log.txt"; //swap
-    private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     /**
      * Used as a simple logging tool, using a timestamp and the event as the content written to the file
      * @param event - event to be written to the file
      */
     public static void log(String event) {
-        String entry = "[" + LocalDateTime.now().format(FORMAT) + "] " + event;
+        String entry = "[" + LocalDateTime.now().format(format) + "] " + event;
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE, true))) {
             writer.write(entry);

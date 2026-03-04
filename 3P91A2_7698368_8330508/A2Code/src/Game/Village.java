@@ -250,16 +250,16 @@ public class Village {
      * @param resource - the resource to be added
      */
     private void collectResource(Class<? extends ResourceBuilding> mineType, Class<? extends ResourceWorker> workerType, ResourceType resource) {
-        int capacity = buildings.stream()
-                .filter(mineType::isInstance)
-                .map(mineType::cast)
-                .mapToInt(ResourceBuilding::getWorkerCapacity)
+        int capacity = buildings.stream() // this stream will look at the buildings and filter those that match the mineType argument in the method header. It will then take the buildings worker capacity and then sum it to get the total capacity of workers for that specific resoruce
+                .filter(b -> mineType.isInstance(b))
+                .mapToInt(b -> ((ResourceBuilding) b).getWorkerCapacity())
                 .sum();
 
-        //creates a list of workers that work on a specific resource type
+        //creates a list of workers that work on a specific resource type, and put them into a separate list
+        //will be used later in the method
         List<ResourceWorker> workers = inhabitants.stream()
-                .filter(workerType::isInstance)
-                .map(workerType::cast)
+                .filter(i -> workerType.isInstance(i))
+                .map(i -> workerType.cast(i))
                 .collect(Collectors.toList());
 
         //sorts the workers in descending order of production rate so that the highest production has more priority
@@ -288,8 +288,10 @@ public class Village {
      */
     private void checkBuildTrainQueues(long currentTime) {
         Iterator<QueueTask> buildQueueIterator = buildQueue.iterator();
+
         while (buildQueueIterator.hasNext()) {
             QueueTask currentBuilding = buildQueueIterator.next();
+
             if (currentBuilding.getCompletionTime() <= currentTime) { //checks if the current time exceeds the completion time of an entity (means the things is done buliding/upgrading)
                 if (currentBuilding.getExistingBuilding() == null) { //fresh building
                     Building newBuilding = EntityCreator.createNewBuilding(currentBuilding.getType()); //call to factory
@@ -303,13 +305,15 @@ public class Village {
                     upgradedBuilding.setUnderConstruction(false); //without this, buildings will never be counted towards the defence score
                     GameLogger.log(upgradedBuilding.getEntityType() + " Upgrade Finished" );
                 }
-                buildQueueIterator.remove();
+                buildQueueIterator.remove(); //removes the item from the build queue
             }
         }
-
+        //train queue logic is very similar to the build queue
         Iterator<QueueTask> trainQueueIterator = trainQueue.iterator();
+
         while (trainQueueIterator.hasNext()) {
             QueueTask currentInhabitant = trainQueueIterator.next();
+
             if (currentInhabitant.getCompletionTime() <= currentTime) {
                 Inhabitant newInhabitant = EntityCreator.createNewInhabitant(currentInhabitant.getType()); //call to factory
                 addInhabitant(newInhabitant);

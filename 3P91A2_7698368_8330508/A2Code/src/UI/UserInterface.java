@@ -203,7 +203,7 @@ public class UserInterface {
         Village exploredVillage = engine.exploreAttack(player.getVillage());
         player.setExploredVillage(exploredVillage);
 
-        System.out.println("\n=== Explored Village ===");
+        System.out.println("\n---------- Explored Village ----------");
 
         System.out.println("Village Hall Level: " + exploredVillage.getVillageHall().getStats().level());
 
@@ -241,7 +241,7 @@ public class UserInterface {
             upgradeables.add(u);
         }
 
-        System.out.println("\n=== Upgrade Menu ===");
+        System.out.println("\n---------- Upgrade Menu ----------");
         if (upgradeables.isEmpty()) {
             System.out.println("Nothing to upgrade.");
             return;
@@ -333,7 +333,7 @@ public class UserInterface {
         long currentTime = engine.getGameTime().getTime();
 
         //build/upgrade Queue
-        System.out.println("\n=== Build / Upgrade Queue ===");
+        System.out.println("\n---------- Build / Upgrade Queue ----------");
         List<Village.QueueTask> buildQueue = village.getBuildQueue();
         if (buildQueue.isEmpty()) {
             System.out.println("Build/Upgrade Queue is Empty");
@@ -348,7 +348,7 @@ public class UserInterface {
         }
 
         //training Queue
-        System.out.println("\n=== Training Queue ===");
+        System.out.println("\n---------- Training Queue ----------");
         List<Village.QueueTask> trainQueue = village.getTrainQueue();
         if (trainQueue.isEmpty()) {
             System.out.println("Training Queue is Empty");

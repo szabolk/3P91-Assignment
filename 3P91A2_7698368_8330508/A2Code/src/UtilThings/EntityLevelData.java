@@ -56,50 +56,50 @@ public class EntityLevelData {
     //Production Building Stats
 
     public static final List<EntityStats> GOLD_MINE_LEVELS = Arrays.asList(
-            new EntityStats(1, 500, 0, 0, 0, 0, 50, 100, 60, 1),
-            new EntityStats(2, 800, 0, 0, 0, 0, 100, 200, 90, 3),
-            new EntityStats(3, 1200, 0, 0, 0, 0, 200, 400, 150, 5)
+            new EntityStats(1, 500, 0, 0, 0, 0, 50, 100, 20, 1),
+            new EntityStats(2, 800, 0, 0, 0, 0, 100, 200, 30, 3),
+            new EntityStats(3, 1200, 0, 0, 0, 0, 200, 400, 50, 5)
     );
 
     public static final List<EntityStats> IRON_MINE_LEVELS = Arrays.asList(
-            new EntityStats(1, 600, 0, 0, 0, 100, 0, 100, 60, 2),
-            new EntityStats(2, 900, 0, 0, 0, 200, 0, 200, 90, 4),
-            new EntityStats(3, 1400, 0, 0, 0, 400, 0, 400, 150, 6)
+            new EntityStats(1, 600, 0, 0, 0, 100, 0, 100, 20, 2),
+            new EntityStats(2, 900, 0, 0, 0, 200, 0, 200, 30, 4),
+            new EntityStats(3, 1400, 0, 0, 0, 400, 0, 400, 50, 6)
     );
 
     public static final List<EntityStats> LUMBER_MILL_LEVELS = Arrays.asList(
-            new EntityStats(1, 400, 0, 0, 0, 100, 0, 0, 45, 1),
-            new EntityStats(2, 700, 0, 0, 0, 200, 100, 0, 75, 3),
-            new EntityStats(3, 1100, 0, 0, 0, 400, 200, 0, 120, 5)
+            new EntityStats(1, 400, 0, 0, 0, 100, 0, 0, 20, 1),
+            new EntityStats(2, 700, 0, 0, 0, 200, 100, 0, 30, 3),
+            new EntityStats(3, 1100, 0, 0, 0, 400, 200, 0, 50, 5)
     );
 
     public static final List<EntityStats> FARM_LEVELS = Arrays.asList(
-            new EntityStats(1, 300, 0, 0, 10, 50, 0, 80, 40, 1),
-            new EntityStats(2, 500, 0, 0, 25, 100, 0, 150, 70, 2),
-            new EntityStats(3, 800, 0, 0, 50, 250, 0, 300, 110, 4)
+            new EntityStats(1, 300, 0, 0, 10, 50, 0, 80, 20, 1),
+            new EntityStats(2, 500, 0, 0, 25, 100, 0, 150, 30, 2),
+            new EntityStats(3, 800, 0, 0, 50, 250, 0, 300, 50, 4)
     );
 
     //Building Stats
 
     public static final List<EntityStats> ARCHER_TOWER_LEVELS = Arrays.asList(
-            new EntityStats(1, 800, 30, 8, 0, 100, 50, 150, 60, 2),
-            new EntityStats(2, 1200, 50, 9, 0, 200, 100, 250, 90, 3),
-            new EntityStats(3, 1800, 80, 10, 0, 400, 200, 450, 130, 5)
+            new EntityStats(1, 800, 30, 8, 0, 100, 50, 150, 20, 2),
+            new EntityStats(2, 1200, 50, 9, 0, 200, 100, 250, 30, 3),
+            new EntityStats(3, 1800, 80, 10, 0, 400, 200, 450, 50, 5)
     );
 
     public static final List<EntityStats> VILLAGE_HALL_LEVELS = Arrays.asList(
             new EntityStats(1, 2000, 0, 0, 0, 0, 0, 0, 0, 0), //default village hall for everything, built automatically
-            new EntityStats(2, 4000, 0, 0, 0, 500, 500, 500, 300, 0),
-            new EntityStats(3, 8000, 0, 0, 0, 1000, 1000, 1000, 1000, 0),
-            new EntityStats(4, 16000, 0, 0, 0, 2000, 2000, 2000, 1200, 0),
-            new EntityStats(5, 32000, 0, 0, 0, 3000, 3000, 3000, 2400, 0),
-            new EntityStats(6, 64000, 0, 0, 0, 3500, 3500, 3500, 4800, 0)
+            new EntityStats(2, 4000, 0, 0, 0, 500, 500, 500, 30, 0),
+            new EntityStats(3, 8000, 0, 0, 0, 1000, 1000, 1000, 60, 0),
+            new EntityStats(4, 16000, 0, 0, 0, 2000, 2000, 2000, 90, 0),
+            new EntityStats(5, 32000, 0, 0, 0, 3000, 3000, 3000, 120, 0),
+            new EntityStats(6, 64000, 0, 0, 0, 3500, 3500, 3500, 150, 0)
     );
 
     public static final List<EntityStats> CANNON_LEVELS = Arrays.asList(
-            new EntityStats(1, 1000, 60, 7, 0, 200, 150, 100, 80, 3),
-            new EntityStats(2, 1500, 100, 8, 0, 400, 300, 200, 120, 4),
-            new EntityStats(3, 2200, 160, 9, 0, 700, 550, 400, 180, 6)
+            new EntityStats(1, 1000, 60, 7, 0, 200, 150, 100, 45, 3),
+            new EntityStats(2, 1500, 100, 8, 0, 400, 300, 200, 60, 4),
+            new EntityStats(3, 2200, 160, 9, 0, 700, 550, 400, 75, 6)
     );
 
     /**
