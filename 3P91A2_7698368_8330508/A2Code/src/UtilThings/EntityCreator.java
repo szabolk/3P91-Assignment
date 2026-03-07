@@ -4,6 +4,8 @@ import GameComponents.*;
 
 /**
  * Class which just decouples the creation of entities for less cluttered code
+// *
+ * Note for A3: This already pretty much a factory, but look into how this can become an abstract factory
  */
 public class EntityCreator {
     public static Inhabitant createNewInhabitant(EntityType type) {

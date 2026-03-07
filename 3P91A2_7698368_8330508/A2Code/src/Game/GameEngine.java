@@ -115,16 +115,17 @@ public class GameEngine {
 
         //add basic units until attack score meets or slightly exceeds the players army score
         while (currentAttack < targetAttack) {
-            ArmyUnit unit;
+            EntityType unit;
             //pick random unit to add to army
             int choice = random.nextInt(4);
             switch (choice) {
-                case 0 -> unit = new Soldier();
-                case 1 -> unit = new Archer();
-                case 2 -> unit = new Knight();
-                default -> unit = new Catapult();
+                case 0 -> unit = EntityType.SOLDIER;
+                case 1 -> unit = EntityType.ARCHER;
+                case 2 -> unit = EntityType.KNIGHT;
+                default -> unit = EntityType.CATAPULT;
             }
-            enemy.getArmy().addUnit(unit);
+            ArmyUnit newUnit = (ArmyUnit) EntityCreator.createNewInhabitant(unit);
+            enemy.getArmy().addUnit(newUnit);
             currentAttack = enemy.getArmy().getAttackScore();
         }
 
@@ -133,13 +134,14 @@ public class GameEngine {
         int currentDefence = enemy.getDefences().getDefenceScore();
 
         while (currentDefence < targetDefence) {
-            DefenceBuilding newDefenceBuilding;
+            EntityType buildingType;
             int choice = random.nextInt(2);
             if (choice == 0) {
-                newDefenceBuilding = new ArcherTower();
+                buildingType = EntityType.ARCHER_TOWER;
             } else {
-                newDefenceBuilding = new Cannon();
+                buildingType = EntityType.CANNON;
             }
+            DefenceBuilding newDefenceBuilding = (DefenceBuilding) EntityCreator.createNewBuilding(buildingType);
             enemy.getDefences().addDefenceBuilding(newDefenceBuilding);
             enemy.getBuildings().add(newDefenceBuilding);
             currentDefence = enemy.getDefences().getDefenceScore();

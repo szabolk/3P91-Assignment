@@ -14,6 +14,8 @@ import static Game.GameEngine.MAX_NUM_BUILDINGS;
 /**
  * This class contains all information relevant to a village, like its buildings, inhabitants,
  * army, defences, village hall. Keeps tracks of what entities are being built, upgraded, trained, etc.
+ *
+ * Note for A3: Look into doing the Builder strategy for Village so there is no need for having multiple constructors.
  */
 public class Village {
     private Player owner;
