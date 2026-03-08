@@ -208,9 +208,9 @@ public class UserInterface {
         System.out.println("Village Hall Level: " + exploredVillage.getVillageHall().getStats().level());
 
         System.out.println("\nResources:");
-        System.out.println("  Gold: " + exploredVillage.getResources().getGold());
-        System.out.println("  Iron: " + exploredVillage.getResources().getIron());
-        System.out.println("  Lumber: " + exploredVillage.getResources().getLumber());
+        System.out.println("Gold: " + exploredVillage.getResources().getGold());
+        System.out.println("Iron: " + exploredVillage.getResources().getIron());
+        System.out.println("Lumber: " + exploredVillage.getResources().getLumber());
 
         System.out.println("\nAttack Power: " + exploredVillage.getArmy().getAttackScore());
         System.out.println("Defense Power: " + exploredVillage.getDefences().getDefenceScore());

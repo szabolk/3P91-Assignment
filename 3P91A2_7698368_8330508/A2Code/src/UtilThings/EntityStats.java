@@ -2,7 +2,7 @@ package UtilThings;
 
 /**
  * Record makes it so only one line of code essentially represents getters,setters. etc
- * No need for 100+ lines of code just for constructors, getters and setters
+ * No need for 100+ lines of code just for constructors, getters and setters like it was before
  */
 public record EntityStats(
         int level,
