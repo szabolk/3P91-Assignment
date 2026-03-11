@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
         GameEngine engine = new GameEngine();
         Player player = new Player();
+        player.setVillage(VillageBuilderDirector.buildNewPlayerVillage(player));
         engine.addVillage(player.getVillage());
         GameLogger.log("Game started.");
 

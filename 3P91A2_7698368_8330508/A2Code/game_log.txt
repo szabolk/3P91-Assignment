@@ -126,3 +126,42 @@
 [2026-03-07 14:13:33] Resources produced (Added to Player)
 [2026-03-07 14:13:38] Resources produced (Added to Player)
 [2026-03-07 14:13:43] Resources produced (Added to Player)
+[2026-03-11 16:33:23] Game started.
+[2026-03-11 16:33:28] Resources produced (Added to Player)
+[2026-03-11 16:33:33] Resources produced (Added to Player)
+[2026-03-11 16:33:38] Resources produced (Added to Player)
+[2026-03-11 16:33:41] Attack Loss — success chance was 56.3%
+[2026-03-11 16:33:43] Resources produced (Added to Player)
+[2026-03-11 16:33:48] Resources produced (Added to Player)
+[2026-03-11 16:33:53] Resources produced (Added to Player)
+[2026-03-11 16:33:58] Resources produced (Added to Player)
+[2026-03-11 16:33:59] BUILD/TRAIN queued: FARM
+[2026-03-11 16:34:03] Resources produced (Added to Player)
+[2026-03-11 16:34:08] Resources produced (Added to Player)
+[2026-03-11 16:34:13] Resources produced (Added to Player)
+[2026-03-11 16:34:18] Resources produced (Added to Player)
+[2026-03-11 16:34:19] FARM Building Finished
+[2026-03-11 16:34:23] Resources produced (Added to Player)
+[2026-03-11 16:34:23] Player Village Attacked (Guard time fell off)
+[2026-03-11 16:34:23] Player Defence Loss - success chance was 67.8%
+[2026-03-11 16:34:28] Resources produced (Added to Player)
+[2026-03-11 16:34:30] Game ended.
+
+[2026-03-11 16:38:28] Game started.
+[2026-03-11 16:38:33] Resources produced (Added to Player)
+[2026-03-11 16:38:34] Attack Loss — success chance was 39.3%
+[2026-03-11 16:38:37] Attack Win — loot: 158g 142i 131l
+[2026-03-11 16:38:38] Resources produced (Added to Player)
+[2026-03-11 16:38:38] Attack Win — loot: 157g 186i 147l
+[2026-03-11 16:38:43] Resources produced (Added to Player)
+[2026-03-11 16:38:48] Resources produced (Added to Player)
+[2026-03-11 16:38:53] Resources produced (Added to Player)
+[2026-03-11 16:38:58] Resources produced (Added to Player)
+[2026-03-11 16:39:03] Resources produced (Added to Player)
+[2026-03-11 16:39:08] Resources produced (Added to Player)
+[2026-03-11 16:41:59] Game started.
+[2026-03-11 16:42:03] Upgrade queued: VILLAGE_HALL to level 2
+[2026-03-11 16:42:04] Resources produced (Added to Player)
+[2026-03-11 16:42:09] Resources produced (Added to Player)
+[2026-03-11 16:42:10] Game ended.
+

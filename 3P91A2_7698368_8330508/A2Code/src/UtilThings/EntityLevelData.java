@@ -7,7 +7,7 @@ import java.util.EnumMap;
 
 /**
  * Holds the stat lines of all entities in the game.
- * Each list contains 3 stat lines (for level 1-3), where level 1 is the starting stat line (i.e. when
+ * Each list contains 3 (except village hall) stat lines (for level 1-3), where level 1 is the starting stat line (i.e. when
  * the entities are initialized).
  */
 public class EntityLevelData {
@@ -36,13 +36,13 @@ public class EntityLevelData {
     );
 
     public static final List<EntityStats> KNIGHT_LEVELS = Arrays.asList(
-            new EntityStats(1, 500, 50, 1, 0, 150, 100, 0, 45, 3),
+            new EntityStats(1, 500, 50, 1, 0, 150, 100, 0, 45, 1),
             new EntityStats(2, 750, 75, 1, 0, 225, 150, 0, 60, 4),
             new EntityStats(3, 1100, 110, 1, 0, 350, 250, 0, 80, 5)
     );
 
     public static final List<EntityStats> CATAPULT_LEVELS = Arrays.asList(
-            new EntityStats(1, 300, 100, 10, 0, 200, 150, 200, 60, 4),
+            new EntityStats(1, 300, 100, 10, 0, 200, 150, 200, 60, 1),
             new EntityStats(2, 400, 160, 11, 0, 300, 220, 300, 80, 5),
             new EntityStats(3, 550, 250, 12, 0, 450, 350, 450, 100, 6)
     );
@@ -62,7 +62,7 @@ public class EntityLevelData {
     );
 
     public static final List<EntityStats> IRON_MINE_LEVELS = Arrays.asList(
-            new EntityStats(1, 600, 0, 0, 0, 100, 0, 100, 20, 2),
+            new EntityStats(1, 600, 0, 0, 0, 100, 0, 100, 20, 1),
             new EntityStats(2, 900, 0, 0, 0, 200, 0, 200, 30, 4),
             new EntityStats(3, 1400, 0, 0, 0, 400, 0, 400, 50, 6)
     );
@@ -82,7 +82,7 @@ public class EntityLevelData {
     //Building Stats
 
     public static final List<EntityStats> ARCHER_TOWER_LEVELS = Arrays.asList(
-            new EntityStats(1, 800, 30, 8, 0, 100, 50, 150, 20, 2),
+            new EntityStats(1, 800, 30, 8, 0, 100, 50, 150, 20, 1),
             new EntityStats(2, 1200, 50, 9, 0, 200, 100, 250, 30, 3),
             new EntityStats(3, 1800, 80, 10, 0, 400, 200, 450, 50, 5)
     );
@@ -97,7 +97,7 @@ public class EntityLevelData {
     );
 
     public static final List<EntityStats> CANNON_LEVELS = Arrays.asList(
-            new EntityStats(1, 1000, 60, 7, 0, 200, 150, 100, 45, 3),
+            new EntityStats(1, 1000, 60, 7, 0, 200, 150, 100, 45, 1),
             new EntityStats(2, 1500, 100, 8, 0, 400, 300, 200, 60, 4),
             new EntityStats(3, 2200, 160, 9, 0, 700, 550, 400, 75, 6)
     );

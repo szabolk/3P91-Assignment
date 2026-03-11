@@ -15,7 +15,7 @@ public class Player {
 
     public Player() {
         this.playerID = nextID++;
-        this.village = new Village(this);
+        this.village = null;
         this.wintotal = 0;
         this.defenseVictory = 0;
         this.lossTotal = 0;

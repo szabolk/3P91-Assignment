@@ -14,8 +14,6 @@ import static Game.GameEngine.MAX_NUM_BUILDINGS;
 /**
  * This class contains all information relevant to a village, like its buildings, inhabitants,
  * army, defences, village hall. Keeps tracks of what entities are being built, upgraded, trained, etc.
- *
- * Note for A3: Look into doing the Builder strategy for Village so there is no need for having multiple constructors.
  */
 public class Village {
     private Player owner;
@@ -29,75 +27,87 @@ public class Village {
     private List<QueueTask> buildQueue;
     private List<QueueTask> trainQueue;
 
-
-    /**
-     * This constructor is used specifically when creating a player's village
-     */
-    public Village(Player owner) {
-        this.owner = owner;
-        this.villageHall = new VillageHall();
+    private Village(VillageBuilder builder) {
+        this.owner = builder.owner;
+        this.villageHall = new VillageHall(builder.hallLevel);
         this.buildings = new ArrayList<>(MAX_NUM_BUILDINGS);
         this.inhabitants = new ArrayList<>();
-        this.resources = new Resource(this,500, 500, 500);
+        this.resources = new Resource(this, builder.gold, builder.iron, builder.lumber);
         this.army = new Army();
         this.defences = new Defences();
-        this.guardedUntil = 60000; //guarded for 60 seconds after game start
-        this.buildQueue = new ArrayList<>();
-        this.trainQueue = new ArrayList<>();
-
-        //Starting workers. hardcoded for now but could introduce a startingEntitySet method in
-        this.inhabitants.add(new GoldMiner());
-        this.inhabitants.add(new IronMiner());
-        this.inhabitants.add(new LumberMiner());
-        this.inhabitants.add(new Worker());
-        this.inhabitants.add(new Worker());
-        
-        //Starting army units so player doesn't get steamrolled
-        this.army.addUnit(new Soldier());
-        this.army.addUnit(new Archer());
-        this.army.addUnit(new Catapult());
-        
-        //Starting defense buildings and one of each resource building so the player just cant go bankrupt if they forget to build a specific type
-        ArcherTower tower1 = new ArcherTower();
-        ArcherTower tower2 = new ArcherTower();
-        this.defences.addDefenceBuilding(tower1);
-        this.defences.addDefenceBuilding(tower2);
-        this.buildings.add(tower1);
-        this.buildings.add(tower2);
-        this.buildings.add(new GoldMine());
-        this.buildings.add(new IronMine());
-        this.buildings.add(new LumberMill());
-        // add a farm so there is initial population capacity for the starting inhabitants
-        this.buildings.add(new Farm());
-    }
-
-    /**
-     * This constructor is used specifically when creating a village to attack the player's village
-     */
-    public Village(int playerVillageHalllevel) {
-        this.villageHall = new VillageHall(playerVillageHalllevel);
-        this.buildings = new ArrayList<>(MAX_NUM_BUILDINGS);
-        this.inhabitants = new ArrayList<>();
-        this.resources = new Resource(this, 500, 500, 500);
-        this.army = new Army();
-        this.defences = new Defences();
-        this.guardedUntil = 60;
+        this.guardedUntil = builder.guardedUntil;
         this.buildQueue = new ArrayList<>();
         this.trainQueue = new ArrayList<>();
     }
 
-    /**
-     * This constructor is used specifically when creating a village for the player to attack
-     */
-    public Village(int playerVillageHalllevel, int gold, int iron, int lumber) {
-        this.villageHall = new VillageHall(playerVillageHalllevel);
-        this.buildings = new ArrayList<>();
-        this.inhabitants = new ArrayList<>();
-        this.resources = new Resource(this, gold, iron, lumber);
-        this.army = new Army();
-        this.defences = new Defences();
-        this.buildQueue = new ArrayList<>();
-        this.trainQueue = new ArrayList<>();
+    public static class VillageBuilder {
+        private Player owner = null;
+        private int hallLevel = 1;
+        private int gold = 500;
+        private int iron = 500;
+        private int lumber = 500;
+        private long guardedUntil = 60000;
+        private boolean newPlayerVillage = false;
+
+        public VillageBuilder owner(Player owner) {
+            this.owner = owner;
+            return this;
+        }
+
+        public VillageBuilder hallLevel(int level) {
+            this.hallLevel = level;
+            return this;
+        }
+
+        public VillageBuilder resources(int gold, int iron, int lumber) {
+            this.gold = gold;
+            this.iron = iron;
+            this.lumber = lumber;
+            return this;
+        }
+
+        public VillageBuilder guardedUntil(long until) {
+            this.guardedUntil = until;
+            return this;
+        }
+
+        public VillageBuilder withStarterEntities() {
+            this.newPlayerVillage = true;
+            return this;
+        }
+
+        public void addStarterUnits(Village village) {
+            village.getInhabitants().add(EntityFactory.createNewInhabitant(EntityType.GOLD_MINER));
+            village.getInhabitants().add(EntityFactory.createNewInhabitant(EntityType.IRON_MINER));
+            village.getInhabitants().add(EntityFactory.createNewInhabitant(EntityType.LUMBER_MINER));
+            village.getInhabitants().add(EntityFactory.createNewInhabitant(EntityType.WORKER));
+            village.getInhabitants().add(EntityFactory.createNewInhabitant(EntityType.WORKER));
+
+            village.getArmy().addUnit((ArmyUnit) EntityFactory.createNewInhabitant(EntityType.SOLDIER));
+            village.getArmy().addUnit((ArmyUnit) EntityFactory.createNewInhabitant(EntityType.ARCHER));
+            village.getArmy().addUnit((ArmyUnit) EntityFactory.createNewInhabitant(EntityType.CATAPULT));
+
+            ArcherTower tower1 = (ArcherTower) EntityFactory.createNewBuilding(EntityType.ARCHER_TOWER);
+            ArcherTower tower2 = (ArcherTower) EntityFactory.createNewBuilding(EntityType.ARCHER_TOWER);
+            village.getDefences().addDefenceBuilding(tower1);
+            village.getDefences().addDefenceBuilding(tower2);
+            village.getBuildings().add(tower1);
+            village.getBuildings().add(tower2);
+
+            village.getBuildings().add(EntityFactory.createNewBuilding(EntityType.GOLD_MINE));
+            village.getBuildings().add(EntityFactory.createNewBuilding(EntityType.IRON_MINE));
+            village.getBuildings().add(EntityFactory.createNewBuilding(EntityType.LUMBER_MILL));
+            village.getBuildings().add(EntityFactory.createNewBuilding(EntityType.FARM));
+        }
+
+        public Village build() {
+            Village village = new Village(this);
+
+            if (newPlayerVillage) {
+                addStarterUnits(village);
+            }
+            return village;
+        }
     }
 
     /**
@@ -296,9 +306,12 @@ public class Village {
 
             if (currentBuilding.getCompletionTime() <= currentTime) { //checks if the current time exceeds the completion time of an entity (means the things is done buliding/upgrading)
                 if (currentBuilding.getExistingBuilding() == null) { //fresh building
-                    Building newBuilding = EntityCreator.createNewBuilding(currentBuilding.getType()); //call to factory
+                    Building newBuilding = EntityFactory.createNewBuilding(currentBuilding.getType()); //call to factory
                     newBuilding.setUnderConstruction(false);
                     addBuilding(newBuilding);
+                    if (newBuilding instanceof DefenceBuilding) {
+                        getDefences().addDefenceBuilding((DefenceBuilding) newBuilding);
+                    }
                     GameLogger.log(newBuilding.getEntityType() + " Building Finished");
                 }
                 else { //this means there is an exisiting building -> means its an upgrade
@@ -317,7 +330,7 @@ public class Village {
             QueueTask currentInhabitant = trainQueueIterator.next();
 
             if (currentInhabitant.getCompletionTime() <= currentTime) {
-                Inhabitant newInhabitant = EntityCreator.createNewInhabitant(currentInhabitant.getType()); //call to factory
+                Inhabitant newInhabitant = EntityFactory.createNewInhabitant(currentInhabitant.getType()); //call to factory
                 addInhabitant(newInhabitant);
                 trainQueueIterator.remove();
             }

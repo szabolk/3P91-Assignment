@@ -107,7 +107,8 @@ public class GameEngine {
         int iron = random.nextInt(maxAmountPerResource - minAmountPerResource + 1) + minAmountPerResource;
         int lumber = random.nextInt(maxAmountPerResource - minAmountPerResource + 1) + minAmountPerResource;
 
-        Village enemy = new Village(enemyHallLevel, gold, iron, lumber);
+        Village enemy = VillageBuilderDirector.buildNpcVillage(enemyHallLevel, gold, iron, lumber);
+        //Village enemy = new Village(enemyHallLevel, gold, iron, lumber);
 
         //make an army similar to players strength
         int targetAttack = Math.max(1, (int) (playerAttackScore * (0.5 + random.nextDouble() * 0.7)));
@@ -115,17 +116,16 @@ public class GameEngine {
 
         //add basic units until attack score meets or slightly exceeds the players army score
         while (currentAttack < targetAttack) {
-            EntityType unit;
+
             //pick random unit to add to army
             int choice = random.nextInt(4);
-            switch (choice) {
-                case 0 -> unit = EntityType.SOLDIER;
-                case 1 -> unit = EntityType.ARCHER;
-                case 2 -> unit = EntityType.KNIGHT;
-                default -> unit = EntityType.CATAPULT;
-            }
-            ArmyUnit newUnit = (ArmyUnit) EntityCreator.createNewInhabitant(unit);
-            enemy.getArmy().addUnit(newUnit);
+            Inhabitant unit = switch (choice) {
+                case 0 -> EntityFactory.createNewInhabitant(EntityType.SOLDIER);
+                case 1 -> EntityFactory.createNewInhabitant(EntityType.ARCHER);
+                case 2 -> EntityFactory.createNewInhabitant(EntityType.KNIGHT);
+                default -> EntityFactory.createNewInhabitant(EntityType.CATAPULT);
+            };
+            enemy.getArmy().addUnit((ArmyUnit) unit);
             currentAttack = enemy.getArmy().getAttackScore();
         }
 
@@ -134,16 +134,15 @@ public class GameEngine {
         int currentDefence = enemy.getDefences().getDefenceScore();
 
         while (currentDefence < targetDefence) {
-            EntityType buildingType;
+            Building buildingType;
             int choice = random.nextInt(2);
             if (choice == 0) {
-                buildingType = EntityType.ARCHER_TOWER;
+                buildingType = EntityFactory.createNewBuilding(EntityType.ARCHER_TOWER);
             } else {
-                buildingType = EntityType.CANNON;
+                buildingType = EntityFactory.createNewBuilding(EntityType.CANNON);
             }
-            DefenceBuilding newDefenceBuilding = (DefenceBuilding) EntityCreator.createNewBuilding(buildingType);
-            enemy.getDefences().addDefenceBuilding(newDefenceBuilding);
-            enemy.getBuildings().add(newDefenceBuilding);
+            enemy.getDefences().addDefenceBuilding((DefenceBuilding) buildingType);
+            enemy.getBuildings().add(buildingType);
             currentDefence = enemy.getDefences().getDefenceScore();
         }
 
