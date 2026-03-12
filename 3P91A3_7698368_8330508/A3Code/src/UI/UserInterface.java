@@ -1,5 +1,7 @@
 package UI;
 
+import ChallengeDecision.ChallengeResource;
+import ChallengeDecision.ChallengeResult;
 import Game.*;
 import GameComponents.*;
 import UtilThings.*;
@@ -45,8 +47,10 @@ public class UserInterface {
         System.out.println("Buildings: " + village.getBuildings().size() + "/" + MAX_NUM_BUILDINGS);
 
         System.out.println("Army Units: " + village.getArmy().getUnits().size());
+        System.out.println("Attack Score: " + village.getArmy().getAttackScore());
 
         System.out.println("Defence Buildings: " + village.getDefences().getDefenceBuildings().size());
+        System.out.println("Defence Score: " + village.getDefences().getDefenceScore());
 
         System.out.println("\nPlayer Stats:");
         System.out.println("Attack Wins/Losses: " + village.getOwner().getWinTotal() + " / " + village.getOwner().getLossTotal());
@@ -163,34 +167,45 @@ public class UserInterface {
      * @param engine - game engine
      */
     public static void attack(Player player, GameEngine engine) {
+        ChallengeResult result;
         try {
-            engine.executeAttack(player.getVillage(), player.getExploredVillage());
+            result = engine.executeAttack(player.getVillage(), player.getExploredVillage());
         } catch (GameEngine.NoVillageExploredException e) {
             System.out.println("Error: " + e.getMessage());
             return;
         }
-        SimulationResult result = engine.simulateAttack(player.getVillage(), player.getExploredVillage());
-        if (result.isAttackerWin()) {
+
+        if (result.getChallengeWon()) {
+
             System.out.println("Attack Result: Win");
             player.addWin();
 
-            Resource loot = result.getLoot();
+            List<ChallengeResource<Double,Double>> loot = result.getLoot();
+            int[] resources = new int[3];
+
+            for (int i = 0; i < loot.size() && i < 3; i++) {
+                resources[i] = loot.get(i).getProperty().intValue();
+            }
+            int goldGained = resources[0];
+            int ironGained = resources[1];
+            int lumberGained = resources[2];
+
             System.out.println("\nResources Gained:");
-            System.out.println("  Gold: +" + loot.getGold());
-            System.out.println("  Iron: +" + loot.getIron());
-            System.out.println("  Lumber: +" + loot.getLumber());
+            System.out.println("  Gold: +" + goldGained);
+            System.out.println("  Iron: +" + ironGained);
+            System.out.println("  Lumber: +" + lumberGained);
 
             //Add loot to player's resources
             engine.addLootToPlayer(player, loot);
-            GameLogger.log("Attack Win — loot: " + loot.getGold() + "g " + loot.getIron() + "i " + loot.getLumber() + "l");
+            GameLogger.log("Player Attack Win — loot: " + goldGained + "g " + ironGained + "i " + lumberGained + "l");
         }
         else {
             System.out.println("Attack Result: Loss");
             System.out.println("\nNo resources gained.");
             player.addLoss();
-            GameLogger.log("Attack Loss — success chance was " + String.format("%.1f%%", result.getSuccessPercentage()));
+            GameLogger.log("Player Attack Loss");
         }
-        System.out.printf("Attack success chance was %.1f%%", result.getSuccessPercentage());
+
         player.setExploredVillage(null); //after attacking a village, make it so the player cant attack it again
     }
 

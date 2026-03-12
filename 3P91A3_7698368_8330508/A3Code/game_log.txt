@@ -1,0 +1,351 @@
+[2026-03-12 18:27:06] Game started.
+[2026-03-12 18:27:11] Resources produced (Added to Player)
+[2026-03-12 18:27:15] Player Attack Loss
+[2026-03-12 18:27:16] Resources produced (Added to Player)
+[2026-03-12 18:27:17] Player Attack Loss
+[2026-03-12 18:27:18] Player Attack Loss
+[2026-03-12 18:27:18] Player Attack Loss
+[2026-03-12 18:27:19] Player Attack Loss
+[2026-03-12 18:27:20] Player Attack Loss
+[2026-03-12 18:27:21] Resources produced (Added to Player)
+[2026-03-12 18:27:21] Player Attack Loss
+[2026-03-12 18:27:22] Player Attack Loss
+[2026-03-12 18:27:26] Resources produced (Added to Player)
+[2026-03-12 18:27:31] Resources produced (Added to Player)
+[2026-03-12 18:27:36] Resources produced (Added to Player)
+[2026-03-12 18:27:38] Game ended.
+
+[2026-03-12 18:38:17] Game started.
+[2026-03-12 18:38:20] Player Attack Loss
+[2026-03-12 18:38:22] Resources produced (Added to Player)
+[2026-03-12 18:38:27] Resources produced (Added to Player)
+[2026-03-12 18:38:29] Player Attack Loss
+[2026-03-12 18:38:31] Player Attack Loss
+[2026-03-12 18:38:32] Resources produced (Added to Player)
+[2026-03-12 18:43:21] Game started.
+[2026-03-12 18:43:26] Resources produced (Added to Player)
+[2026-03-12 18:43:31] Resources produced (Added to Player)
+[2026-03-12 18:43:36] Resources produced (Added to Player)
+[2026-03-12 18:43:40] Player Attack Loss
+[2026-03-12 18:43:41] Resources produced (Added to Player)
+[2026-03-12 18:43:42] Player Attack Loss
+[2026-03-12 18:43:43] Player Attack Loss
+[2026-03-12 18:43:44] Player Attack Loss
+[2026-03-12 18:43:45] Player Attack Loss
+[2026-03-12 18:43:46] Resources produced (Added to Player)
+[2026-03-12 18:43:47] Player Attack Loss
+[2026-03-12 18:43:48] Player Attack Loss
+[2026-03-12 18:43:49] Player Attack Loss
+[2026-03-12 18:43:51] Resources produced (Added to Player)
+[2026-03-12 18:43:52] Player Attack Loss
+[2026-03-12 18:43:53] Player Attack Loss
+[2026-03-12 18:43:55] Player Attack Loss
+[2026-03-12 18:43:56] Player Attack Loss
+[2026-03-12 18:43:56] Resources produced (Added to Player)
+[2026-03-12 18:43:56] Player Attack Loss
+[2026-03-12 18:44:00] Game ended.
+
+[2026-03-12 18:48:15] Game started.
+[2026-03-12 18:48:20] Resources produced (Added to Player)
+[2026-03-12 18:48:25] Resources produced (Added to Player)
+[2026-03-12 18:48:26] Player Attack Loss
+[2026-03-12 18:48:30] Resources produced (Added to Player)
+[2026-03-12 18:48:35] Resources produced (Added to Player)
+[2026-03-12 18:48:40] Resources produced (Added to Player)
+[2026-03-12 18:48:45] Resources produced (Added to Player)
+[2026-03-12 18:48:50] Resources produced (Added to Player)
+[2026-03-12 18:48:55] Resources produced (Added to Player)
+[2026-03-12 18:49:00] Resources produced (Added to Player)
+[2026-03-12 18:49:05] Resources produced (Added to Player)
+[2026-03-12 18:49:10] Resources produced (Added to Player)
+[2026-03-12 18:49:15] Resources produced (Added to Player)
+[2026-03-12 18:49:15] Player Village Attacked (Guard time fell off)
+[2026-03-12 18:49:15] Player Defence Win
+[2026-03-12 18:49:15] Game ended.
+
+[2026-03-12 18:51:09] Game started.
+[2026-03-12 18:51:14] Player Attack Win — loot: 168g 252i 139l
+[2026-03-12 18:51:14] Resources produced (Added to Player)
+[2026-03-12 18:51:19] Player Attack Win — loot: 275g 213i 216l
+[2026-03-12 18:51:19] Resources produced (Added to Player)
+[2026-03-12 18:51:20] Player Attack Win — loot: 157g 306i 203l
+[2026-03-12 18:51:22] Player Attack Win — loot: 532g 562i 202l
+[2026-03-12 18:51:24] Resources produced (Added to Player)
+[2026-03-12 18:51:24] Player Attack Win — loot: 259g 216i 206l
+[2026-03-12 18:51:26] Player Attack Win — loot: 238g 151i 240l
+[2026-03-12 18:51:27] Player Attack Win — loot: 178g 166i 151l
+[2026-03-12 18:51:29] Resources produced (Added to Player)
+[2026-03-12 18:51:29] Player Attack Win — loot: 231g 293i 221l
+[2026-03-12 18:51:30] Player Attack Win — loot: 167g 269i 137l
+[2026-03-12 18:51:34] Resources produced (Added to Player)
+[2026-03-12 18:51:38] Game ended.
+
+[2026-03-12 18:55:35] Game started.
+[2026-03-12 18:55:37] Player Attack Loss
+[2026-03-12 18:55:39] Player Attack Loss
+[2026-03-12 18:55:40] Resources produced (Added to Player)
+[2026-03-12 18:55:41] Player Attack Loss
+[2026-03-12 18:55:42] Player Attack Loss
+[2026-03-12 18:55:44] Player Attack Loss
+[2026-03-12 18:55:45] Resources produced (Added to Player)
+[2026-03-12 18:55:46] Player Attack Loss
+[2026-03-12 18:55:47] Player Attack Loss
+[2026-03-12 18:55:49] Player Attack Loss
+[2026-03-12 18:55:50] Resources produced (Added to Player)
+[2026-03-12 18:55:50] Player Attack Loss
+[2026-03-12 18:55:53] Player Attack Loss
+[2026-03-12 18:55:55] Player Attack Loss
+[2026-03-12 18:55:55] Resources produced (Added to Player)
+[2026-03-12 18:55:56] Player Attack Loss
+[2026-03-12 18:56:00] Resources produced (Added to Player)
+[2026-03-12 18:56:05] Resources produced (Added to Player)
+[2026-03-12 18:56:10] Resources produced (Added to Player)
+[2026-03-12 19:05:41] Game started.
+[2026-03-12 19:05:42] Player Attack Loss
+[2026-03-12 19:05:44] Player Attack Loss
+[2026-03-12 19:05:46] Resources produced (Added to Player)
+[2026-03-12 19:05:48] Player Attack Loss
+[2026-03-12 19:05:49] Player Attack Loss
+[2026-03-12 19:05:50] Player Attack Loss
+[2026-03-12 19:05:51] Resources produced (Added to Player)
+[2026-03-12 19:05:51] Player Attack Loss
+[2026-03-12 19:05:52] Player Attack Loss
+[2026-03-12 19:05:53] Player Attack Loss
+[2026-03-12 19:05:54] Player Attack Loss
+[2026-03-12 19:05:54] Player Attack Loss
+[2026-03-12 19:05:55] Player Attack Loss
+[2026-03-12 19:05:56] Resources produced (Added to Player)
+[2026-03-12 19:05:56] Player Attack Loss
+[2026-03-12 19:05:57] Player Attack Loss
+[2026-03-12 19:05:58] Player Attack Loss
+[2026-03-12 19:05:59] Player Attack Loss
+[2026-03-12 19:06:00] Player Attack Loss
+[2026-03-12 19:06:01] Resources produced (Added to Player)
+[2026-03-12 19:06:01] Player Attack Loss
+[2026-03-12 19:06:03] Player Attack Loss
+[2026-03-12 19:06:04] Player Attack Loss
+[2026-03-12 19:06:05] Player Attack Loss
+[2026-03-12 19:06:06] Resources produced (Added to Player)
+[2026-03-12 19:06:06] Player Attack Loss
+[2026-03-12 19:06:07] Player Attack Loss
+[2026-03-12 19:06:08] Player Attack Loss
+[2026-03-12 19:06:11] Resources produced (Added to Player)
+[2026-03-12 19:06:16] Resources produced (Added to Player)
+[2026-03-12 19:06:21] Resources produced (Added to Player)
+[2026-03-12 19:06:25] BUILD/TRAIN queued: FARM
+[2026-03-12 19:06:26] BUILD/TRAIN queued: FARM
+[2026-03-12 19:06:26] Resources produced (Added to Player)
+[2026-03-12 19:06:31] Resources produced (Added to Player)
+[2026-03-12 19:06:36] Resources produced (Added to Player)
+[2026-03-12 19:06:41] Resources produced (Added to Player)
+[2026-03-12 19:06:41] Player Village Attacked (Guard time fell off)
+[2026-03-12 19:06:41] Player Defence Win
+[2026-03-12 19:06:45] FARM Building Finished
+[2026-03-12 19:06:46] FARM Building Finished
+[2026-03-12 19:06:46] Resources produced (Added to Player)
+[2026-03-12 19:06:49] BUILD/TRAIN queued: KNIGHT
+[2026-03-12 19:06:51] Resources produced (Added to Player)
+[2026-03-12 19:06:51] BUILD/TRAIN queued: KNIGHT
+[2026-03-12 19:06:54] BUILD/TRAIN queued: ARCHER
+[2026-03-12 19:06:55] BUILD/TRAIN queued: ARCHER
+[2026-03-12 19:06:56] Resources produced (Added to Player)
+[2026-03-12 19:07:01] Resources produced (Added to Player)
+[2026-03-12 19:07:06] Resources produced (Added to Player)
+[2026-03-12 19:07:11] Resources produced (Added to Player)
+[2026-03-12 19:07:16] Resources produced (Added to Player)
+[2026-03-12 19:07:21] Resources produced (Added to Player)
+[2026-03-12 19:07:26] Resources produced (Added to Player)
+[2026-03-12 19:07:31] Resources produced (Added to Player)
+[2026-03-12 19:07:36] Resources produced (Added to Player)
+[2026-03-12 19:07:41] Resources produced (Added to Player)
+[2026-03-12 19:07:41] Player Village Attacked (Guard time fell off)
+[2026-03-12 19:07:41] Player Defence Win
+[2026-03-12 19:07:46] Resources produced (Added to Player)
+[2026-03-12 19:07:51] Resources produced (Added to Player)
+[2026-03-12 19:07:55] Player Attack Loss
+[2026-03-12 19:07:56] Resources produced (Added to Player)
+[2026-03-12 19:07:56] Player Attack Loss
+[2026-03-12 19:07:57] Player Attack Loss
+[2026-03-12 19:07:58] Player Attack Loss
+[2026-03-12 19:07:59] Player Attack Loss
+[2026-03-12 19:08:01] Resources produced (Added to Player)
+[2026-03-12 19:08:01] Game ended.
+
+[2026-03-12 19:09:03] Game started.
+[2026-03-12 19:09:08] Resources produced (Added to Player)
+[2026-03-12 19:09:10] BUILD/TRAIN queued: FARM
+[2026-03-12 19:09:11] BUILD/TRAIN queued: FARM
+[2026-03-12 19:09:13] Resources produced (Added to Player)
+[2026-03-12 19:09:18] Resources produced (Added to Player)
+[2026-03-12 19:09:23] Resources produced (Added to Player)
+[2026-03-12 19:09:28] Resources produced (Added to Player)
+[2026-03-12 19:09:30] FARM Building Finished
+[2026-03-12 19:09:31] FARM Building Finished
+[2026-03-12 19:09:33] Resources produced (Added to Player)
+[2026-03-12 19:09:38] Resources produced (Added to Player)
+[2026-03-12 19:09:40] BUILD/TRAIN queued: KNIGHT
+[2026-03-12 19:09:41] BUILD/TRAIN queued: KNIGHT
+[2026-03-12 19:09:42] BUILD/TRAIN queued: ARCHER
+[2026-03-12 19:09:43] BUILD/TRAIN queued: ARCHER
+[2026-03-12 19:09:43] Resources produced (Added to Player)
+[2026-03-12 19:09:48] Resources produced (Added to Player)
+[2026-03-12 19:09:53] Resources produced (Added to Player)
+[2026-03-12 19:09:58] Resources produced (Added to Player)
+[2026-03-12 19:10:03] Resources produced (Added to Player)
+[2026-03-12 19:10:03] Player Village Attacked (Guard time fell off)
+[2026-03-12 19:10:03] Player Defence Win
+[2026-03-12 19:10:08] Resources produced (Added to Player)
+[2026-03-12 19:10:13] Resources produced (Added to Player)
+[2026-03-12 19:10:18] Resources produced (Added to Player)
+[2026-03-12 19:10:23] Resources produced (Added to Player)
+[2026-03-12 19:10:28] Resources produced (Added to Player)
+[2026-03-12 19:10:29] Player Attack Loss
+[2026-03-12 19:10:30] Player Attack Loss
+[2026-03-12 19:10:31] Player Attack Win — loot: 222g 204i 178l
+[2026-03-12 19:10:33] Resources produced (Added to Player)
+[2026-03-12 19:10:33] Player Attack Loss
+[2026-03-12 19:10:35] Player Attack Loss
+[2026-03-12 19:10:35] Player Attack Loss
+[2026-03-12 19:10:36] Player Attack Loss
+[2026-03-12 19:10:37] Player Attack Loss
+[2026-03-12 19:10:38] Resources produced (Added to Player)
+[2026-03-12 19:10:38] Player Attack Loss
+[2026-03-12 19:10:39] Player Attack Loss
+[2026-03-12 19:10:40] Player Attack Loss
+[2026-03-12 19:10:41] Player Attack Loss
+[2026-03-12 19:10:41] Player Attack Loss
+[2026-03-12 19:10:43] Resources produced (Added to Player)
+[2026-03-12 19:10:43] Game ended.
+
+[2026-03-12 19:11:25] Game started.
+[2026-03-12 19:11:29] Player Attack Loss
+[2026-03-12 19:11:30] Resources produced (Added to Player)
+[2026-03-12 19:11:31] Player Attack Loss
+[2026-03-12 19:11:34] Player Attack Loss
+[2026-03-12 19:11:35] Player Attack Loss
+[2026-03-12 19:11:35] Resources produced (Added to Player)
+[2026-03-12 19:11:36] Player Attack Loss
+[2026-03-12 19:11:37] Game ended.
+
+[2026-03-12 19:15:41] Game started.
+[2026-03-12 19:15:45] Player Attack Loss
+[2026-03-12 19:15:46] Resources produced (Added to Player)
+[2026-03-12 19:15:46] Player Attack Loss
+[2026-03-12 19:15:47] Player Attack Loss
+[2026-03-12 19:15:48] Player Attack Loss
+[2026-03-12 19:15:50] Player Attack Loss
+[2026-03-12 19:15:51] Player Attack Loss
+[2026-03-12 19:15:51] Resources produced (Added to Player)
+[2026-03-12 19:15:52] Player Attack Loss
+[2026-03-12 19:15:53] Player Attack Loss
+[2026-03-12 19:15:55] Game ended.
+
+[2026-03-12 19:16:38] Game started.
+[2026-03-12 19:16:42] Player Attack Win — loot: 593g 482i 422l
+[2026-03-12 19:16:43] Resources produced (Added to Player)
+[2026-03-12 19:16:44] Player Attack Win — loot: 641g 359i 374l
+[2026-03-12 19:16:45] Player Attack Win — loot: 344g 364i 504l
+[2026-03-12 19:16:47] Player Attack Win — loot: 365g 390i 408l
+[2026-03-12 19:16:48] Resources produced (Added to Player)
+[2026-03-12 19:16:48] Player Attack Loss
+[2026-03-12 19:16:51] Game ended.
+
+[2026-03-12 19:21:54] Game started.
+[2026-03-12 19:21:59] Resources produced (Added to Player)
+[2026-03-12 19:22:04] Resources produced (Added to Player)
+[2026-03-12 19:22:09] Resources produced (Added to Player)
+[2026-03-12 19:22:14] Resources produced (Added to Player)
+[2026-03-12 19:22:16] Player Attack Loss
+[2026-03-12 19:22:18] Player Attack Loss
+[2026-03-12 19:22:19] Resources produced (Added to Player)
+[2026-03-12 19:22:20] Player Attack Loss
+[2026-03-12 19:22:21] Player Attack Loss
+[2026-03-12 19:22:22] Player Attack Loss
+[2026-03-12 19:22:22] Player Attack Loss
+[2026-03-12 19:22:23] Player Attack Loss
+[2026-03-12 19:22:24] Resources produced (Added to Player)
+[2026-03-12 19:22:24] Player Attack Loss
+[2026-03-12 19:22:25] Player Attack Loss
+[2026-03-12 19:22:26] Player Attack Loss
+[2026-03-12 19:22:27] Game ended.
+
+[2026-03-12 19:23:27] Game started.
+[2026-03-12 19:23:31] Player Attack Loss
+[2026-03-12 19:23:32] Resources produced (Added to Player)
+[2026-03-12 19:23:33] Player Attack Loss
+[2026-03-12 19:23:34] Player Attack Loss
+[2026-03-12 19:23:35] Player Attack Loss
+[2026-03-12 19:23:35] Player Attack Loss
+[2026-03-12 19:23:36] Player Attack Loss
+[2026-03-12 19:23:37] Player Attack Loss
+[2026-03-12 19:23:37] Resources produced (Added to Player)
+[2026-03-12 19:23:38] Player Attack Loss
+[2026-03-12 19:23:42] Resources produced (Added to Player)
+[2026-03-12 19:23:43] Game ended.
+
+[2026-03-12 19:24:25] Game started.
+[2026-03-12 19:24:27] Player Attack Loss
+[2026-03-12 19:24:28] Player Attack Loss
+[2026-03-12 19:24:29] Player Attack Loss
+[2026-03-12 19:24:30] Player Attack Loss
+[2026-03-12 19:24:30] Resources produced (Added to Player)
+[2026-03-12 19:24:31] Player Attack Loss
+[2026-03-12 19:24:32] Player Attack Loss
+[2026-03-12 19:24:33] Player Attack Loss
+[2026-03-12 19:24:34] Player Attack Loss
+[2026-03-12 19:24:35] Player Attack Loss
+[2026-03-12 19:24:35] Resources produced (Added to Player)
+[2026-03-12 19:24:40] Resources produced (Added to Player)
+[2026-03-12 19:24:41] Game ended.
+
+[2026-03-12 19:25:15] Game started.
+[2026-03-12 19:25:20] Resources produced (Added to Player)
+[2026-03-12 19:25:25] Resources produced (Added to Player)
+[2026-03-12 19:25:28] Player Attack Loss
+[2026-03-12 19:25:30] Player Attack Loss
+[2026-03-12 19:25:30] Resources produced (Added to Player)
+[2026-03-12 19:25:30] Player Attack Loss
+[2026-03-12 19:25:31] Player Attack Loss
+[2026-03-12 19:25:32] Player Attack Loss
+[2026-03-12 19:25:33] Player Attack Loss
+[2026-03-12 19:25:33] Player Attack Loss
+[2026-03-12 19:25:35] Resources produced (Added to Player)
+[2026-03-12 19:25:38] BUILD/TRAIN queued: FARM
+[2026-03-12 19:25:40] Resources produced (Added to Player)
+[2026-03-12 19:25:45] Resources produced (Added to Player)
+[2026-03-12 19:25:50] Resources produced (Added to Player)
+[2026-03-12 19:25:55] Resources produced (Added to Player)
+[2026-03-12 19:25:58] FARM Building Finished
+[2026-03-12 19:26:00] Resources produced (Added to Player)
+[2026-03-12 19:26:03] BUILD/TRAIN queued: ARCHER
+[2026-03-12 19:26:04] BUILD/TRAIN queued: ARCHER
+[2026-03-12 19:26:05] Resources produced (Added to Player)
+[2026-03-12 19:26:10] Resources produced (Added to Player)
+[2026-03-12 19:26:15] Resources produced (Added to Player)
+[2026-03-12 19:26:15] Player Village Attacked (Guard time fell off)
+[2026-03-12 19:26:15] Player Defence Win
+[2026-03-12 19:26:20] Resources produced (Added to Player)
+[2026-03-12 19:26:25] Resources produced (Added to Player)
+[2026-03-12 19:26:30] Resources produced (Added to Player)
+[2026-03-12 19:26:35] Resources produced (Added to Player)
+[2026-03-12 19:26:40] Resources produced (Added to Player)
+[2026-03-12 19:26:45] Resources produced (Added to Player)
+[2026-03-12 19:26:50] Player Attack Win — loot: 73g 111i 89l
+[2026-03-12 19:26:50] Resources produced (Added to Player)
+[2026-03-12 19:26:51] Player Attack Loss
+[2026-03-12 19:26:52] Player Attack Win — loot: 66g 62i 143l
+[2026-03-12 19:26:54] Player Attack Win — loot: 84g 124i 70l
+[2026-03-12 19:26:55] Player Attack Win — loot: 73g 121i 105l
+[2026-03-12 19:26:55] Resources produced (Added to Player)
+[2026-03-12 19:26:55] Player Attack Loss
+[2026-03-12 19:26:56] Player Attack Win — loot: 78g 117i 49l
+[2026-03-12 19:26:57] Player Attack Win — loot: 112g 134i 117l
+[2026-03-12 19:26:58] Player Attack Win — loot: 70g 95i 114l
+[2026-03-12 19:26:59] Player Attack Win — loot: 137g 53i 46l
+[2026-03-12 19:27:00] Resources produced (Added to Player)
+[2026-03-12 19:27:00] Player Attack Win — loot: 106g 92i 61l
+[2026-03-12 19:27:01] Player Attack Win — loot: 106g 123i 80l
+[2026-03-12 19:27:02] Player Attack Loss
+[2026-03-12 19:27:05] Resources produced (Added to Player)
+[2026-03-12 19:27:09] Game ended.
+

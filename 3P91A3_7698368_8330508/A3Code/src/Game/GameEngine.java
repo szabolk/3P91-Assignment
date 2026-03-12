@@ -2,6 +2,7 @@ package Game;
 
 import GameComponents.*;
 import UtilThings.*;
+import ChallengeDecision.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -58,16 +59,16 @@ public class GameEngine {
             for (Village v : villages) {
                 v.doVillageWork(currentTime, doProduction);
                 if (currentTime >= v.getGuardedUntil()) {
-                    SimulationResult result = simulateAttack(generateVillage(v), v); //no need to add loot to the generated attackers
+                    ChallengeResult result = simulateAttack(generateVillage(v), v); //no need to add loot to the generated attackers
                     //if the player's village defends, then increment their defense win score, else its counts as a loss
                     GameLogger.log("Player Village Attacked (Guard time fell off)");
-                    if (!result.isAttackerWin()) {
+                    if (!result.getChallengeWon()) {
                         v.getOwner().addDefenseVictory();
-                        GameLogger.log("Player Defence Win - success chance was " + String.format("%.1f%%", 100-result.getSuccessPercentage()));
+                        GameLogger.log("Player Defence Win");
                     }
                     else {
                         v.getOwner().addDefenseLoss();
-                        GameLogger.log("Player Defence Loss - success chance was " + String.format("%.1f%%", 100-result.getSuccessPercentage()));
+                        GameLogger.log("Player Defence Loss");
                     }
                     v.setGuardTime(currentTime); //safe for the next minute -> maybe change later
                 }
@@ -111,7 +112,7 @@ public class GameEngine {
         //Village enemy = new Village(enemyHallLevel, gold, iron, lumber);
 
         //make an army similar to players strength
-        int targetAttack = Math.max(1, (int) (playerAttackScore * (0.5 + random.nextDouble() * 0.7)));
+        int targetAttack = Math.max(1, (int) (playerAttackScore * (0.2 + random.nextDouble() * 0.3)));
         int currentAttack = enemy.getArmy().getAttackScore();
 
         //add basic units until attack score meets or slightly exceeds the players army score
@@ -130,7 +131,7 @@ public class GameEngine {
         }
 
         //make defenses similar to player, same logic as the army creation above
-        int targetDefence = Math.max(1, (int) (playerAttackScore * (0.4 + random.nextDouble() * 0.7)));
+        int targetDefence = Math.max(1, (int) (playerAttackScore * (0.2 + random.nextDouble() * 0.3)));
         int currentDefence = enemy.getDefences().getDefenceScore();
 
         while (currentDefence < targetDefence) {
@@ -175,49 +176,9 @@ public class GameEngine {
      * @return SimulationResult which will be used in a separate method to handle the results
      * (like adding the loot to the attacker's resources, increasing num of wins etc.
      */
-    public SimulationResult simulateAttack(Village attackingVillage, Village defenderVillage) {
-        Random random = new Random();
-        Army attacker = attackingVillage.getArmy();
-
-        //no need for complext attack/defence score calculations as all units have predefined stats that increase with every level
-        //so all that needs to be calculated is the relevant stat (attack) to get the scores
-        int attackerScore = attacker.getAttackScore();
-        int defenderScore = defenderVillage.getDefences().getDefenceScore();
-
-        //apply a multiplier for the attackers and defenders? I assume thats what is meant by "dice rolling" in the pdf
-        int diceAttacker = (int) (attackerScore * random.nextDouble(1.0, 2.0));
-        int diceDefender = (int) (defenderScore * random.nextDouble(1.0, 2.0));
-
-        //an example of this calculation: winChance = 200 / (200 + 150)) = 0.571 -> 57.1% chance of winning
-        double winChance = diceAttacker / (double) (diceAttacker + diceDefender);
-
-        //using the example above, ifthe game produces a roll less than 0.571, then attacker wins
-        boolean attackerWin = random.nextDouble() < winChance;
-
-        //determine loot from attack if the attacker won
-        GameComponents.Resource loot = null;
-        if (attackerWin) {
-            GameComponents.Resource defendingVillageResources = defenderVillage.getResources();
-            double resourceCap = 0.3; //at most 30% of each resource can be looted
-            //if the win chance is less than 50%
-            //(meaning that the attacking army was less powerful than the defences and therefore
-            //logically would do less destruction to the village) -> should get less loot
-            double percentResourceTaken = Math.min(resourceCap, winChance);
-
-            //calculates the amount of loot taken (based on the defending villages resources and the percentage)
-            int goldLoot = (int) Math.round(defendingVillageResources.getGold() * percentResourceTaken);
-            int ironLoot = (int) Math.round(defendingVillageResources.getIron() * percentResourceTaken);
-            int lumberLoot = (int) Math.round(defendingVillageResources.getLumber() * percentResourceTaken);
-
-            //take resources from losing village
-            defendingVillageResources.spend(goldLoot, ironLoot, lumberLoot);
-            loot = new GameComponents.Resource(defenderVillage, goldLoot, ironLoot, lumberLoot);
-        } else {
-            //if the attacker lost, they get nothing
-            loot = new GameComponents.Resource(defenderVillage, 0, 0, 0);
-        }
-
-        return new SimulationResult(attackerWin, loot, winChance * 100.0);
+    public ChallengeResult simulateAttack(Village attackingVillage, Village defenderVillage) {
+        ChallengeAdapter challengeAdapter = new ChallengeAdapter(attackingVillage.getArmy(), attackingVillage.getResources(), defenderVillage.getDefences(), defenderVillage.getResources());
+        return challengeAdapter.simulateAttack();
     }
 
     /**
@@ -227,11 +188,11 @@ public class GameEngine {
      * @param defenderVillage - defending npc village
      * @throws NoVillageExploredException - will throw if the player hasnt explored a village
      */
-    public void executeAttack(Village attackingVillage, Village defenderVillage) throws NoVillageExploredException {
+    public ChallengeResult executeAttack(Village attackingVillage, Village defenderVillage) throws NoVillageExploredException {
         if (defenderVillage == null) {
             throw new NoVillageExploredException("Please explore a village before attacking.");
         }
-        simulateAttack(attackingVillage, defenderVillage);
+        return simulateAttack(attackingVillage, defenderVillage);
     }
 
     /**
@@ -239,10 +200,19 @@ public class GameEngine {
      * @param player - player who attacked
      * @param loot - loot stolen in the attack
      */
-    public void addLootToPlayer(Player player, Resource loot) {
-        player.getVillage().getResources().addResource(ResourceType.GOLD, loot.getGold());
-        player.getVillage().getResources().addResource(ResourceType.IRON, loot.getIron());
-        player.getVillage().getResources().addResource(ResourceType.LUMBER, loot.getLumber());
+    public void addLootToPlayer(Player player, List<ChallengeResource<Double, Double>> loot) {
+        int[] resources = new int[3];
+
+        for (int i = 0; i < loot.size() && i < 3; i++) {
+            resources[i] = loot.get(i).getProperty().intValue();
+        }
+        int goldGained = resources[0];
+        int ironGained = resources[1];
+        int lumberGained = resources[2];
+
+        player.getVillage().getResources().addResource(ResourceType.GOLD, goldGained);
+        player.getVillage().getResources().addResource(ResourceType.IRON, ironGained);
+        player.getVillage().getResources().addResource(ResourceType.LUMBER, lumberGained);
     }
 
     /**

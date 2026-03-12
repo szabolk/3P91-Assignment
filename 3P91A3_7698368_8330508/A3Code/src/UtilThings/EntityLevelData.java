@@ -24,15 +24,15 @@ public class EntityLevelData {
     );
 
     public static final List<EntityStats> SOLDIER_LEVELS = Arrays.asList(
-            new EntityStats(1, 200, 25, 1, 0, 60, 20, 0, 20, 1),
-            new EntityStats(2, 300, 40, 1, 0, 90, 40, 0, 30, 2),
-            new EntityStats(3, 450, 60, 1, 0, 130, 70, 0, 45, 4)
+            new EntityStats(1, 200, 40, 1, 0, 60, 20, 0, 20, 1),
+            new EntityStats(2, 300, 60, 1, 0, 90, 40, 0, 30, 2),
+            new EntityStats(3, 450, 80, 1, 0, 130, 70, 0, 45, 4)
     );
 
     public static final List<EntityStats> ARCHER_LEVELS = Arrays.asList(
-            new EntityStats(1, 120, 18, 5, 0, 50, 0, 40, 20, 1),
-            new EntityStats(2, 160, 28, 6, 0, 75, 15, 60, 30, 2),
-            new EntityStats(3, 220, 42, 7, 0, 110, 30, 90, 40, 3)
+            new EntityStats(1, 120, 45, 5, 0, 50, 0, 40, 20, 1),
+            new EntityStats(2, 160, 50, 6, 0, 75, 15, 60, 30, 2),
+            new EntityStats(3, 220, 70, 7, 0, 110, 30, 90, 40, 3)
     );
 
     public static final List<EntityStats> KNIGHT_LEVELS = Arrays.asList(
@@ -82,9 +82,9 @@ public class EntityLevelData {
     //Building Stats
 
     public static final List<EntityStats> ARCHER_TOWER_LEVELS = Arrays.asList(
-            new EntityStats(1, 800, 30, 8, 0, 100, 50, 150, 20, 1),
-            new EntityStats(2, 1200, 50, 9, 0, 200, 100, 250, 30, 3),
-            new EntityStats(3, 1800, 80, 10, 0, 400, 200, 450, 50, 5)
+            new EntityStats(1, 500, 30, 8, 0, 100, 50, 150, 20, 1),
+            new EntityStats(2, 600, 50, 9, 0, 200, 100, 250, 30, 3),
+            new EntityStats(3, 700, 80, 10, 0, 400, 200, 450, 50, 5)
     );
 
     public static final List<EntityStats> VILLAGE_HALL_LEVELS = Arrays.asList(
@@ -97,9 +97,9 @@ public class EntityLevelData {
     );
 
     public static final List<EntityStats> CANNON_LEVELS = Arrays.asList(
-            new EntityStats(1, 1000, 60, 7, 0, 200, 150, 100, 45, 1),
-            new EntityStats(2, 1500, 100, 8, 0, 400, 300, 200, 60, 4),
-            new EntityStats(3, 2200, 160, 9, 0, 700, 550, 400, 75, 6)
+            new EntityStats(1, 550, 60, 7, 0, 200, 150, 100, 45, 1),
+            new EntityStats(2, 650, 100, 8, 0, 400, 300, 200, 60, 4),
+            new EntityStats(3, 750, 160, 9, 0, 700, 550, 400, 75, 6)
     );
 
     /**

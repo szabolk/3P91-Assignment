@@ -332,6 +332,9 @@ public class Village {
             if (currentInhabitant.getCompletionTime() <= currentTime) {
                 Inhabitant newInhabitant = EntityFactory.createNewInhabitant(currentInhabitant.getType()); //call to factory
                 addInhabitant(newInhabitant);
+                if (newInhabitant instanceof ArmyUnit) {
+                    getArmy().addUnit((ArmyUnit) newInhabitant);
+                }
                 trainQueueIterator.remove();
             }
         }

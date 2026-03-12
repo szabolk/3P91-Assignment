@@ -1,0 +1,23 @@
+[2026-03-12 18:21:41] Game started.
+[2026-03-12 18:21:46] Resources produced (Added to Player)
+[2026-03-12 18:21:50] Player Attack Loss
+[2026-03-12 18:21:50] Resources produced (Added to Player)
+[2026-03-12 18:21:54] Player Attack Loss
+[2026-03-12 18:21:55] Player Attack Loss
+[2026-03-12 18:21:55] Resources produced (Added to Player)
+[2026-03-12 18:21:57] Player Attack Loss
+[2026-03-12 18:22:00] Resources produced (Added to Player)
+[2026-03-12 18:22:05] Resources produced (Added to Player)
+[2026-03-12 18:22:07] Player Attack Loss
+[2026-03-12 18:22:09] Player Attack Loss
+[2026-03-12 18:22:10] Player Attack Loss
+[2026-03-12 18:22:10] Resources produced (Added to Player)
+[2026-03-12 18:22:12] Player Attack Loss
+[2026-03-12 18:22:15] Resources produced (Added to Player)
+[2026-03-12 18:22:17] Player Attack Loss
+[2026-03-12 18:22:19] Player Attack Loss
+[2026-03-12 18:22:19] Player Attack Loss
+[2026-03-12 18:22:20] Resources produced (Added to Player)
+[2026-03-12 18:22:25] Resources produced (Added to Player)
+[2026-03-12 18:22:28] Game ended.
+
