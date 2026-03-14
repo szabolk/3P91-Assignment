@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Village>
+    <villageHallLevel>1</villageHallLevel>
+    <guardedUntil>60000</guardedUntil>
+    <resources>
+        <gold>500</gold>
+        <iron>500</iron>
+        <lumber>500</lumber>
+    </resources>
+    <inhabitants>
+        <inhabitant>
+            <unitType>GOLD_MINER</unitType>
+            <level>1</level>
+        </inhabitant>
+        <inhabitant>
+            <unitType>IRON_MINER</unitType>
+            <level>1</level>
+        </inhabitant>
+        <inhabitant>
+            <unitType>LUMBER_MINER</unitType>
+            <level>1</level>
+        </inhabitant>
+        <inhabitant>
+            <unitType>WORKER</unitType>
+            <level>1</level>
+        </inhabitant>
+        <inhabitant>
+            <unitType>WORKER</unitType>
+            <level>1</level>
+        </inhabitant>
+    </inhabitants>
+</Village>

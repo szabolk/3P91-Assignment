@@ -1,6 +1,9 @@
 import Game.*;
 import UI.UserInterface;
 import UtilThings.*;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.util.Scanner;
 
 public class Main {
@@ -38,6 +41,13 @@ public class Main {
                 }
                 default -> System.out.println("Invalid Choice");
             }
+        }
+        try {
+            VillageSaver.villageToXML(player.getVillage(), "playerVillage.xml");
+        } catch (ParserConfigurationException e) {
+            System.err.println("Village Failed to Save: " + e.getMessage());
+        } catch (TransformerException e) {
+            System.err.println("Transformer Error: " + e.getMessage());
         }
     }
 
