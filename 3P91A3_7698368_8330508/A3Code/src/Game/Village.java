@@ -66,6 +66,7 @@ public class Village {
             return this;
         }
 
+
         public VillageBuilder guardedUntil(long until) {
             this.guardedUntil = until;
             return this;
@@ -197,6 +198,22 @@ public class Village {
 
     public long getGuardedUntil() {
         return this.guardedUntil;
+    }
+
+    public void setBuildings(List<Building> buildings) {
+        this.buildings = buildings;
+    }
+
+    public void setInhabitants(List<Inhabitant> inhabitants) {
+        this.inhabitants = inhabitants;
+    }
+
+    public void setBuildQueue(List<QueueTask> buildQueue) {
+        this.buildQueue = buildQueue;
+    }
+
+    public void setTrainQueue(List<QueueTask> trainQueue) {
+        this.trainQueue = trainQueue;
     }
 
     /**

@@ -31,6 +31,12 @@ public class Resource {
         return this.lumber;
     }
 
+    public void setResources(int gold, int iron, int lumber) {
+        this.gold = gold;
+        this.iron = iron;
+        this.lumber = lumber;
+    }
+
     /**
      * Determines the max amount of any resource a village can hold at any time
      * @param type - used to find the max amount of that type of resource

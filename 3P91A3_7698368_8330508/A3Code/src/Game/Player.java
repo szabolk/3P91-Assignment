@@ -76,4 +76,21 @@ public class Player {
     public void setExploredVillage(Village exploredVillage) {
         this.exploredVillage = exploredVillage;
     }
+
+    public void setAttackWins(int amount) {
+        this.wintotal = amount;
+    }
+
+    public void setAttackLosses(int amount) {
+        this.lossTotal = amount;
+    }
+
+    public void setDefenseVictory(int amount) {
+        this.defenseVictory = amount;
+    }
+
+    public void setDefenseLosses(int amount) {
+        this.defenseLosses = amount;
+    }
+
 }

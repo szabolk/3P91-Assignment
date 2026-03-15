@@ -99,6 +99,7 @@ public class VillageSaver {
             addChildElement(document, queueNode, "type", String.valueOf(task.getType()));
             addChildElement(document, queueNode, "completionTime", String.valueOf(task.getCompletionTime()));
             addChildElement(document, queueNode, "buildingToUpgrade", String.valueOf(task.getExistingBuilding()));
+            addChildElement(document, queueNode, "currentLevel", String.valueOf(task.getExistingBuilding().getStats().level()));
             buildQueue.appendChild(queueNode);
         }
 
