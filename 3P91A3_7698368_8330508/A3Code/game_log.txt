@@ -364,3 +364,91 @@
 [2026-03-14 16:11:25] Game started.
 [2026-03-14 16:11:26] Game ended.
 
+[2026-03-14 20:38:54] Game started.
+[2026-03-14 20:38:59] Resources produced (Added to Player)
+[2026-03-14 20:39:00] BUILD/TRAIN queued: FARM
+[2026-03-14 20:39:04] Resources produced (Added to Player)
+[2026-03-14 20:39:05] Game ended.
+
+[2026-03-14 20:40:00] Game started.
+[2026-03-14 20:40:03] BUILD/TRAIN queued: FARM
+[2026-03-14 20:40:04] Game ended.
+
+[2026-03-14 20:42:10] Game started.
+[2026-03-14 20:42:11] Game ended.
+
+[2026-03-14 20:42:30] Game started.
+[2026-03-14 20:42:31] Game ended.
+
+[2026-03-14 20:42:52] Game started.
+[2026-03-14 20:42:56] Game ended.
+
+[2026-03-14 20:43:34] Game started.
+[2026-03-14 20:43:35] Game ended.
+
+[2026-03-14 20:44:41] Game started.
+[2026-03-14 20:44:43] Game ended.
+
+[2026-03-14 20:49:40] Game started.
+[2026-03-14 20:49:42] Player Attack Loss
+[2026-03-14 20:49:45] Player Attack Loss
+[2026-03-14 20:49:45] Resources produced (Added to Player)
+[2026-03-14 20:49:46] Player Attack Loss
+[2026-03-14 20:49:47] Player Attack Loss
+[2026-03-14 20:49:49] Game ended.
+
+[2026-03-14 20:50:13] Game started.
+[2026-03-14 20:50:15] Player Attack Loss
+[2026-03-14 20:50:16] Player Attack Loss
+[2026-03-14 20:50:17] Player Attack Loss
+[2026-03-14 20:50:18] Game ended.
+
+[2026-03-14 20:56:27] Game started.
+[2026-03-14 20:56:29] BUILD/TRAIN queued: IRON_MINE
+[2026-03-14 20:56:32] Resources produced (Added to Player)
+[2026-03-14 20:56:36] BUILD/TRAIN queued: FARM
+[2026-03-14 20:56:37] Resources produced (Added to Player)
+[2026-03-14 20:56:42] Resources produced (Added to Player)
+[2026-03-14 20:56:47] Resources produced (Added to Player)
+[2026-03-14 20:56:49] IRON_MINE Building Finished
+[2026-03-14 20:56:52] Resources produced (Added to Player)
+[2026-03-14 20:56:56] FARM Building Finished
+[2026-03-14 20:56:57] Resources produced (Added to Player)
+[2026-03-14 20:57:02] Resources produced (Added to Player)
+[2026-03-14 20:57:03] BUILD/TRAIN queued: SOLDIER
+[2026-03-14 20:57:04] BUILD/TRAIN queued: ARCHER
+[2026-03-14 20:57:05] BUILD/TRAIN queued: KNIGHT
+[2026-03-14 20:57:07] Resources produced (Added to Player)
+[2026-03-14 20:57:12] Resources produced (Added to Player)
+[2026-03-14 20:57:17] Resources produced (Added to Player)
+[2026-03-14 20:57:21] Game ended.
+
+[2026-03-14 21:05:15] Game started.
+[2026-03-14 21:05:16] Game ended.
+
+[2026-03-14 21:05:39] Game started.
+[2026-03-14 21:05:40] Game ended.
+
+[2026-03-14 21:08:29] Game started.
+[2026-03-14 21:08:30] Game ended.
+
+[2026-03-14 21:09:47] Game started.
+[2026-03-14 21:09:48] Game ended.
+
+[2026-03-14 21:13:04] Game started.
+[2026-03-14 21:13:05] Game ended.
+
+[2026-03-14 21:13:39] Game started.
+[2026-03-14 21:13:40] Game ended.
+
+[2026-03-14 21:14:53] Game started.
+[2026-03-14 21:14:54] Game ended.
+
+[2026-03-14 21:17:05] Game started.
+[2026-03-14 21:17:07] Game ended.
+
+[2026-03-14 21:18:37] Game started.
+[2026-03-14 21:18:40] BUILD/TRAIN queued: FARM
+[2026-03-14 21:18:42] Game ended.
+
+[2026-03-14 21:18:42] Resources produced (Added to Player)

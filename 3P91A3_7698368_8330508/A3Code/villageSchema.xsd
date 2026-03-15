@@ -1,0 +1,92 @@
+<!-- schema was generated online using our XML village save file as an example-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="Village">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:byte" name="villageHallLevel"/>
+        <xs:element type="xs:int" name="guardedUntil"/>
+        <xs:element name="playerAttackStats">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:byte" name="wins"/>
+              <xs:element type="xs:byte" name="losses"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="playerDefenceStats">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:byte" name="wins"/>
+              <xs:element type="xs:byte" name="losses"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="resources">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:short" name="gold"/>
+              <xs:element type="xs:short" name="iron"/>
+              <xs:element type="xs:short" name="lumber"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inhabitants">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="inhabitant" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="type"/>
+                    <xs:element type="xs:byte" name="level"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="buildings">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="building" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="type"/>
+                    <xs:element type="xs:byte" name="level"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="buildQueue">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="task" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="type"/>
+                    <xs:element type="xs:int" name="completionTime"/>
+                    <xs:element type="xs:string" name="buildingToUpgrade"/> </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="trainQueue">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="task" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="type"/>
+                    <xs:element type="xs:int" name="completionTime"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
