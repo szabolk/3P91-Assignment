@@ -234,111 +234,45 @@ public class UserInterface {
     /**
      * This is used for when a player wants to upgrade. First it lists all upgradeable entities, then the
      * user selects the one they want upgraded.
-     * @param player - player who wishes to upgrade
-     * @param engine - game engine
+     * @param upgradeables - the list of entities that can be upgraded
      */
-    public static void displayUpgradeMenu(Player player, GameEngine engine) {
-        Village village = player.getVillage();
-        Scanner upgradeScanner = new Scanner(System.in);
-
-        //combined list of everything upgradeable
-        List<IUpgradeable> upgradeables = new ArrayList<>();
-
-        upgradeables.add(village.getVillageHall());
-
-        for (Building b : village.getBuildings()) {
-            upgradeables.add(b);
-        }
-        for (Inhabitant i : village.getInhabitants()) {
-            upgradeables.add(i);
-        }
-        for (ArmyUnit u : village.getArmy().getUnits()) {
-            upgradeables.add(u);
-        }
-
+    public static void displayUpgradeMenu(List<IUpgradeable> upgradeables) {
         System.out.println("\n---------- Upgrade Menu ----------");
+
         if (upgradeables.isEmpty()) {
             System.out.println("Nothing to upgrade.");
+            System.out.println("0. Return to main menu");
+            System.out.print("Choice: ");
             return;
         }
 
-        //whole logic is to print all relevant information about the upgradeable units
-        int index = 1; //will be used for selecting the entity the palyers wants to upgrade
+        int index = 1;
         for (IUpgradeable u : upgradeables) {
             int currentLevel = u.getStats().level();
             List<EntityStats> levels = EntityLevelData.getLevels(u.getEntityType());
-
-            int maxLevel;
-            if (levels != null) {
-                maxLevel = levels.size();
-            }
-            else {
-                maxLevel = currentLevel;
-            }
+            int maxLevel = (levels != null) ? levels.size() : currentLevel;
 
             if (currentLevel >= maxLevel) {
-                //cannot upgrade any further
-                System.out.printf("%d. %s (lvl %d / MAX)%n", index, u.getEntityType(), currentLevel);
+                System.out.printf("%d. %s (lvl %d / MAX)%n",
+                        index, u.getEntityType(), currentLevel);
             } else {
-                EntityStats nextStats = levels.get(currentLevel); //index = next level
+                EntityStats next = levels.get(currentLevel);
                 System.out.printf("%d. %s (lvl %d -> %d)  Cost: %dg, %di, %dl%n",
                         index,
                         u.getEntityType(),
                         currentLevel,
                         currentLevel + 1,
-                        nextStats.goldCost(),
-                        nextStats.ironCost(),
-                        nextStats.lumberCost()
-                );
+                        next.goldCost(),
+                        next.ironCost(),
+                        next.lumberCost());
             }
             index++;
         }
 
         System.out.println("0. Return to main menu");
         System.out.print("Choice: ");
-
-        String input = upgradeScanner.nextLine().trim();
-
-        if (input.equals("0")) {
-            return;
-        }
-
-        int choice;
-        try {
-            choice = Integer.parseInt(input);
-        } catch (NumberFormatException e) { //in case the player enters something that isnt an int
-            System.out.println("Invalid choice: Please choose a number between 1 and " + upgradeables.size());
-            return;
-        }
-
-        if (choice < 1 || choice > upgradeables.size()) { //if the player enters a number that is negative or greater than the # of upgradeable units (out of bounds)
-            System.out.println("Invalid choice: Please select a number found in the list");
-            return;
-        }
-
-        IUpgradeable selected = upgradeables.get(choice - 1); //get the correct unit (which is at the choice - 1 because of how list indexing works (Ex. choice 1 will be at index 0)
-        int currentLevel = selected.getStats().level();
-        List<EntityStats> levels = EntityLevelData.getLevels(selected.getEntityType());
-        int maxLevel = (levels != null) ? levels.size() : currentLevel;
-
-        if (currentLevel >= maxLevel) {
-            System.out.println(selected.getEntityType() + " is already at max level.");
-            return;
-        }
-
-        try {
-            engine.upgrade(player, selected);
-            System.out.println(selected.getEntityType() + " upgrade scheduled successfully!");
-            GameLogger.log("Upgrade queued: " + selected.getEntityType() + " to level " + (currentLevel + 1));
-        } catch (GameEngine.NotEnoughResourcesException e) {
-            System.out.println("Error: " + e.getMessage());
-        } catch (GameEngine.UpgradeFailedException e) {
-            System.out.println("Error: " + e.getMessage());
-        } catch (GameEngine.QueueFullException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
     }
-
+    
     /**
      * Displays the village's build and train queues so the player knows when their upgrades will complete
      * @param village - player village
@@ -374,5 +308,57 @@ public class UserInterface {
                 System.out.printf("%d. Training %s  -  %ds remaining%n", index++, task.getType(), secondsRemaining);
             }
         }
+    }
+
+    public static void displayExploredVillage(Village village) {
+        System.out.println("\n---------- Explored Village ----------");
+        System.out.println("Village Hall Level: " + village.getVillageHall().getStats().level());
+
+        System.out.println("\nResources:");
+        System.out.println("Gold: " + village.getResources().getGold());
+        System.out.println("Iron: " + village.getResources().getIron());
+        System.out.println("Lumber: " + village.getResources().getLumber());
+
+        System.out.println("\nAttack Power: " + village.getArmy().getAttackScore());
+        System.out.println("Defence Power: " + village.getDefences().getDefenceScore());
+    }
+
+    public static void displayAttackWin(int goldGained, int ironGained, int lumberGained) {
+        System.out.println("Attack Result: Win");
+        System.out.println("\nResources Gained:");
+        System.out.println("Gold: +" + goldGained);
+        System.out.println("Iron: +" + ironGained);
+        System.out.println("Lumber: +" + lumberGained);
+    }
+
+    public static void displayAttackLoss() {
+        System.out.println("Attack Result: Loss");
+        System.out.println("\nNo resources gained.");
+    }
+
+    public static void printMessage(String msg) {
+        System.out.println(msg);
+    }
+
+    public static void printBuildMenu() {
+        System.out.println("\n---------- Build/Train Menu ----------");
+        System.out.println("Buildings:");
+        System.out.println("1. Farm (50g, 0i, 80l)");
+        System.out.println("2. Gold Mine (0g, 50i, 100l)");
+        System.out.println("3. Iron Mine (100g, 0i, 100l)");
+        System.out.println("4. Lumber Mill (100g, 0i, 0l)");
+        System.out.println("5. Archer Tower (100g, 50i, 150l)");
+        System.out.println("6. Cannon (200g, 150i, 100l)");
+        System.out.println("\nUnits:");
+        System.out.println("7. Soldier (60g, 20i, 0l)");
+        System.out.println("8. Archer (50g, 0i, 40l)");
+        System.out.println("9. Knight (150g, 100i, 0l)");
+        System.out.println("10. Catapult (200g, 150i, 200l)");
+        System.out.println("11. Worker/Builder (50g, 0i, 10l)");
+        System.out.println("12. Gold Miner (60g, 0i, 20l)");
+        System.out.println("13. Iron Miner (60g, 0i, 20l)");
+        System.out.println("14. Lumber Collector (60g, 0i, 20l)");
+        System.out.println("0. Return to main menu");
+        System.out.print("Choice: ");
     }
 }

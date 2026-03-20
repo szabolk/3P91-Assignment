@@ -19,29 +19,9 @@ public class Main {
         gameThread.setDaemon(true);
         gameThread.start();
 
-        //main UI loop for the game. Print out the menu, user inputs one of the menu options, and can continue
-        //playing the game until they decide to quit by enter 0
-        Scanner scanner = new Scanner(System.in);
-        boolean isRunning = true;
-        while (isRunning) {
-            UserInterface.printMainMenu();
-            String line = scanner.nextLine().trim();
-            switch (line) {
-                case "1" -> UserInterface.explore(player, engine);
-                case "2" -> UserInterface.attack(player, engine);
-                case "3" -> UserInterface.displayBuildMenu(player, engine);
-                case "4" -> UserInterface.displayUpgradeMenu(player, engine);
-                case "5" -> UserInterface.displayVillageStatus(player.getVillage());
-                case "6" -> UserInterface.printAllBuildings(player.getVillage());
-                case "7" -> UserInterface.printAllInhabitants(player.getVillage());
-                case "8" -> UserInterface.displayQueues(player.getVillage(), engine);
-                case "0" -> {
-                    isRunning = false;
-                    GameLogger.log("Game ended.\n");
-                }
-                default -> System.out.println("Invalid Choice");
-            }
-        }
+        Controller controller = new Controller(engine, player);
+        controller.startGame();
+
         try {
             VillageSaver.villageToXML(player.getVillage(), "playerVillage.xml");
         } catch (ParserConfigurationException e) {

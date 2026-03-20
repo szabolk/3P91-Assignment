@@ -11,9 +11,9 @@
           <losses>0</losses>
      </playerDefenceStats>
      <resources>
-          <gold>450</gold>
-          <iron>500</iron>
-          <lumber>420</lumber>
+          <gold>0</gold>
+          <iron>0</iron>
+          <lumber>0</lumber>
      </resources>
      <inhabitants>
           <inhabitant>
@@ -65,9 +65,10 @@
      </buildings>
      <buildQueue>
           <task>
-               <type>FARM</type>
-               <completionTime>22863</completionTime>
-               <buildingToUpgrade>null</buildingToUpgrade>
+               <type>VILLAGE_HALL</type>
+               <completionTime>32413</completionTime>
+               <buildingToUpgrade>VILLAGE_HALL</buildingToUpgrade>
+               <currentLevel>1</currentLevel>
           </task>
      </buildQueue>
      <trainQueue/>
