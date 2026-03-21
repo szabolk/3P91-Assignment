@@ -30,14 +30,16 @@ public class Village {
     private Village(VillageBuilder builder) {
         this.owner = builder.owner;
         this.villageHall = new VillageHall(builder.hallLevel);
-        this.buildings = new ArrayList<>(MAX_NUM_BUILDINGS);
-        this.inhabitants = new ArrayList<>();
+        this.buildings = builder.buildings != null ? builder.buildings : new ArrayList<>(MAX_NUM_BUILDINGS);
+        this.inhabitants = builder.inhabitants != null ? builder.inhabitants : new ArrayList<>();
+        this.buildQueue = builder.buildQueue != null ? builder.buildQueue : new ArrayList<>();
+        this.trainQueue = builder.trainQueue != null ? builder.trainQueue : new ArrayList<>();
         this.resources = new Resource(this, builder.gold, builder.iron, builder.lumber);
         this.army = new Army();
         this.defences = new Defences();
         this.guardedUntil = builder.guardedUntil;
-        this.buildQueue = new ArrayList<>();
-        this.trainQueue = new ArrayList<>();
+
+        buildings.add(this.villageHall);
     }
 
     public static class VillageBuilder {
@@ -48,6 +50,10 @@ public class Village {
         private int lumber = 500;
         private long guardedUntil = 60000;
         private boolean newPlayerVillage = false;
+        private List<QueueTask> buildQueue = new ArrayList<>();
+        private List<QueueTask> trainQueue = new ArrayList<>();
+        private List<Building> buildings = null;
+        private List<Inhabitant> inhabitants = null;
 
         public VillageBuilder owner(Player owner) {
             this.owner = owner;
@@ -66,7 +72,6 @@ public class Village {
             return this;
         }
 
-
         public VillageBuilder guardedUntil(long until) {
             this.guardedUntil = until;
             return this;
@@ -77,6 +82,16 @@ public class Village {
             return this;
         }
 
+        public VillageBuilder buildQueue(List<QueueTask> queue) {
+            this.buildQueue = queue;
+            return this;
+        }
+
+        public VillageBuilder trainQueue(List<QueueTask> queue) {
+            this.trainQueue = queue;
+            return this;
+        }
+
         public void addStarterUnits(Village village) {
             village.getInhabitants().add(EntityFactory.createNewInhabitant(EntityType.GOLD_MINER));
             village.getInhabitants().add(EntityFactory.createNewInhabitant(EntityType.IRON_MINER));
@@ -84,9 +99,16 @@ public class Village {
             village.getInhabitants().add(EntityFactory.createNewInhabitant(EntityType.WORKER));
             village.getInhabitants().add(EntityFactory.createNewInhabitant(EntityType.WORKER));
 
-            village.getArmy().addUnit((ArmyUnit) EntityFactory.createNewInhabitant(EntityType.SOLDIER));
-            village.getArmy().addUnit((ArmyUnit) EntityFactory.createNewInhabitant(EntityType.ARCHER));
-            village.getArmy().addUnit((ArmyUnit) EntityFactory.createNewInhabitant(EntityType.CATAPULT));
+            Inhabitant soldier = EntityFactory.createNewInhabitant(EntityType.SOLDIER);
+            Inhabitant archer = EntityFactory.createNewInhabitant(EntityType.ARCHER);
+            Inhabitant catapult = EntityFactory.createNewInhabitant(EntityType.CATAPULT);
+            village.addInhabitant(soldier);
+            village.addInhabitant(archer);
+            village.addInhabitant(catapult);
+
+            village.getArmy().addUnit((ArmyUnit) soldier);
+            village.getArmy().addUnit((ArmyUnit) archer);
+            village.getArmy().addUnit((ArmyUnit) catapult);
 
             ArcherTower tower1 = (ArcherTower) EntityFactory.createNewBuilding(EntityType.ARCHER_TOWER);
             ArcherTower tower2 = (ArcherTower) EntityFactory.createNewBuilding(EntityType.ARCHER_TOWER);
@@ -98,6 +120,7 @@ public class Village {
             village.getBuildings().add(EntityFactory.createNewBuilding(EntityType.GOLD_MINE));
             village.getBuildings().add(EntityFactory.createNewBuilding(EntityType.IRON_MINE));
             village.getBuildings().add(EntityFactory.createNewBuilding(EntityType.LUMBER_MILL));
+            village.getBuildings().add(EntityFactory.createNewBuilding(EntityType.FARM));
             village.getBuildings().add(EntityFactory.createNewBuilding(EntityType.FARM));
         }
 
@@ -214,6 +237,14 @@ public class Village {
 
     public void setTrainQueue(List<QueueTask> trainQueue) {
         this.trainQueue = trainQueue;
+    }
+
+    public void setArmy(List<ArmyUnit> army) {
+
+    }
+
+    public void setDefences(List<DefenceBuilding> buildings) {
+
     }
 
     /**

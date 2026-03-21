@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Village>
      <villageHallLevel>1</villageHallLevel>
-     <guardedUntil>60000</guardedUntil>
      <playerAttackStats>
           <wins>0</wins>
           <losses>0</losses>
@@ -11,9 +10,9 @@
           <losses>0</losses>
      </playerDefenceStats>
      <resources>
-          <gold>0</gold>
-          <iron>0</iron>
-          <lumber>0</lumber>
+          <gold>430</gold>
+          <iron>580</iron>
+          <lumber>340</lumber>
      </resources>
      <inhabitants>
           <inhabitant>
@@ -36,8 +35,24 @@
                <type>WORKER</type>
                <level>1</level>
           </inhabitant>
+          <inhabitant>
+               <type>SOLDIER</type>
+               <level>1</level>
+          </inhabitant>
+          <inhabitant>
+               <type>ARCHER</type>
+               <level>1</level>
+          </inhabitant>
+          <inhabitant>
+               <type>CATAPULT</type>
+               <level>1</level>
+          </inhabitant>
      </inhabitants>
      <buildings>
+          <building>
+               <type>VILLAGE_HALL</type>
+               <level>1</level>
+          </building>
           <building>
                <type>ARCHER_TOWER</type>
                <level>1</level>
@@ -62,13 +77,24 @@
                <type>FARM</type>
                <level>1</level>
           </building>
+          <building>
+               <type>FARM</type>
+               <level>1</level>
+          </building>
+          <building>
+               <type>FARM</type>
+               <level>1</level>
+          </building>
+          <building>
+               <type>FARM</type>
+               <level>1</level>
+          </building>
      </buildings>
      <buildQueue>
           <task>
-               <type>VILLAGE_HALL</type>
-               <completionTime>32413</completionTime>
-               <buildingToUpgrade>VILLAGE_HALL</buildingToUpgrade>
-               <currentLevel>1</currentLevel>
+               <type>FARM</type>
+               <remainingTime>4554</remainingTime>
+               <taskKind>BUILD</taskKind>
           </task>
      </buildQueue>
      <trainQueue/>

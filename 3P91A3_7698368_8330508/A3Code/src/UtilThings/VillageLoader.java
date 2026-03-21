@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import Game.Player;
 import Game.Village;
 import Game.VillageBuilderDirector;
 import GameComponents.*;
@@ -19,8 +19,20 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/**
+ * Parses the village XML to the player's village in previous game sessions
+ */
 public class VillageLoader {
-    public static Village XMLtoVillage(String filename) throws ParserConfigurationException, IOException, SAXException {
+    /**
+     * Parses the playerVillage.xml file to a village
+     * @param filename - the XML file where the player's village is stored
+     * @param player - player
+     * @return - returns the parsed player's village
+     * @throws ParserConfigurationException - should something occur with the document stuff
+     * @throws IOException - see parser exception above
+     * @throws SAXException - issues with transformer
+     */
+    public static Village XMLtoVillage(String filename, Player player) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(new File(filename));
@@ -33,7 +45,6 @@ public class VillageLoader {
         List<Village.QueueTask> trainQueue = new ArrayList<>();
 
         int hallLevel = Integer.parseInt(document.getElementsByTagName("villageHallLevel").item(0).getTextContent());
-        long guardedUntil = Long.parseLong(document.getElementsByTagName("guardedUntil").item(0).getTextContent());
 
         Element attackNode = (Element) document.getElementsByTagName("playerAttackStats").item(0);
         int attackWins = Integer.parseInt(attackNode.getElementsByTagName("wins").item(0).getTextContent());
@@ -54,13 +65,19 @@ public class VillageLoader {
         loadTrainQueue(document, trainQueue);
 
 
-        return VillageBuilderDirector.buildLoadedVillage(buildings, inhabitants, army, defences,
+        return VillageBuilderDirector.buildLoadedVillage(player, buildings, inhabitants, army, defences,
                 buildQueue, trainQueue,
                 gold, iron, lumber,
-                hallLevel, guardedUntil,
+                hallLevel,
                 attackWins, attackLosses, defenceWins, defenceLosses);
     }
 
+    /**
+     * Takes the inhabitants from the XML file and puts them into the inhabitants list
+     * @param document - XML structure
+     * @param inhabitants - player's village inhabitants
+     * @param army - the player's army
+     */
     private static void loadInhabitants(Document document, List<Inhabitant> inhabitants, List<ArmyUnit> army) {
         NodeList savedInhabitants = document.getElementsByTagName("inhabitant");
         for (int i = 0; i < savedInhabitants.getLength(); i++) {
@@ -79,6 +96,12 @@ public class VillageLoader {
         }
     }
 
+    /**
+     * Takes the buildings from the XML file and puts them into the buildings list
+     * @param document - XML structure
+     * @param buildings - player's village buildings
+     * @param defences - the player's defences
+     */
     private static void loadBuildings(Document document, List<Building> buildings, List<DefenceBuilding> defences) {
         NodeList savedBuildings = document.getElementsByTagName("building");
         for (int i = 0; i < savedBuildings.getLength(); i++) {
@@ -101,6 +124,12 @@ public class VillageLoader {
         }
     }
 
+    /**
+     * Takes the build queue and its pending tasks, and adds it to the village's queue so they can continue in the current game session
+     * @param document - XML structure
+     * @param buildings - player buildings
+     * @param buildQueue - player's village build queue
+     */
     private static void loadBuildQueue(Document document, List<Building> buildings, List<Village.QueueTask> buildQueue) {
         Node buildQueueNode = document.getElementsByTagName("buildQueue").item(0);
         if (buildQueueNode != null && buildQueueNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -109,12 +138,11 @@ public class VillageLoader {
                 Element task = (Element) tasks.item(i);
 
                 EntityType type = EntityType.valueOf(task.getElementsByTagName("type").item(0).getTextContent());
-                long time = Long.parseLong(task.getElementsByTagName("completionTime").item(0).getTextContent());
-                String target = task.getElementsByTagName("buildingToUpgrade").item(0).getTextContent();
+                long remainingTime = Long.parseLong(task.getElementsByTagName("remainingTime").item(0).getTextContent());
+                String taskKind = task.getElementsByTagName("taskKind").item(0).getTextContent();
 
-                if (target.equals("null")) {
-                    //then its a build task
-                    buildQueue.add(new Village.QueueTask(type, time));
+                if (taskKind.equals("BUILD")) {
+                    buildQueue.add(new Village.QueueTask(type, remainingTime));
                 } else {
                     //upgrade task
                     int currentLevel = Integer.parseInt(task.getElementsByTagName("currentLevel").item(0).getTextContent());
@@ -130,13 +158,18 @@ public class VillageLoader {
                     if (match != null) {
                         //if the correct building is found (which it should, otherwise it would have never been added to the queue), then get the next level stats
                         EntityStats nextStats = EntityLevelData.getLevels(match.getEntityType()).get(currentLevel); //if anything causes issues, this might be it I dont know if I did the call correct
-                        buildQueue.add(new Village.QueueTask(type, match, nextStats, time));
+                        buildQueue.add(new Village.QueueTask(type, match, nextStats, remainingTime));
                     }
                 }
             }
         }
     }
 
+    /**
+     * Takes the train queue and its pending tasks, and adds it to the village's queue so they can continue in the current game session
+     * @param document - XML structure
+     * @param buildQueue - player's village train queue
+     */
     private static void loadTrainQueue(Document document, List<Village.QueueTask> trainQueue) {
         Node trainQueueNode = document.getElementsByTagName("trainQueue").item(0);
         if (trainQueueNode != null && trainQueueNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -145,9 +178,9 @@ public class VillageLoader {
                 Element tElem = (Element) tasks.item(i);
 
                 EntityType type = EntityType.valueOf(tElem.getElementsByTagName("type").item(0).getTextContent());
-                long time = Long.parseLong(tElem.getElementsByTagName("completionTime").item(0).getTextContent());
+                long remainingTime = Long.parseLong(tElem.getElementsByTagName("remainingTime").item(0).getTextContent());
 
-                trainQueue.add(new Village.QueueTask(type, time));
+                trainQueue.add(new Village.QueueTask(type, remainingTime));
             }
         }
     }

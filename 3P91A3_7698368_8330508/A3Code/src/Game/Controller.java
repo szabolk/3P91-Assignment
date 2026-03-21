@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Receives the user's inputs and then makes calls to the model (game engine, etc), and calls the view when the player requests it
+ */
 public class Controller {
     private final GameEngine engine;
     private final Player player;
@@ -20,7 +23,11 @@ public class Controller {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Used as the main starting point of a game session
+     */
     public void startGame() {
+        GameLogger.log("Game started.");
         boolean isRunning = true;
         while (isRunning) {
             UserInterface.printMainMenu();
@@ -36,19 +43,25 @@ public class Controller {
                 case "8" -> UserInterface.displayQueues(player.getVillage(), engine);
                 case "0" -> {
                     isRunning = false;
-                    GameLogger.log("Game ended.");
+                    GameLogger.log("Game ended.\n");
                 }
                 default  -> UserInterface.printMessage("Invalid Choice");
             }
         }
     }
 
+    /**
+     * Explores a village and sets that to the player's explored village, then displays the corresponding view
+     */
     private void handleExplore() {
         Village exploredVillage = engine.exploreAttack(player.getVillage());
         player.setExploredVillage(exploredVillage);
         UserInterface.displayExploredVillage(player.getVillage());
     }
 
+    /**
+     * Attacks and handles the result returned from the game engine
+     */
     private void handleAttack() {
         try {
             ChallengeResult result = engine.executeAttack(player.getVillage(), player.getExploredVillage());
@@ -80,6 +93,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Handles building/training when the player wishes to build/train a unit
+     */
     private void handleBuild() {
         boolean buildMenuOpen = true;
 
@@ -112,14 +128,15 @@ public class Controller {
         }
     }
 
+    /**
+     * Handles upgrading when the player selects the option
+     */
     private void handleUpgrade() {
         Village village = player.getVillage();
 
         List<GameComponents.IUpgradeable> upgradeables = new ArrayList<>();
-        upgradeables.add(village.getVillageHall());
         upgradeables.addAll(village.getBuildings());
         upgradeables.addAll(village.getInhabitants());
-        upgradeables.addAll(village.getArmy().getUnits());
 
         UserInterface.displayUpgradeMenu(upgradeables);
 
@@ -154,7 +171,7 @@ public class Controller {
         }
 
         try {
-            engine.upgrade(player, selected);
+            engine.upgrade(player, selected); //schedules the entity the player selected from the upgrade menu
             UserInterface.printMessage(selected.getEntityType() + " upgrade scheduled successfully!");
             GameLogger.log("Upgrade queued: " + selected.getEntityType()
                     + " to level " + (currentLevel + 1));

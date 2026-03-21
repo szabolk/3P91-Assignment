@@ -210,28 +210,6 @@ public class UserInterface {
     }
 
     /**
-     * When selected, it explores a village and overwrites the player's current explored village (if it has one)
-     * @param player - the player who requested the exploration
-     * @param engine - game engine
-     */
-    public static void explore(Player player, GameEngine engine) {
-        Village exploredVillage = engine.exploreAttack(player.getVillage());
-        player.setExploredVillage(exploredVillage);
-
-        System.out.println("\n---------- Explored Village ----------");
-
-        System.out.println("Village Hall Level: " + exploredVillage.getVillageHall().getStats().level());
-
-        System.out.println("\nResources:");
-        System.out.println("Gold: " + exploredVillage.getResources().getGold());
-        System.out.println("Iron: " + exploredVillage.getResources().getIron());
-        System.out.println("Lumber: " + exploredVillage.getResources().getLumber());
-
-        System.out.println("\nAttack Power: " + exploredVillage.getArmy().getAttackScore());
-        System.out.println("Defense Power: " + exploredVillage.getDefences().getDefenceScore());
-    }
-
-    /**
      * This is used for when a player wants to upgrade. First it lists all upgradeable entities, then the
      * user selects the one they want upgraded.
      * @param upgradeables - the list of entities that can be upgraded
@@ -310,6 +288,10 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Whenever the player explores, this information about the explored village will appear in the terminal
+     * @param village - player village
+     */
     public static void displayExploredVillage(Village village) {
         System.out.println("\n---------- Explored Village ----------");
         System.out.println("Village Hall Level: " + village.getVillageHall().getStats().level());
@@ -323,6 +305,12 @@ public class UserInterface {
         System.out.println("Defence Power: " + village.getDefences().getDefenceScore());
     }
 
+    /**
+     * Displays the result returned from the ChallengeResult (in game engine)
+     * @param goldGained - gold gained
+     * @param ironGained - iron gained
+     * @param lumberGained - lumber gained
+     */
     public static void displayAttackWin(int goldGained, int ironGained, int lumberGained) {
         System.out.println("Attack Result: Win");
         System.out.println("\nResources Gained:");
@@ -331,6 +319,9 @@ public class UserInterface {
         System.out.println("Lumber: +" + lumberGained);
     }
 
+    /**
+     * Tells the user they lost the attack
+     */
     public static void displayAttackLoss() {
         System.out.println("Attack Result: Loss");
         System.out.println("\nNo resources gained.");

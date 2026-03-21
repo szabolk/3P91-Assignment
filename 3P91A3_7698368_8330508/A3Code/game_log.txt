@@ -464,3 +464,369 @@
 [2026-03-20 18:50:04] Game started.
 [2026-03-20 18:50:07] Upgrade queued: VILLAGE_HALL to level 2
 [2026-03-20 18:50:08] Game ended.
+[2026-03-21 11:16:24] Existing village loaded successfully.
+[2026-03-21 11:16:24] Game started.
+[2026-03-21 11:16:28] Resources produced (Added to Player)
+[2026-03-21 11:16:33] Resources produced (Added to Player)
+[2026-03-21 11:16:38] Resources produced (Added to Player)
+[2026-03-21 11:16:43] Resources produced (Added to Player)
+[2026-03-21 11:16:48] Resources produced (Added to Player)
+[2026-03-21 11:16:53] Resources produced (Added to Player)
+[2026-03-21 11:16:57] Game ended.
+[2026-03-21 11:28:16] Existing village loaded successfully.
+[2026-03-21 11:28:16] Game started.
+[2026-03-21 11:28:21] Resources produced (Added to Player)
+[2026-03-21 11:28:22] Game ended.
+[2026-03-21 11:28:27] Existing village loaded successfully.
+[2026-03-21 11:28:27] Game started.
+[2026-03-21 11:28:29] Player Attack Loss
+[2026-03-21 11:28:32] Player Attack Loss
+[2026-03-21 11:28:32] Resources produced (Added to Player)
+[2026-03-21 11:28:34] Game ended.
+[2026-03-21 11:28:36] Existing village loaded successfully.
+[2026-03-21 11:28:36] Game started.
+[2026-03-21 11:28:41] Resources produced (Added to Player)
+[2026-03-21 11:29:41] New village created.
+[2026-03-21 11:29:41] Game started.
+[2026-03-21 11:29:46] Resources produced (Added to Player)
+[2026-03-21 11:29:51] Resources produced (Added to Player)
+[2026-03-21 11:29:56] Resources produced (Added to Player)
+[2026-03-21 11:30:01] Resources produced (Added to Player)
+[2026-03-21 11:30:06] Resources produced (Added to Player)
+[2026-03-21 11:30:11] Resources produced (Added to Player)
+[2026-03-21 11:30:16] Resources produced (Added to Player)
+[2026-03-21 11:30:21] Resources produced (Added to Player)
+[2026-03-21 11:30:22] Game ended.
+[2026-03-21 11:32:43] New village created.
+[2026-03-21 11:32:43] Game started.
+[2026-03-21 11:32:48] Resources produced (Added to Player)
+[2026-03-21 11:32:52] Player Attack Loss
+[2026-03-21 11:32:53] Resources produced (Added to Player)
+[2026-03-21 11:32:54] Player Attack Loss
+[2026-03-21 11:32:55] Game ended.
+[2026-03-21 11:33:03] Existing village loaded successfully.
+[2026-03-21 11:33:03] Game started.
+[2026-03-21 11:33:08] Resources produced (Added to Player)
+[2026-03-21 11:33:13] Resources produced (Added to Player)
+[2026-03-21 11:33:18] Resources produced (Added to Player)
+[2026-03-21 11:33:22] Game ended.
+[2026-03-21 11:43:49] Existing village loaded successfully.
+[2026-03-21 11:43:49] Game started.
+[2026-03-21 11:43:54] Resources produced (Added to Player)
+[2026-03-21 11:43:59] Resources produced (Added to Player)
+[2026-03-21 11:44:02] Player Attack Loss
+[2026-03-21 11:44:03] Player Attack Loss
+[2026-03-21 11:44:04] Resources produced (Added to Player)
+[2026-03-21 11:44:04] Player Attack Loss
+[2026-03-21 11:44:05] Player Attack Loss
+[2026-03-21 11:44:07] Game ended.
+[2026-03-21 11:44:34] Existing village loaded successfully.
+[2026-03-21 11:44:34] Game started.
+[2026-03-21 11:44:37] Player Attack Win — loot: 129g 175i 85l
+[2026-03-21 11:44:39] Resources produced (Added to Player)
+[2026-03-21 11:44:39] Player Attack Win — loot: 164g 249i 130l
+[2026-03-21 11:44:41] Player Attack Win — loot: 180g 182i 224l
+[2026-03-21 11:44:42] Player Attack Loss
+[2026-03-21 11:44:43] Player Attack Loss
+[2026-03-21 11:44:44] Resources produced (Added to Player)
+[2026-03-21 11:44:49] Resources produced (Added to Player)
+[2026-03-21 11:44:54] Resources produced (Added to Player)
+[2026-03-21 11:44:57] Game ended.
+[2026-03-21 11:50:45] Existing village loaded successfully.
+[2026-03-21 11:50:45] Game started.
+[2026-03-21 11:50:49] Player Attack Win — loot: 77g 51i 66l
+[2026-03-21 11:50:50] Resources produced (Added to Player)
+[2026-03-21 11:50:55] Resources produced (Added to Player)
+[2026-03-21 11:51:00] Resources produced (Added to Player)
+[2026-03-21 11:51:05] Resources produced (Added to Player)
+[2026-03-21 11:51:10] Resources produced (Added to Player)
+[2026-03-21 11:51:13] Game ended.
+
+[2026-03-21 12:03:55] Existing village loaded successfully.
+[2026-03-21 12:03:55] Game started.
+[2026-03-21 12:03:58] Player Attack Win — loot: 189g 246i 286l
+[2026-03-21 12:03:59] Player Attack Win — loot: 203g 263i 320l
+[2026-03-21 12:03:59] Player Attack Win — loot: 200g 148i 151l
+[2026-03-21 12:04:00] Resources produced (Added to Player)
+[2026-03-21 12:04:01] Game ended.
+
+[2026-03-21 12:04:13] Existing village loaded successfully.
+[2026-03-21 12:04:13] Game started.
+[2026-03-21 12:04:18] Resources produced (Added to Player)
+[2026-03-21 12:04:23] Resources produced (Added to Player)
+[2026-03-21 12:04:28] Resources produced (Added to Player)
+[2026-03-21 12:04:33] Resources produced (Added to Player)
+[2026-03-21 12:04:38] Resources produced (Added to Player)
+[2026-03-21 12:04:43] Resources produced (Added to Player)
+[2026-03-21 12:04:48] Resources produced (Added to Player)
+[2026-03-21 12:04:53] Resources produced (Added to Player)
+[2026-03-21 12:04:58] Resources produced (Added to Player)
+[2026-03-21 12:05:03] Resources produced (Added to Player)
+[2026-03-21 12:05:08] Resources produced (Added to Player)
+[2026-03-21 12:05:13] Resources produced (Added to Player)
+[2026-03-21 12:05:13] Player Village Attacked (Guard time fell off)
+[2026-03-21 12:05:13] Player Defence Loss
+[2026-03-21 12:05:18] Resources produced (Added to Player)
+[2026-03-21 12:05:23] Resources produced (Added to Player)
+[2026-03-21 12:05:28] Resources produced (Added to Player)
+[2026-03-21 12:05:33] Resources produced (Added to Player)
+[2026-03-21 12:05:38] Resources produced (Added to Player)
+[2026-03-21 12:05:43] Resources produced (Added to Player)
+[2026-03-21 12:05:48] Resources produced (Added to Player)
+[2026-03-21 12:05:53] Resources produced (Added to Player)
+[2026-03-21 12:05:58] Resources produced (Added to Player)
+[2026-03-21 12:06:03] Resources produced (Added to Player)
+[2026-03-21 12:06:08] Resources produced (Added to Player)
+[2026-03-21 12:06:13] Resources produced (Added to Player)
+[2026-03-21 12:06:13] Player Village Attacked (Guard time fell off)
+[2026-03-21 12:06:13] Player Defence Loss
+[2026-03-21 12:06:18] Resources produced (Added to Player)
+[2026-03-21 12:06:23] Resources produced (Added to Player)
+[2026-03-21 12:06:28] Resources produced (Added to Player)
+[2026-03-21 12:06:33] Resources produced (Added to Player)
+[2026-03-21 12:06:38] Resources produced (Added to Player)
+[2026-03-21 12:06:43] Resources produced (Added to Player)
+[2026-03-21 12:06:48] Resources produced (Added to Player)
+[2026-03-21 12:06:53] Resources produced (Added to Player)
+[2026-03-21 12:06:58] Resources produced (Added to Player)
+[2026-03-21 12:07:03] Resources produced (Added to Player)
+[2026-03-21 12:07:08] Resources produced (Added to Player)
+[2026-03-21 12:07:13] Resources produced (Added to Player)
+[2026-03-21 12:07:13] Player Village Attacked (Guard time fell off)
+[2026-03-21 12:07:13] Player Defence Loss
+[2026-03-21 12:07:18] Resources produced (Added to Player)
+[2026-03-21 12:07:23] Resources produced (Added to Player)
+[2026-03-21 12:07:28] Resources produced (Added to Player)
+[2026-03-21 12:07:33] Resources produced (Added to Player)
+[2026-03-21 12:07:38] Resources produced (Added to Player)
+[2026-03-21 12:07:43] Resources produced (Added to Player)
+[2026-03-21 12:07:48] Resources produced (Added to Player)
+[2026-03-21 12:07:53] Resources produced (Added to Player)
+[2026-03-21 12:07:58] Resources produced (Added to Player)
+[2026-03-21 12:08:03] Resources produced (Added to Player)
+[2026-03-21 12:08:08] Resources produced (Added to Player)
+[2026-03-21 12:08:13] Resources produced (Added to Player)
+[2026-03-21 12:08:13] Player Village Attacked (Guard time fell off)
+[2026-03-21 12:08:13] Player Defence Loss
+[2026-03-21 12:08:18] Resources produced (Added to Player)
+[2026-03-21 12:08:23] Resources produced (Added to Player)
+[2026-03-21 12:08:28] Resources produced (Added to Player)
+[2026-03-21 12:08:28] Game ended.
+
+[2026-03-21 12:08:53] Existing village loaded successfully.
+[2026-03-21 12:08:53] Game started.
+[2026-03-21 12:08:58] Resources produced (Added to Player)
+[2026-03-21 12:09:00] Game ended.
+
+[2026-03-21 12:11:12] New village created.
+[2026-03-21 12:11:12] Game started.
+[2026-03-21 12:11:14] Player Attack Loss
+[2026-03-21 12:11:15] Player Attack Loss
+[2026-03-21 12:11:17] Resources produced (Added to Player)
+[2026-03-21 12:11:22] Resources produced (Added to Player)
+[2026-03-21 12:11:23] Upgrade queued: VILLAGE_HALL to level 2
+[2026-03-21 12:11:26] Game ended.
+
+[2026-03-21 12:11:36] Existing village loaded successfully.
+[2026-03-21 12:11:36] Game started.
+[2026-03-21 12:11:41] Resources produced (Added to Player)
+[2026-03-21 12:11:46] Resources produced (Added to Player)
+[2026-03-21 12:11:51] Resources produced (Added to Player)
+[2026-03-21 12:11:56] Game ended.
+
+[2026-03-21 12:15:53] Existing village loaded successfully.
+[2026-03-21 12:15:53] Game started.
+[2026-03-21 12:15:58] Resources produced (Added to Player)
+[2026-03-21 12:16:03] Game ended.
+
+[2026-03-21 12:19:43] New village created.
+[2026-03-21 12:19:43] Game started.
+[2026-03-21 12:19:44] Player Attack Loss
+[2026-03-21 12:19:45] Player Attack Loss
+[2026-03-21 12:19:46] Player Attack Loss
+[2026-03-21 12:19:47] Player Attack Loss
+[2026-03-21 12:19:48] Resources produced (Added to Player)
+[2026-03-21 12:19:53] Resources produced (Added to Player)
+[2026-03-21 12:19:57] Game ended.
+
+[2026-03-21 12:21:08] Existing village loaded successfully.
+[2026-03-21 12:21:08] Game started.
+[2026-03-21 12:21:13] Resources produced (Added to Player)
+[2026-03-21 12:21:18] Resources produced (Added to Player)
+[2026-03-21 12:21:21] Game ended.
+
+[2026-03-21 12:23:24] Existing village loaded successfully.
+[2026-03-21 12:23:24] Game started.
+[2026-03-21 12:23:28] Game ended.
+
+[2026-03-21 12:23:39] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 12:23:39] New village created.
+[2026-03-21 12:23:39] Game started.
+[2026-03-21 12:23:44] Resources produced (Added to Player)
+[2026-03-21 12:23:49] Resources produced (Added to Player)
+[2026-03-21 12:23:54] Resources produced (Added to Player)
+[2026-03-21 12:23:59] Resources produced (Added to Player)
+[2026-03-21 12:24:04] Resources produced (Added to Player)
+[2026-03-21 12:24:09] Resources produced (Added to Player)
+[2026-03-21 12:24:14] Resources produced (Added to Player)
+[2026-03-21 12:24:19] Resources produced (Added to Player)
+[2026-03-21 12:24:24] Resources produced (Added to Player)
+[2026-03-21 12:24:29] Resources produced (Added to Player)
+[2026-03-21 12:24:34] Resources produced (Added to Player)
+[2026-03-21 12:24:39] Resources produced (Added to Player)
+[2026-03-21 12:24:39] Player Village Attacked (Guard time fell off)
+[2026-03-21 12:24:39] Player Defence Win
+[2026-03-21 12:24:44] Resources produced (Added to Player)
+[2026-03-21 12:24:49] Resources produced (Added to Player)
+[2026-03-21 12:24:50] Game ended.
+
+[2026-03-21 12:25:18] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 12:25:18] New village created.
+[2026-03-21 12:25:18] Game started.
+[2026-03-21 12:25:20] Upgrade queued: VILLAGE_HALL to level 2
+[2026-03-21 12:25:23] Game ended.
+
+[2026-03-21 12:29:10] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 12:29:10] New village created.
+[2026-03-21 12:29:10] Game started.
+[2026-03-21 12:29:15] Resources produced (Added to Player)
+[2026-03-21 12:29:20] Resources produced (Added to Player)
+[2026-03-21 12:29:23] Upgrade queued: VILLAGE_HALL to level 2
+[2026-03-21 12:29:25] Resources produced (Added to Player)
+[2026-03-21 12:29:29] Game ended.
+
+[2026-03-21 12:34:01] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 12:34:01] New village created.
+[2026-03-21 12:34:01] Game started.
+[2026-03-21 12:34:06] Resources produced (Added to Player)
+[2026-03-21 12:34:11] Resources produced (Added to Player)
+[2026-03-21 12:34:16] Resources produced (Added to Player)
+[2026-03-21 12:34:21] Resources produced (Added to Player)
+[2026-03-21 12:34:25] Game ended.
+
+[2026-03-21 12:34:43] New village created.
+[2026-03-21 12:34:43] Game started.
+[2026-03-21 12:34:48] Resources produced (Added to Player)
+[2026-03-21 12:34:49] BUILD/TRAIN queued: FARM
+[2026-03-21 12:34:53] Resources produced (Added to Player)
+[2026-03-21 12:34:54] Game ended.
+
+[2026-03-21 12:35:02] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 12:35:02] New village created.
+[2026-03-21 12:35:02] Game started.
+[2026-03-21 12:35:04] Game ended.
+
+[2026-03-21 12:51:39] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 12:51:39] New village created.
+[2026-03-21 12:51:39] Game started.
+[2026-03-21 12:51:43] BUILD/TRAIN queued: FARM
+[2026-03-21 12:51:44] Resources produced (Added to Player)
+[2026-03-21 12:51:47] Game ended.
+
+[2026-03-21 12:51:56] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 12:51:56] New village created.
+[2026-03-21 12:51:56] Game started.
+[2026-03-21 12:52:01] Resources produced (Added to Player)
+[2026-03-21 12:52:04] Game ended.
+
+[2026-03-21 13:04:15] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 13:04:15] New village created.
+[2026-03-21 13:04:15] Game started.
+[2026-03-21 13:04:19] BUILD/TRAIN queued: FARM
+[2026-03-21 13:04:20] Resources produced (Added to Player)
+[2026-03-21 13:04:25] Resources produced (Added to Player)
+[2026-03-21 13:04:26] BUILD/TRAIN queued: SOLDIER
+[2026-03-21 13:04:30] Resources produced (Added to Player)
+[2026-03-21 13:04:30] Game ended.
+
+[2026-03-21 13:04:47] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 13:04:47] New village created.
+[2026-03-21 13:04:47] Game started.
+[2026-03-21 13:04:52] Resources produced (Added to Player)
+[2026-03-21 13:04:57] Resources produced (Added to Player)
+[2026-03-21 13:05:02] Resources produced (Added to Player)
+[2026-03-21 13:05:06] Game ended.
+
+[2026-03-21 13:12:13] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 13:12:13] New village created.
+[2026-03-21 13:12:13] Game started.
+[2026-03-21 13:12:16] BUILD/TRAIN queued: FARM
+[2026-03-21 13:12:18] Resources produced (Added to Player)
+[2026-03-21 13:12:20] Game ended.
+
+[2026-03-21 13:12:25] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 13:12:25] New village created.
+[2026-03-21 13:12:26] Game started.
+[2026-03-21 13:12:29] Game ended.
+
+[2026-03-21 13:13:03] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 13:13:03] New village created.
+[2026-03-21 13:13:03] Game started.
+[2026-03-21 13:13:08] Resources produced (Added to Player)
+[2026-03-21 13:13:10] Game ended.
+
+[2026-03-21 13:22:20] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 13:22:20] New village created.
+[2026-03-21 13:22:20] Game started.
+[2026-03-21 13:22:24] BUILD/TRAIN queued: FARM
+[2026-03-21 13:22:25] Resources produced (Added to Player)
+[2026-03-21 13:22:29] Game ended.
+
+[2026-03-21 13:22:43] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 13:22:43] New village created.
+[2026-03-21 13:22:43] Game started.
+[2026-03-21 13:22:46] Game ended.
+
+[2026-03-21 13:26:14] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 13:26:14] New village created.
+[2026-03-21 13:26:14] Game started.
+[2026-03-21 13:26:16] BUILD/TRAIN queued: FARM
+[2026-03-21 13:26:19] Resources produced (Added to Player)
+[2026-03-21 13:26:19] Game ended.
+
+[2026-03-21 13:26:22] Failed to load save: Cannot invoke "org.w3c.dom.Node.getTextContent()" because the return value of "org.w3c.dom.NodeList.item(int)" is null. Creating new village instead.
+[2026-03-21 13:26:22] New village created.
+[2026-03-21 13:26:22] Game started.
+[2026-03-21 13:26:25] Game ended.
+
+[2026-03-21 13:30:26] Existing village loaded successfully.
+[2026-03-21 13:30:26] Game started.
+[2026-03-21 13:30:27] BUILD/TRAIN queued: FARM
+[2026-03-21 13:30:29] Game ended.
+
+[2026-03-21 13:30:31] Existing village loaded successfully.
+[2026-03-21 13:30:31] Game started.
+[2026-03-21 13:30:36] Resources produced (Added to Player)
+[2026-03-21 13:30:41] Resources produced (Added to Player)
+[2026-03-21 13:30:46] Resources produced (Added to Player)
+[2026-03-21 13:30:49] FARM Building Finished
+[2026-03-21 13:30:51] Resources produced (Added to Player)
+[2026-03-21 13:30:56] Resources produced (Added to Player)
+[2026-03-21 13:30:59] Game ended.
+
+[2026-03-21 13:35:32] Existing village loaded successfully.
+[2026-03-21 13:35:32] Game started.
+[2026-03-21 13:35:34] BUILD/TRAIN queued: FARM
+[2026-03-21 13:35:36] Game ended.
+
+[2026-03-21 13:35:38] Existing village loaded successfully.
+[2026-03-21 13:35:38] Game started.
+[2026-03-21 13:35:43] Resources produced (Added to Player)
+[2026-03-21 13:35:45] Game ended.
+
+[2026-03-21 13:37:43] Existing village loaded successfully.
+[2026-03-21 13:37:43] Game started.
+[2026-03-21 13:37:45] BUILD/TRAIN queued: FARM
+[2026-03-21 13:37:48] Resources produced (Added to Player)
+[2026-03-21 13:37:50] Game ended.
+
+[2026-03-21 13:37:54] Existing village loaded successfully.
+[2026-03-21 13:37:54] Game started.
+[2026-03-21 13:37:58] FARM Building Finished
+[2026-03-21 13:37:59] Resources produced (Added to Player)
+[2026-03-21 13:38:03] Game ended.
+
+[2026-03-21 13:53:12] Existing village loaded successfully.
+[2026-03-21 13:53:12] Game started.
+[2026-03-21 13:53:13] Game ended.
+

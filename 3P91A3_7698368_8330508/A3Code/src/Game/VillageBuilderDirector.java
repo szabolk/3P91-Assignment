@@ -27,29 +27,35 @@ public class VillageBuilderDirector {
                 .build();
     }
 
-    public static Village buildLoadedVillage(List<Building> buildings, List<Inhabitant> inhabitants, List<ArmyUnit> army,
+    public static Village buildLoadedVillage(Player player, List<Building> buildings, List<Inhabitant> inhabitants, List<ArmyUnit> army,
                                              List<DefenceBuilding> defences, List<Village.QueueTask> buildQueue,
                                              List<Village.QueueTask> trainQueue, int gold, int iron, int lumber,
-                                             int hallLevel, long guardedUntil,
+                                             int hallLevel,
                                              int attackWins, int attackLosses, int defenceWins, int defenceLosses) {
 
-        Player owner = new Player();
+        Player owner = player;
         owner.setAttackWins(attackWins);
         owner.setAttackLosses(attackLosses);
         owner.setDefenseVictory(defenceWins);
-        owner.setAttackLosses(defenceLosses);
+        owner.setDefenseLosses(defenceLosses);
 
         Village newVillage = new Village.VillageBuilder()
                 .owner(owner)
                 .hallLevel(hallLevel)
                 .resources(gold, iron, lumber)
-                .guardedUntil(guardedUntil)
+                .buildQueue(buildQueue)
+                .trainQueue(trainQueue)
                 .build();
 
         newVillage.setBuildings(buildings);
         newVillage.setInhabitants(inhabitants);
-        newVillage.setBuildQueue(buildQueue);
-        newVillage.setTrainQueue(trainQueue);
+
+        for (ArmyUnit unit : army) {
+            newVillage.getArmy().addUnit(unit);
+        }
+        for (DefenceBuilding defence : defences) {
+            newVillage.getDefences().addDefenceBuilding(defence);
+        }
 
         return newVillage;
     }

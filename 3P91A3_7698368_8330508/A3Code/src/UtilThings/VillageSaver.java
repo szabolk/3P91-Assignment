@@ -9,6 +9,9 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 
+/**
+ * Turns the player's village into XML
+ */
 public class VillageSaver {
     //from the xml example code
     private static final String JAXP_SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
@@ -36,7 +39,7 @@ public class VillageSaver {
      * @throws ParserConfigurationException - throws if an issue with DocumentBuilder or DocumentBuilderFactory
      * @throws TransformerException - throws if an error occurs during the transformer work
      */
-    public static void villageToXML(Village village, String filePath) throws ParserConfigurationException, TransformerException {
+    public static void villageToXML(Village village, String filePath, long currentTime) throws ParserConfigurationException, TransformerException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
         factory.setValidating(true);
@@ -51,7 +54,7 @@ public class VillageSaver {
         document.appendChild(rootElement);
 
         addChildElement(document, rootElement, "villageHallLevel", String.valueOf(village.getVillageHall().getStats().level()));
-        addChildElement(document, rootElement, "guardedUntil", String.valueOf(village.getGuardedUntil()));
+        //addChildElement(document, rootElement, "guardedUntil", String.valueOf(village.getGuardedUntil()));
 
         //saves the player's win/loss count for both attacking and defending
         Element playerAttackStats = document.createElement("playerAttackStats");
@@ -97,9 +100,16 @@ public class VillageSaver {
         for (Village.QueueTask task : village.getBuildQueue()) {
             Element queueNode = document.createElement("task");
             addChildElement(document, queueNode, "type", String.valueOf(task.getType()));
-            addChildElement(document, queueNode, "completionTime", String.valueOf(task.getCompletionTime()));
-            //addChildElement(document, queueNode, "buildingToUpgrade", String.valueOf(task.getExistingBuilding().getEntityType()));
-            addChildElement(document, queueNode, "currentLevel", String.valueOf(task.getExistingBuilding().getStats().level()));
+            addChildElement(document, queueNode, "remainingTime", String.valueOf(task.getCompletionTime() - currentTime));
+            if (task.getExistingBuilding() == null) {
+                //build
+                addChildElement(document, queueNode, "taskKind", "BUILD");
+            }
+            else {
+                //upgrade
+                addChildElement(document, queueNode, "taskKind", "UPGRADE");
+                addChildElement(document, queueNode, "currentLevel", String.valueOf(task.getExistingBuilding().getStats().level()));
+            }
             buildQueue.appendChild(queueNode);
         }
 
@@ -109,7 +119,7 @@ public class VillageSaver {
         for (Village.QueueTask task : village.getTrainQueue()) {
             Element queueNode = document.createElement("task");
             addChildElement(document, queueNode, "type", String.valueOf(task.getType()));
-            addChildElement(document, queueNode, "completionTime", String.valueOf(task.getCompletionTime()));
+            addChildElement(document, queueNode, "remainingTime", String.valueOf(task.getCompletionTime() - currentTime));
             trainQueue.appendChild(queueNode);
         }
 
@@ -122,4 +132,6 @@ public class VillageSaver {
         StreamResult result = new StreamResult(new File(filePath));
         transformer.transform(source, result);
     }
+
+
 }
